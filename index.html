@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTOU ESCALADO?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#005a43">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="EscalaApp">
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body {
+        font-family: 'Cal Sans', sans-serif;
+        font-weight: 400; /* Adicione esta linha */
+        background: linear-gradient(135deg, #4b0082 0%, #5e60ce 50%, #7d70ff 100%);
+        color: #e8e8e8;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        overflow-x: hidden;
+    }
+    .glass-card-container {
+        background: rgba(130, 90, 230, 0.4);
+        backdrop-filter: blur(10px) saturate(150%);
+        -webkit-backdrop-filter: blur(10px) saturate(150%);
+        border-radius: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        width: 100%;
+        max-width: 32rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .text-green-400 { color: #7d70ff !important; }
+        .text-header { color: #ffffff; }
+        .text-primary-content { color: #f0f0f0; }
+        .text-secondary-content { color: #c0c0c0; }
+        .status-operador-principal-texto {
+    color: #BB86FC; /* Roxo claro e vibrante */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Sombra preta suave */
+}
+        .btn-custom {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: normal;
+            font-size: 0.85rem;
+            line-height: 1.2;
+            padding-top: 0.4rem; padding-bottom: 0.4rem;
+            padding-left: 0.6rem; padding-right: 0.6rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease, opacity 0.2s ease;
+            margin: 0 0.1rem;
+            min-width: 80px;
+            text-align: center;
+            text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+        }
+        .btn-custom:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-custom:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+        .btn-custom-blue {
+  background-color: #ffffff;
+  color: #111111;
+  font-weight: normal;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  min-width: 140px;
+}
+
+.btn-custom-blue:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+        .btn-custom-red { background-color: rgba(220, 38, 38, 0.8); color: white; }
+        .btn-custom-red:hover:not(:disabled) { background-color: rgba(185, 28, 28, 0.9); }
+        .btn-custom-green {
+  background-color: #ffffff;      /* fundo branco */
+  color: #111111;                 /* texto preto */
+  font-weight: normal;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;      /* borda leve */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
+  padding: 0.5rem 1rem;
+  text-align: center;
+  min-width: 140px;
+}
+
+.btn-custom-green:hover:not(:disabled) {
+  background-color: #f3f4f6;      /* leve cinza no hover */
+}
+        #resultado {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 0.5rem;
+            color: #e0e0e0;
+            position: relative;
+        }
+        #resultado .text-green-400 { color: #86efac; }
+        hr.border-white { border-color: rgba(255, 255, 255, 0.2); }
+        .loader {
+            border: 4px solid rgba(243, 243, 243, 0.2);
+            border-top: 4px solid #93c5fd;
+            border-radius: 50%; width: 30px; height: 30px;
+            animation: spin 1s linear infinite; margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .blinking-text { animation: blinker 1.2s linear infinite; } 
+        @keyframes blinker { 50% { opacity: 0.2; } }
+
+        .event-details-card-alert { 
+            animation: pulse-bg 1.2s infinite alternate; 
+            border: 1px solid #f87171; 
+            border-radius: 0.375rem; 
+            margin: -4px; 
+            padding: 4px;
+            box-shadow: 0 0 8px rgba(248, 113, 113, 0.5); 
+        }
+        @keyframes pulse-bg {
+            0% { background-color: rgba(248, 113, 113, 0.1); } 
+            100% { background-color: rgba(248, 113, 113, 0.25); } 
+        }
+        .evento-cancelado-nome {
+            animation: pisca-cancelado 1.5s infinite;
+        }
+        @keyframes pisca-cancelado {
+            0%, 100% { color: #f0f0f0; }
+            50% { color: #005a43; }
+        }
+
+        #outrosOperadoresTable, #disponiveisOperadoresTable {
+            table-layout: fixed;
+            width: 100%;
+        }
+        #outrosOperadoresTable th, #outrosOperadoresTable td,
+        #disponiveisOperadoresTable th, #disponiveisOperadoresTable td {
+            padding: 0.3rem 0.25rem;
+            word-break: break-word;
+        }
+        #outrosOperadoresTable td.col-nome,
+        #disponiveisOperadoresTable td.col-nome {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #outrosOperadoresTable th.col-nome-header, 
+        #disponiveisOperadoresTable th.col-nome-header {
+            width: calc(50% - 3.5rem); 
+        }
+        #outrosOperadoresTable th.col-qtd-header, 
+        #disponiveisOperadoresTable th.col-local-header {
+            width: 3.5rem; 
+            text-align: center;
+        }
+        #outrosOperadoresTable td.col-qtd,
+        #disponiveisOperadoresTable td.col-local {
+            text-align: center;
+        }
+        td.operador-cell-clickable {
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, font-weight 0.15s ease-in-out;
+        }
+        td.operador-cell-clickable:hover,
+        td.operador-cell-clickable.highlight-main-user:hover {
+            background-color: white !important; 
+            color: #005a43 !important; 
+            font-weight: normal !important;
+        }
+        td.operador-cell-highlighted { 
+            background-color: white !important; 
+            color: #005a43 !important; 
+            font-weight: normal !important;
+        }
+        td.highlight-main-user { 
+            background-color: white; 
+            color: #005a43; 
+            font-weight: normal;
+            animation: pulse-text 1.5s infinite alternate;
+        }
+        @keyframes pulse-text {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #outrosOperadoresTable tbody tr:nth-child(odd),
+        #disponiveisOperadoresTable tbody tr:nth-child(odd) {
+            background-color: rgba(5, 150, 105, 0.08); 
+        }
+        .confetti {
+            position: absolute;
+            width: 7px;
+            height: 14px;
+            opacity: 1;
+            animation: fall 3.5s linear forwards;
+            z-index: 1000;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1;}
+            60% { opacity: 0.8;} 
+            100% { transform: translateY(220px) rotateZ(360deg); opacity: 0;}
+        }
+        .emoji-bounce span {
+            display: inline-block;
+            animation: bounce 0.8s infinite alternate;
+            margin: 0 0.1em;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        #botoesAcaoContainer {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center;
+            gap: 0.5rem; 
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.visible { 
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: rgba(75, 0, 130, 0.5); 
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            padding: 1.5rem; 
+            border-radius: 1.25rem; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.45); 
+            text-align: center; 
+            max-width: 90%; 
+            width: 28rem;  
+            color: #f0f0f0; 
+            transform: scale(0.95); 
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        .modal-content h2 { 
+            color: #ffffff;
+            font-size: 1.25rem; 
+            font-weight: normal;
+            margin-bottom: 1rem;
+            text-transform: uppercase; 
+        }
+        .modal-content p {
+            color: #e8e8e8; 
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        #updateStatusContainer {
+            text-align: center;
+            padding: 0.4rem 0.5rem; 
+            background-color: rgba(0,0,0,0.2); 
+            color: #b0b0b0;
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        #updateStatusContainer .status-message { 
+            font-weight: normal;
+            font-size: 0.8rem; 
+        }
+        #updateStatusContainer .blinking-red-status {
+            color: #f87171 !important; 
+            animation: blinker 1.0s linear infinite; 
+        }
+        #updateStatusContainer .disclaimer-text { 
+            display: block;
+            font-size: 0.7rem; 
+            margin-top: 0.25rem;
+            color: #a0a0a0;
+        }
+        
+        #displayOperadorCabecalho {
+            font-size: 1.125rem; /* Equivalente a text-lg do Tailwind, para dar mais destaque */
+            font-weight: normal;
+            text-transform: uppercase;
+            color: #FFD700; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+            margin-top: -0.25rem; 
+            margin-bottom: 0.5rem; 
+            letter-spacing: 0.05em; 
+            line-height: 1.2; 
+            padding: 0.1rem 0;
+            min-height: 1.1rem; 
+        }
+
+        .planilha-oficial-icone-flutuante {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 56px; 
+            height: 56px;
+            z-index: 999; 
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .planilha-oficial-icone-flutuante img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        .planilha-oficial-icone-flutuante:hover {
+            transform: scale(1.1);
+        }
+        .pulsar-animacao { 
+            animation: pulsar 1.8s infinite ease-in-out;
+        }
+        @keyframes pulsar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+<style>
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+.pulsar-animacao-forte {
+  animation: pulse 1.2s infinite ease-in-out, shake 0.4s infinite;
+}
+</style>
+
+
+</head>
+<body>
+
+    <div id="initialDisclaimerModal" class="modal-overlay"> 
+        <div class="modal-content">
+            <img src="ofc_sheet.png" alt="Ícone Planilha" id="modalDisclaimerSheetIcon">
+            <h2 id="initialDisclaimerTitle">⚠️ ATENÇÃO! ⚠️</h2>
+            <p>LEMBRE-SE: Este <strong>App</strong> é um auxiliar. Sempre confirme os dados na Planilha Oficial.</p>
+            <button id="initialDisclaimerOkBtn" class="btn-custom btn-custom-green" disabled>OK (<span id="initialModalTimer">5</span>s)</button>
+        </div>
+    </div>
+
+    <div id="sheetMessageModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="sheetMessageTitle">✨ AVISO ✨</h2> 
+            <p id="sheetMessageText"></p> 
+            <button id="sheetMessageOkBtn" class="btn-custom btn-custom-blue">Ok, entendido</button>
+        </div>
+    </div>
+
+    <div id="periodicNotificationModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="periodicNotificationTitle">📢 LEMBRETE IMPORTANTE 📢</h2>
+            <p></p> 
+            <button id="periodicNotificationOkBtn" class="btn-custom btn-custom-blue">CIENTE</button>
+        </div>
+    </div>
+
+    <div class="glass-card-container p-4 sm:p-6">
+        <header class="text-center mb-4">
+            <p id="headerDateDisplay" class="text-center"></p>
+            <p id="displayOperadorCabecalho" class="text-center"></p> 
+            <img id="logoPrincipalApp" src="appescala.png" alt="Logotipo Principal - Clique para Redefinir Operador" class="w-full max-h-12 sm:max-h-16 object-contain my-2 cursor-pointer" title="Clique para alterar o operador definido">
+        </header>
+        
+        <div id="updateStatusContainer" class="hidden"></div>
+
+        <div id="telaBoasVindas" class="text-center p-3 space-y-3 text-primary-content hidden">
+            <img src="icon-512x512.png" alt="Logo App Escala" class="w-28 h-28 sm:w-36 sm:h-36 mx-auto mb-3 rounded-lg shadow-md">
+            <h2 class="text-lg font-semibold">Bem-vindo ao "ESTOU ESCALADO?"!</h2>
+            <p class="text-xs sm:text-sm text-secondary-content">
+                Consulte rapidamente sua escala de trabalho e os próximos eventos agendados. Este é um <strong>App</strong> auxiliar.
+            </p>
+            <p class="text-xs sm:text-sm text-secondary-content">
+                Para ver sua escala pessoal, defina seu nome.
+            </p>
+            <button id="irParaDefinirNomeBtn" class="btn-custom btn-custom-green mt-2">
+                DEFINIR MEU NOME
+            </button>
+        </div>
+
+        <div id="configNomeOperador" class="text-center p-3 space-y-2 text-primary-content hidden">
+            <h2 class="text-base font-semibold">Identifique-se</h2>
+            <p class="text-xs sm:text-sm text-secondary-content">Digite seu **primeiro e segundo nome** (ex: Carlos Silva).</p>
+            <p id="avisoIconePlanilha" class="text-sm font-semibold text-yellow-400 my-2 hidden">💡 DICA: O ícone da planilha no canto da tela leva você à Planilha Oficial para conferência!</p>
+            <div>
+                <input type="text" id="nomeOperadorInput" placeholder="Ex: Carlos Silva" class="p-2 border border-gray-500 bg-white bg-opacity-80 text-gray-800 rounded-md w-full max-w-xs focus:ring-2 focus:ring-green-400 focus:border-green-400 text-sm">
+            </div>
+            <button id="definirOperadorBtn" class="btn-custom btn-custom-blue text-sm">
+                DEFINIR OPERADOR
+            </button>
+            <p id="erroNomeInput" class="text-red-400 text-xs mt-1 hidden">Por favor, digite pelo menos o primeiro e o segundo nome.</p>
+        </div>
+
+        <div id="confirmacaoNomeDiv" class="text-center p-3 space-y-2 text-primary-content hidden"></div>
+        
+        <div id="areaPrincipalApp" class="hidden">
+            <div id="resultado" class="p-3 sm:p-4 shadow min-h-[100px]"></div>
+            <div id="botoesAcaoContainer" class="mt-6">
+                <button id="minhaEscalaBtn" class="btn-custom hidden"></button>
+                <button id="outrosEventosBtn" class="btn-custom hidden"></button>
+                <button id="atualizarListasBtn" class="btn-custom hidden"></button>
+            </div>
+        </div>
+
+        <footer class="mt-4 text-center">
+            <p class="text-xs text-secondary-content">&copy; <span id="anoAtualFooter">2025</span> - ESTOU ESCALADO?</p>
+            <p id="footerDisclaimer" class="text-xs mt-1" style="font-size: 0.65rem; color: #a0a0a0;"><strong>App</strong> de consulta não oficial. A confirmação dos dados nos canais oficiais da Câmara é responsabilidade do usuário.</p>
+        </footer>
+    </div>
+
+    <a href="#" id="botaoPlanilhaOficialIcone" class="planilha-oficial-icone-flutuante hidden" target="_blank" title="Abrir Planilha Oficial">
+        <img src="ofc_sheet.png" alt="Abrir Planilha Oficial">
+    </a>
+
+    <audio id="escaladoSound" src="escalado.mp3" preload="auto"></audio>
+    <audio id="naoEscaladoSound" src="nao_escalado.mp3" preload="auto"></audio>
+    <audio id="atencaoSound" src="atencao.mp3" preload="auto"></audio>
+    <audio id="outroOpEscaladoSound" src="outro_op_escalado.mp3" preload="auto"></audio>
+    <audio id="errorSound" src="error.mp3" preload="auto"></audio>
+    <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
+
+<script>
+    
+    function exibirDataAtualCabecalho() {
+    const elementoData = document.getElementById('headerDateDisplay');
+    if (elementoData) {
+        const hoje = new Date();
+        const diaSemana = hoje.toLocaleDateString('pt-BR', { weekday: 'long' });
+        const dia = hoje.getDate();
+        const mes = hoje.toLocaleDateString('pt-BR', { month: 'long' });
+        const ano = hoje.getFullYear();
+
+        // Formata a data e capitaliza o dia da semana e o mês
+        const dataFormatada = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)}, ${dia} de ${mes.charAt(0).toUpperCase() + mes.slice(1)} de ${ano}`;
+        elementoData.textContent = dataFormatada;
+    }
+}
+    
+    const googleSheetDataUrl = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/export?format=csv&gid=1519973381';
+    const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub';
+    const googleSheetDefinitiveListUrl = `${googleSheetBaseUrlForNamedTabs}?gid=615696807&single=true&output=csv`;
+    const googleSheetMessageUrl = `${googleSheetBaseUrlForNamedTabs}?gid=1636658248&single=true&output=csv`;
+    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit?gid=1519973381#gid=1519973381';
+
+    const proxyList = [
+        { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },
+        { name: "ThingProxy", prefix: 'https://thingproxy.freeboard.io/fetch/', needsEncode: false },
+        { name: "CodeTabs", prefix: 'https://api.codetabs.com/v1/proxy?quest=', needsEncode: false }
+    ];
+    const MAX_TOTAL_ATTEMPTS = 9; 
+    const FORCAR_ALERTA_HORA_TESTE = false; 
+    const DISCLAIMER_TEXT_MODAL = "<strong>App</strong> de consulta não oficial. A confirmação dos dados nos canais oficiais da Câmara é responsabilidade do usuário.";
+    const DISCLAIMER_TEXT_UPDATE_STATUS = "Lembre-se: este <strong>App</strong> é um auxiliar. Sempre confirme os dados na planilha oficial.";
+    const SCHEDULED_NOTIFICATION_TIMES = ["08:00", "10:00", "12:00", "15:00", "17:00", "19:00"];
+
+    let primeiroSegundoNomeUsuarioParaBusca = ""; 
+    let nomeCompletoOriginalUsuario = ""; 
+    let modoExibicaoAtual = 'minhaEscala'; 
+    let definitiveMasterOperatorMap = new Map();
+    let ultimaCelulaClicada = null;
+    let nomeDefinidoNestaSessao = false;
+    let appInitialized = false; 
+    let periodicCheckIntervalId = null; 
+
+    const resultadoDiv = document.getElementById('resultado');
+    const escaladoSound = document.getElementById('escaladoSound');
+    const naoEscaladoSound = document.getElementById('naoEscaladoSound');
+    const atencaoSound = document.getElementById('atencaoSound'); 
+    const outroOpEscaladoSound = document.getElementById('outroOpEscaladoSound');
+    const errorSound = document.getElementById('errorSound');
+    const notificationSound = document.getElementById('notificationSound'); 
+    
+    const minhaEscalaBtn = document.getElementById('minhaEscalaBtn');
+    const outrosEventosBtn = document.getElementById('outrosEventosBtn');
+    const atualizarListasBtn = document.getElementById('atualizarListasBtn');
+    const logoPrincipalApp = document.getElementById('logoPrincipalApp');
+    const telaBoasVindasDiv = document.getElementById('telaBoasVindas');
+    const configNomeOperadorDiv = document.getElementById('configNomeOperador');
+    const nomeOperadorInput = document.getElementById('nomeOperadorInput');
+    const definirOperadorBtn = document.getElementById('definirOperadorBtn');
+    const confirmacaoNomeDiv = document.getElementById('confirmacaoNomeDiv');
+    const erroNomeInputP = document.getElementById('erroNomeInput');
+    const areaPrincipalAppDiv = document.getElementById('areaPrincipalApp');
+    const glassCardContainer = document.querySelector('.glass-card-container');
+    
+    const initialDisclaimerModal = document.getElementById('initialDisclaimerModal');
+    const initialDisclaimerOkBtn = document.getElementById('initialDisclaimerOkBtn');
+    const initialModalTimerSpan = document.getElementById('initialModalTimer');
+    const updateStatusContainer = document.getElementById('updateStatusContainer'); 
+    const displayOperadorCabecalhoP = document.getElementById('displayOperadorCabecalho'); 
+    const anoAtualFooterSpan = document.getElementById('anoAtualFooter'); 
+
+    const sheetMessageModal = document.getElementById('sheetMessageModal'); 
+    const sheetMessageTitleH2 = document.getElementById('sheetMessageTitle'); 
+    const sheetMessageTextP = document.getElementById('sheetMessageText'); 
+    const sheetMessageOkBtn = document.getElementById('sheetMessageOkBtn'); 
+
+    const periodicNotificationModal = document.getElementById('periodicNotificationModal'); 
+    const periodicNotificationOkBtn = document.getElementById('periodicNotificationOkBtn');
+    const initialDisclaimerTitleH2 = document.getElementById('initialDisclaimerTitle');
+    const periodicNotificationTitleH2 = document.getElementById('periodicNotificationTitle');
+
+    const botaoPlanilhaOficialIcone = document.getElementById('botaoPlanilhaOficialIcone'); 
+    const avisoIconePlanilhaP = document.getElementById('avisoIconePlanilha'); 
+
+    const secretariaMap = {
+        "plenário 01": "4701", "plenario 01": "4701", "plenário 02": "4702", "plenario 02": "4702",
+        "plenário 03": "4703", "plenario 03": "4703", "plenário 04": "4704", "plenario 04": "4704",
+        "plenário 05": "4705", "plenario 05": "4705", "plenário 06": "4706", "plenario 06": "4706",
+        "plenário 07": "4707", "plenario 07": "4707", "plenário 08": "4708", "plenario 08": "4708",
+        "plenário 09": "4709", "plenario 09": "4709", "plenário 10": "4710", "plenario 10": "4710",
+        "plenário 11": "4711", "plenario 11": "4711", "plenário 12": "4712", "plenario 12": "4712",
+        "plenário 13": "4713", "plenario 13": "4713", "plenário 14": "4714", "plenario 14": "4714",
+        "plenário 15": "4715", "plenario 15": "4715", "plenário 16": "4716", "plenario 16": "4716",
+        "nereu ramos": "4737", "sl171b": "66217", "sl172a": "66269"
+    };
+    const abreviacoesLocais = {
+        "plenario": "Plen", "plenário": "Plen", "nereu ramos": "Nereu",
+        "freitas nobre": "FNobre", "salão nobre": "SNobre",
+        "sala de reuniao": "Sl. Reunião", "sala de reunião": "Sl. Reunião",
+        "gabinete": "Gab"
+    };
+
+    function escaparRegExp(string) {
+        if (typeof string !== 'string') return '';
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function abreviarLocal(localOriginal) {
+        if (!localOriginal || typeof localOriginal !== 'string') return localOriginal || "";
+        const localNorm = removerAcentos(localOriginal.toLowerCase());
+        for (const key in abreviacoesLocais) {
+            if (localNorm.startsWith(key)) {
+                if (key === "plenario" || key === "plenário") { 
+                    const numeroMatch = localOriginal.match(/\d+/);
+                    const numero = numeroMatch ? parseInt(numeroMatch[0], 10) : null;
+                    return numero !== null ? `${abreviacoesLocais[key]} ${numero}` : abreviacoesLocais[key];
+                }
+                return abreviacoesLocais[key];
+            }
+        }
+        return capitalizarNomeCompleto(localOriginal);
+    }
+
+    function formatarTextoBotao(texto) {
+        const palavras = texto.split(" ");
+        if (palavras.length >= 2) {
+            return `${palavras[0]}<br>${palavras.slice(1).join(" ")}`;
+        }
+        return texto;
+    }
+
+    function removerAcentos(texto) {
+        if (!texto || typeof texto !== 'string') return "";
+        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    
+    function parseCSV(csvText) {
+        const rows = []; let currentRow = []; let field = ""; let inQuotes = false;
+        const safeCsvText = (typeof csvText === 'string') ? csvText : '';
+        const text = safeCsvText.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i]; 
+            if (inQuotes) {
+                if (char === '"') {
+                    if (i + 1 < text.length && text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; }
+                } else { field += char; }
+            } else { 
+                if (char === '"') { inQuotes = true;
+                } else if (char === ',') { currentRow.push(field.trim()); field = "";
+                } else if (char === '\n') {
+                    currentRow.push(field.trim()); field = "";
+                    if (currentRow.length > 0 && currentRow.some(cell => cell.trim() !== '')) { rows.push([...currentRow]); }
+                    currentRow = [];
+                } else { field += char; }
+            }
+        }
+        currentRow.push(field.trim());
+        if (currentRow.length > 0 && currentRow.some(cell => cell.trim() !== '')) { rows.push([...currentRow]); }
+        return rows.filter(row => row.length > 0 && row.some(cell => cell.trim() !== ''));
+    }
+
+    function formatarData(dateObj) {
+        if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) { return "N/D"; }
+        const dia = String(dateObj.getDate()).padStart(2, '0');
+        const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const ano = dateObj.getFullYear();
+        return `${dia}/${mes}/${ano}`;
+    }
+     function formatarHora(dateObj) { 
+        if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) { return "N/D"; }
+        const hora = String(dateObj.getHours()).padStart(2, '0');
+        const minuto = String(dateObj.getMinutes()).padStart(2, '0');
+        return `${hora}:${minuto}`;
+    }
+
+    function capitalizarNomeCompleto(nomeCompleto) { 
+        if (!nomeCompleto || typeof nomeCompleto !== 'string') return "";
+        return nomeCompleto.trim().split(/\s+/)
+            .map(palavra => {
+                if (palavra.length > 0) {
+                    return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
+                }
+                return "";
+            })
+            .join(" ");
+    }
+    
+    function gerarNomeParaDisplayPrincipal(nomeOriginalOperador) { 
+        if (!nomeOriginalOperador || typeof nomeOriginalOperador !== 'string' || nomeOriginalOperador.trim() === "") return ""; 
+        const partesNome = nomeOriginalOperador.trim().split(/\s+/).filter(n => n.length > 0);
+        if (partesNome.length === 0) return ""; 
+        
+        const doisPrimeirosNomes = partesNome.slice(0, 2)
+                                        .map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase())
+                                        .join(" ");
+        return doisPrimeirosNomes;
+    }
+    
+    // MODIFICADO: Garante que nomeExibicaoDefinitivo (apelido da Col B, ou Col A como fallback) seja usado e capitalizado.
+    // Se não encontrado no mapa, usa nomeOriginalCompleto (da agenda) formatado.
+    function formatarNomesParaTabela(listaOperadores) {
+        return listaOperadores.map(op => {
+            let nomeFinalParaTabela;
+            if (op.nomeExibicaoDefinitivo && op.nomeExibicaoDefinitivo.trim() !== "") {
+                // Usa o que veio do mapa (que já tem o fallback ColB->ColA da lista definitiva, feito em carregarListaOperadoresDefinitiva)
+                // E capitaliza, pois o nome da Coluna B (apelido) ou Coluna A (substituto) pode não estar capitalizado.
+                nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeExibicaoDefinitivo);
+            } else if (op.nomeOriginalCompleto) {
+                // Fallback se o operador não foi encontrado no mapa, usando o nome da agenda formatado.
+                nomeFinalParaTabela = gerarNomeParaDisplayPrincipal(op.nomeOriginalCompleto);
+            } else {
+                nomeFinalParaTabela = "N/D"; // Caso extremo
+            }
+            return { 
+                ...op, 
+                nomeExibicaoTabela: nomeFinalParaTabela,
+                isCancelado: op.isCancelado || false 
+            };
+        });
+    }
+
+    function tocarSom(soundElement) { 
+        if (soundElement && soundElement.readyState >= 2) { 
+            soundElement.currentTime = 0;
+            soundElement.play().catch(e => {});
+        }
+    }
+
+    function tocarSomRepetido(soundElement, vezes, intervalo = 5000) {
+        if (soundElement && soundElement.readyState >= 2 && vezes > 0) {
+            soundElement.currentTime = 0;
+            soundElement.play().catch(e => {});
+            if (vezes > 1) {
+                setTimeout(() => tocarSomRepetido(soundElement, vezes - 1, intervalo), intervalo);
+            }
+        }
+    }
+
+    function exibirStatusAtualizacao(sucesso, erroInfo = null) {
+        if (!updateStatusContainer) return; 
+        updateStatusContainer.classList.remove('hidden');
+        const agora = new Date();
+        const horaFormatada = formatarHora(agora);
+        let statusHtml = "";
+        let spanClasses = "status-message"; 
+
+        if (sucesso) {
+            statusHtml = `<span class="${spanClasses} text-green-300">DADOS ATUALIZADOS ÀS ${horaFormatada}</span>`; 
+            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
+            botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
+
+        } else {
+            sspanClasses += " blinking-red-status";
+            if (botaoPlanilhaOficialIcone) {
+    botaoPlanilhaOficialIcone.classList.add('pulsar-animacao-forte');
+}
+
+statusHtml = `
+    <span class="${spanClasses}" style="text-transform: uppercase;">
+        ÚLTIMA ATUALIZAÇÃO ÀS ${horaFormatada}<br>CONSULTAR A PLANILHA
+    </span>`;
+
+            let motivoFalha = "";
+            if (erroInfo && erroInfo.message) {
+                if (erroInfo.message.toLowerCase().includes("failed to fetch") || 
+                    erroInfo.message.toLowerCase().includes("networkerror") ||
+                    erroInfo.message.toLowerCase().includes("timeout") ||
+                    erroInfo.message.toLowerCase().includes("corpo inválido/vazio")) { 
+                    motivoFalha = " (Falha de conexão/dados)";
+                } else { 
+                    motivoFalha = " (Erro ao buscar dados)";
+                }
+            } else { 
+                 motivoFalha = " (Falha desconhecida)";
+            }
+            statusHtml = statusHtml.slice(0, -7) + motivoFalha + `</span>`; 
+            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('pulsar-animacao');
+        }
+        statusHtml += `<span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+        updateStatusContainer.innerHTML = statusHtml;
+    }
+    
+    function exibirTela(nomeTela) {
+        telaBoasVindasDiv.classList.add('hidden');
+        configNomeOperadorDiv.classList.add('hidden');
+        confirmacaoNomeDiv.classList.add('hidden');
+        areaPrincipalAppDiv.classList.add('hidden'); 
+        if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('hidden'); 
+        if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.add('hidden');
+        
+        if (resultadoDiv && nomeTela !== 'principal') { 
+            resultadoDiv.innerHTML = ''; 
+        }
+        
+        let nomeParaCabecalhoPrincipal = ""; // Começa vazio por padrão
+        if (nomeCompletoOriginalUsuario) { // Se um usuário está definido, usa o nome dele
+            nomeParaCabecalhoPrincipal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario);
+        } else if (nomeTela === 'principal' && modoExibicaoAtual === 'outrosEventos') {
+            // Se está na tela principal, modo outros eventos, e NENHUM usuário definido, mostra "VISÃO GERAL"
+            nomeParaCabecalhoPrincipal = "VISÃO GERAL";
+        } // Em outros casos (boasvindas, config nome sem usuário), fica vazio.
+        
+        atualizarDisplayOperadorCabecalho(); // Chamada única para atualizar o cabeçalho
+
+
+        if (nomeTela === 'boasVindas') {
+            telaBoasVindasDiv.classList.remove('hidden');
+        } else if (nomeTela === 'configNome') {
+            configNomeOperadorDiv.classList.remove('hidden');
+            if(nomeOperadorInput) nomeOperadorInput.value = nomeCompletoOriginalUsuario || ''; 
+            if(erroNomeInputP) erroNomeInputP.classList.add('hidden');
+            if (botaoPlanilhaOficialIcone) { 
+                botaoPlanilhaOficialIcone.classList.remove('hidden');
+                if (!updateStatusContainer.querySelector('.blinking-red-status')) { // Só pulsa se não houver erro
+                    botaoPlanilhaOficialIcone.classList.add('pulsar-animacao');
+                }
+            }
+            if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.remove('hidden');
+
+        } else if (nomeTela === 'confirmacaoNome') {
+            confirmacaoNomeDiv.classList.remove('hidden');
+            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden'); 
+        } else if (nomeTela === 'principal') {
+            areaPrincipalAppDiv.classList.remove('hidden'); 
+            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden'); 
+            
+            let nomeParaDisplayLoader;
+            if (modoExibicaoAtual === 'minhaEscala') {
+                const nomeFocoLoader = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
+                nomeParaDisplayLoader = nomeFocoLoader ? gerarNomeParaDisplayPrincipal(nomeFocoLoader) : ""; // Vazio se não definido
+            } else { 
+                nomeParaDisplayLoader = "todos os operadores";
+            }
+
+            if(resultadoDiv) resultadoDiv.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="loader"></div>
+                    <p class="text-base text-secondary-content">Analisando agenda para ${nomeParaDisplayLoader}...</p>
+                </div>`;
+        }
+        
+        if (appInitialized && nomeTela !== 'boasVindas' && nomeTela !== 'configNome' && nomeTela !== 'confirmacaoNome' && 
+            initialDisclaimerModal.classList.contains('visible') === false) {
+             if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden');
+        }
+        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone && !updateStatusContainer.querySelector('.blinking-red-status')) {
+            botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
+        }
+
+        gerenciarBotoesVisiveis(nomeTela, false, "", ""); 
+    }
+
+    function mostrarModal(modalElement) { 
+        if (modalElement) modalElement.classList.add('visible');
+    }
+    function esconderModal(modalElement) { 
+        if (modalElement) modalElement.classList.remove('visible');
+    }
+    
+    function definirOperadorPrincipalAtual(nomeInputFormatado, ehBuscaDeTerceiro = false) {
+        if (!nomeInputFormatado || typeof nomeInputFormatado !== 'string') return null;
+
+        const chaveBuscaNormalizada = removerAcentos(nomeInputFormatado.toLowerCase());
+        const opInfoMaster = definitiveMasterOperatorMap.get(chaveBuscaNormalizada);
+        
+        // O nome para o cabeçalho é sempre o "Primeiro SegundoNome" da Coluna A (se encontrado), ou do input.
+        const nomeBaseParaCabecalho = (opInfoMaster && opInfoMaster.nomeCompletoOriginal) ? opInfoMaster.nomeCompletoOriginal : nomeInputFormatado;
+
+        if (!ehBuscaDeTerceiro) { 
+            nomeCompletoOriginalUsuario = nomeInputFormatado; // Guarda "Primeiro SegundoNome" do input
+            primeiroSegundoNomeUsuarioParaBusca = chaveBuscaNormalizada; 
+            localStorage.setItem('operadorNomeSalvo', nomeCompletoOriginalUsuario);
+            nomeDefinidoNestaSessao = true;
+            atualizarDisplayOperadorCabecalho(); // Chama sem parâmetro para usar nomeCompletoOriginalUsuario
+        }
+        return {
+            busca: chaveBuscaNormalizada, 
+            abreviado: gerarNomeParaDisplayPrincipal(nomeBaseParaCabecalho), // Para uso genérico se necessário
+            completoOriginalDaPlanilha: opInfoMaster ? opInfoMaster.nomeCompletoOriginal : nomeInputFormatado, 
+            // Adiciona o nome de exibição puro (Col B) para referência, se existir no mapa
+            nomeExibicaoPuroDoMapa: opInfoMaster ? opInfoMaster.nomeExibicao : null 
+        };
+    }
+
+    function atualizarDisplayOperadorCabecalho() { 
+        if (!displayOperadorCabecalhoP) return;
+        let textoFinal = ""; 
+
+        if (nomeCompletoOriginalUsuario) { 
+            textoFinal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario); 
+        } else if (modoExibicaoAtual === 'outrosEventos' && !areaPrincipalAppDiv.classList.contains('hidden') && appInitialized) {
+            // Mostra "VISÃO GERAL" apenas se estiver na tela principal de outros eventos e nenhum usuário principal definido
+            textoFinal = "VISÃO GERAL";
+        }
+        // Se não, permanece vazio (para telas de boas-vindas/config sem usuário definido, ou se nomeCompletoOriginalUsuario for vazio)
+        displayOperadorCabecalhoP.textContent = textoFinal.toUpperCase();
+    }
+
+
+    async function fetchWithProxyRetries(targetUrl, proxies, isCsv = true) { 
+        let attempts = 0;
+        let lastError = null;
+        let currentProxyIndex = 0; 
+        const attemptsPerProxy = Math.ceil(MAX_TOTAL_ATTEMPTS / proxies.length); 
+
+        while (attempts < MAX_TOTAL_ATTEMPTS) {
+            const currentProxy = proxies[currentProxyIndex];
+            const urlToFetch = currentProxy.needsEncode ? currentProxy.prefix + encodeURIComponent(targetUrl) : currentProxy.prefix + targetUrl;
+            
+            console.log(`Tentativa ${attempts + 1}/${MAX_TOTAL_ATTEMPTS}: Usando proxy ${currentProxy.name} para ${targetUrl.substring(0,60)}...`);
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 12000); 
+
+            try {
+                const response = await fetch(urlToFetch, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    if (isCsv) {
+                        const text = await response.text(); 
+                        if (text && typeof text === 'string' && text.trim() !== "") { 
+                            console.log(`Sucesso (CSV) na tentativa ${attempts + 1} com proxy: ${currentProxy.name}`);
+                            return new Response(text, { status: response.status, statusText: response.statusText, headers: response.headers });
+                        } else {
+                            console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} retornou OK mas corpo inválido/vazio para CSV: ${targetUrl.substring(0,60)}...`);
+                            lastError = new Error(`Proxy ${currentProxy.name} retornou corpo inválido/vazio para CSV`);
+                        }
+                    } else { 
+                         console.log(`Sucesso (não CSV) na tentativa ${attempts + 1} com proxy: ${currentProxy.name}`);
+                        return response; 
+                    }
+                } else { 
+                    console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} falhou para ${targetUrl.substring(0,60)}... com status: ${response.status}`);
+                    lastError = new Error(`Proxy ${currentProxy.name} retornou status ${response.status}`);
+                }
+            } catch (error) { 
+                clearTimeout(timeoutId); 
+                if (error.name === 'AbortError') {
+                    console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} TIMEOUT para ${targetUrl.substring(0,60)}...`);
+                    lastError = new Error(`Timeout com proxy ${currentProxy.name}`);
+                } else {
+                    console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} ERRO para ${targetUrl.substring(0,60)}... :`, error.message);
+                    lastError = error; 
+                }
+            }
+            
+            attempts++;
+            currentProxyIndex = (currentProxyIndex + 1) % proxies.length; 
+                        
+            if (attempts < MAX_TOTAL_ATTEMPTS) {
+                await new Promise(resolve => setTimeout(resolve, 850)); 
+            }
+        }
+
+        console.error(`Todas as ${MAX_TOTAL_ATTEMPTS} tentativas falharam para ${targetUrl.substring(0,60)}... Último erro:`, lastError ? lastError.message : "Erro desconhecido");
+        throw lastError || new Error(`Falha ao buscar ${targetUrl.substring(0,60)}... após ${MAX_TOTAL_ATTEMPTS} tentativas.`);
+    }
+
+    // MODIFICADO: Se a Coluna B (nomeExibicaoPuraDaPlanilha) estiver vazia, usa a Coluna A (nomeCompletoOriginalDaPlanilha) como fallback para nomeExibicao.
+    async function carregarListaOperadoresDefinitiva() { 
+        try {
+            const response = await fetchWithProxyRetries(googleSheetDefinitiveListUrl, proxyList, true); 
+            const csvText = await response.text();
+            const linhasOperadores = parseCSV(csvText); 
+            definitiveMasterOperatorMap.clear();
+            linhasOperadores.forEach((linha, index) => {
+                if(index === 0 && (linha[0] || "").toLowerCase().trim() === "nome completo" && (linha[1] || "").toLowerCase().trim() === "nome de exibição") return; 
+                if (linha && linha.length >= 1 && typeof linha[0] === 'string' && linha[0].trim() !== "") { 
+                    const nomeCompletoOriginalDaPlanilha = linha[0].trim(); 
+                    // Se a Coluna B (apelido) estiver vazia, usa o nome da Coluna A como nome de exibição
+                    let nomeExibicaoParaMapa = (linha[1] && typeof linha[1] === 'string' && linha[1].trim() !== "")
+                                               ? linha[1].trim() 
+                                               : nomeCompletoOriginalDaPlanilha; 
+                    
+                    const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                    if (buscaKey) {
+                        definitiveMasterOperatorMap.set(buscaKey, { 
+                            nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha, 
+                            nomeExibicao: nomeExibicaoParaMapa 
+                        });
+                    }
+                }
+            });
+            console.log("Lista de operadores definitiva carregada. Tamanho do mapa:", definitiveMasterOperatorMap.size);
+        } catch (error) {
+            console.error("FALHA CRÍTICA AO CARREGAR LISTA DE OPERADORES:", error.message);
+            definitiveMasterOperatorMap.clear(); 
+             if (updateStatusContainer) { 
+                updateStatusContainer.classList.remove('hidden');
+                updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO GRAVE: Não foi possível carregar a lista de operadores. O <strong>App</strong> pode não funcionar.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+            }
+        }
+    }
+
+    async function buscarMensagemDaPlanilha() { 
+        try {
+            const response = await fetchWithProxyRetries(googleSheetMessageUrl, proxyList, true); 
+            const csvText = await response.text();
+            const linhas = parseCSV(csvText);
+
+            const tituloMsg = (linhas.length > 0 && linhas[0].length > 0 && linhas[0][0].trim() !== "") ? linhas[0][0].trim() : "";
+            const corpoMsg = (linhas.length > 1 && linhas[1].length > 0 && linhas[1][0].trim() !== "") ? linhas[1][0].trim() : "";
+
+            if (corpoMsg !== "") { 
+                if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
+                    esconderModal(periodicNotificationModal);
+                }
+                const tituloFinalModal = tituloMsg ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨";
+                if (sheetMessageTitleH2) sheetMessageTitleH2.textContent = tituloFinalModal;
+                if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>'); 
+                mostrarModal(sheetMessageModal);
+                tocarSom(notificationSound);
+            } else if (tituloMsg !== "") {
+                 console.log("Título da mensagem da planilha encontrado em A1, mas corpo em A2 está vazio. Modal não será exibido.");
+            }
+        } catch (error) {
+            console.warn("Não foi possível buscar mensagem da planilha:", error.message);
+        }
+    }
+    
+    async function buscarEscalas(nomeParaBuscaFocoOperadorParam, nomeCompletoOriginalDoFocoParam, tipoDeVisualizacaoParam = 'minhaEscala', buscaPorCliqueTabela = false) {
+        // No início de buscarEscalas, o cabeçalho principal é sempre atualizado para o usuário logado (se houver)
+        atualizarDisplayOperadorCabecalho(); 
+        localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalDoFocoParam || ""); 
+
+        const nomeParaBuscaFocoOperador = nomeParaBuscaFocoOperadorParam || ""; 
+        const nomeCompletoRealOperadorEmFoco = nomeCompletoOriginalDoFocoParam || nomeCompletoOriginalUsuario || "";
+
+        const agora = new Date();
+        const horaAtualConsulta = agora.getHours();
+        const diaDaSemanaConsulta = agora.getDay(); 
+        const dataConsultaHojeReal = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+        let dataAlvoDaConsulta = new Date(dataConsultaHojeReal);
+        let adverbioOriginalParaDataAlvo = "HOJE";
+
+        if ( (diaDaSemanaConsulta === 5 && horaAtualConsulta >= 20) || 
+             (diaDaSemanaConsulta === 6) ||  
+             (diaDaSemanaConsulta === 0) ) {  
+            adverbioOriginalParaDataAlvo = "NA PRÓXIMA SEGUNDA-FEIRA";
+            if (diaDaSemanaConsulta === 5) { dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 3);
+            } else if (diaDaSemanaConsulta === 6) { dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 2);
+            } else { dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 1); }
+        } else if (diaDaSemanaConsulta >= 1 && diaDaSemanaConsulta <= 4) { 
+            if (horaAtualConsulta >= 20) {
+                dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 1);
+                adverbioOriginalParaDataAlvo = "AMANHÃ";
+            }
+        } 
+        
+        const dataAlvoFormatada = formatarData(dataAlvoDaConsulta);
+        let nomeExibicaoLoader = "todos os operadores"; 
+
+        if(tipoDeVisualizacaoParam === 'minhaEscala'){
+            if (nomeCompletoRealOperadorEmFoco) { 
+                 nomeExibicaoLoader = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
+            } else { 
+                 nomeExibicaoLoader = nomeCompletoOriginalUsuario ? gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario) : ""; 
+            }
+        } 
+        
+        let adverbioLoaderParaMensagem = adverbioOriginalParaDataAlvo === "HOJE" ? "" : ` (${adverbioOriginalParaDataAlvo.toLowerCase()})`;
+        if (adverbioLoaderParaMensagem.trim() === "") adverbioLoaderParaMensagem = ` (${dataAlvoFormatada})`; 
+        else adverbioLoaderParaMensagem = ` (${adverbioOriginalParaDataAlvo.toLowerCase()} - ${dataAlvoFormatada})`;
+
+        if (ultimaCelulaClicada && !buscaPorCliqueTabela) {
+             ultimaCelulaClicada.classList.remove('operador-cell-highlighted');
+              ultimaCelulaClicada = null;
+        }
+        
+        if (!areaPrincipalAppDiv.classList.contains('hidden')) {
+            resultadoDiv.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="loader"></div>
+                    <p class="text-base text-secondary-content">Analisando agenda para ${nomeExibicaoLoader}${adverbioLoaderParaMensagem}...</p>
+                </div>`;
+        }
+        
+        const nomeSalvoPrincipalNoStorage = localStorage.getItem('operadorNomeSalvo');
+        if (tipoDeVisualizacaoParam === 'minhaEscala' && !nomeParaBuscaFocoOperador && !nomeSalvoPrincipalNoStorage && !nomeDefinidoNestaSessao) {
+             exibirTela('boasVindas'); 
+             return;
+        }
+
+        let fetchSuccess = false; 
+        let fetchErrorObject = null; 
+
+        try {
+            const response = await fetchWithProxyRetries(googleSheetDataUrl, proxyList, true); 
+            const csvText = await response.text();
+            fetchSuccess = true; 
+            exibirStatusAtualizacao(true); 
+
+            const todasLinhasDoCSV = parseCSV(csvText);
+            if (todasLinhasDoCSV.length === 0) { 
+                resultadoDiv.innerHTML = `<p class='text-lg font-bold text-green-400 py-4'>PLANILHA VAZIA OU INACESSÍVEL!</p>`;
+                if (fetchSuccess) tocarSom(naoEscaladoSound); 
+                gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
+                return;
+            }
+            
+            let indiceInicioEventos = 0;
+            if (todasLinhasDoCSV.length > 0 && todasLinhasDoCSV[0].length > 0) {
+                const primeiraLinhaComoCabecalho = todasLinhasDoCSV[0].map(cell => (cell || "").toUpperCase());
+                if (primeiraLinhaComoCabecalho.length > 2 && primeiraLinhaComoCabecalho[0] === "DATA" && primeiraLinhaComoCabecalho[1] === "LOCAL" && primeiraLinhaComoCabecalho[2] === "HORA") {
+                    indiceInicioEventos = 1;
+                } else {
+                    const primeiraCelulaA1 = (todasLinhasDoCSV[0][0] || "").trim();
+                    if (primeiraCelulaA1.match(/^\d{2}\/\d{2}\/\d{4}$/) && todasLinhasDoCSV.length > 1) {
+                        const segundaLinhaComoCabecalho = todasLinhasDoCSV[1].map(cell => (cell || "").toUpperCase());
+                         if (segundaLinhaComoCabecalho.length > 2 && segundaLinhaComoCabecalho[0] === "DATA" && segundaLinhaComoCabecalho[1] === "LOCAL" && segundaLinhaComoCabecalho[2] === "HORA") {
+                             indiceInicioEventos = 2;
+                        } else {
+                             indiceInicioEventos = 1;
+                        }
+                    } else {
+                         indiceInicioEventos = 0; 
+                    }
+                }
+            }
+            
+            const dadosEventosParaProcessar = todasLinhasDoCSV.slice(indiceInicioEventos);
+            if (dadosEventosParaProcessar.length === 0 ) { 
+                resultadoDiv.innerHTML = `<p class='text-base text-center font-bold text-green-400 py-4'>NENHUM EVENTO NA AGENDA PARA ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada})</p>`;
+                if (fetchSuccess) tocarSom(naoEscaladoSound);
+                gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
+                return;
+            }
+            
+            let adverbioParaUi = "";
+            if (adverbioOriginalParaDataAlvo !== "HOJE") {
+                adverbioParaUi = `(${adverbioOriginalParaDataAlvo.toUpperCase()})`;
+            }
+
+            const todasAtribuicoes = [];
+            const operadoresDisponiveisMap = new Map(); 
+            const indicesEventosDistribuidos = new Set(); 
+
+            dadosEventosParaProcessar.forEach((linha, idx) => { 
+                if (linha.length < 7) return; 
+                const dataEfetivaDoEvento = dataAlvoFormatada; 
+                const local = (linha[1] || "").trim(); 
+                const horaOriginalStr = (linha[2] || "").trim(); 
+                const tipo = (linha[3] || "").trim(); 
+                const evento = (linha[4] || "").trim(); 
+                const servico = (linha[5] || "").trim(); 
+                const operadorGOriginalBruto = (linha[6] || "").trim(); 
+                const valorColunaH = (linha.length > 7) ? (linha[7] || "").trim() : ""; 
+                
+                const obsLower = valorColunaH.toLowerCase();
+                const isCancelado = obsLower.includes("cancelado") || obsLower.includes("cancelada");
+
+                const localNormalizadoParaUlysses = removerAcentos(local.toLowerCase());
+                let isTotalmenteEscaladoEsteEvento = (local !== "" && horaOriginalStr !== "" && (evento !== "" || tipo !== "" || servico !== "")) || 
+                                                    localNormalizadoParaUlysses.includes("plenário ulysses") || localNormalizadoParaUlysses.includes("plenario ulysses");
+                const isDisponivelEsteEvento = local !== "" && !isTotalmenteEscaladoEsteEvento && !localNormalizadoParaUlysses.includes("plenário ulysses") && !localNormalizadoParaUlysses.includes("plenario ulysses");
+                const detalhesComunsSlot = { 
+                    dataOriginalParaAlerta: dataEfetivaDoEvento, 
+                    dataParaExibicao: dataAlvoFormatada, 
+                    local, hora: horaOriginalStr, tipo, evento, servico, obs: valorColunaH, 
+                    isTotalmenteEscalado: isTotalmenteEscaladoEsteEvento, 
+                    isDisponivel: isDisponivelEsteEvento,
+                    isCancelado: isCancelado 
+                };
+                let algumOperadorAtribuidoParaContagemGeral = false;
+                const operadoresJaProcessadosParaEstaLinha = new Set();
+                if (operadorGOriginalBruto && operadorGOriginalBruto.match(/[a-zA-Z]/)) {
+                    const opGChaveBusca = removerAcentos(operadorGOriginalBruto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                    let isPrincipalG = false;
+                    if (nomeParaBuscaFocoOperador && opGChaveBusca === nomeParaBuscaFocoOperador) { 
+                        isPrincipalG = true;
+                    }
+                    todasAtribuicoes.push({ 
+                        operatorOriginalFullNameFromSheet: operadorGOriginalBruto, 
+                        isPrincipal: isPrincipalG, 
+                        ...detalhesComunsSlot 
+                    });
+                    if(isTotalmenteEscaladoEsteEvento) algumOperadorAtribuidoParaContagemGeral = true;
+                    operadoresJaProcessadosParaEstaLinha.add(opGChaveBusca);
+                }
+                if (valorColunaH && definitiveMasterOperatorMap.size > 0) {
+                    const valHNormalizado = removerAcentos(valorColunaH.toLowerCase());
+                    definitiveMasterOperatorMap.forEach((masterOpDetails, buscaKeyOpMestre) => { 
+                        if (operadoresJaProcessadosParaEstaLinha.has(buscaKeyOpMestre)) return; 
+                        const nomeCompletoOriginalDoMestre = masterOpDetails.nomeCompletoOriginal; 
+                        const primeiroNomeOriginalDoMestre = masterOpDetails.nomeExibicao ? masterOpDetails.nomeExibicao.split(" ")[0] : masterOpDetails.nomeCompletoOriginal.split(" ")[0]; 
+                        const normFullNameOpMestre = removerAcentos(nomeCompletoOriginalDoMestre.toLowerCase());
+                        let matchEncontrado = false;
+                        if (valHNormalizado.includes(buscaKeyOpMestre) || valHNormalizado.includes(normFullNameOpMestre)) {
+                            matchEncontrado = true;
+                        } else if (valHNormalizado.length > 2) { 
+                            if (buscaKeyOpMestre.startsWith(valHNormalizado) || normFullNameOpMestre.startsWith(valHNormalizado)) {
+                                matchEncontrado = true;
+                            }
+                        }
+                        if (!matchEncontrado && primeiroNomeOriginalDoMestre && primeiroNomeOriginalDoMestre.length > 2) {
+                             const primeiroNomeEscapado = escaparRegExp(removerAcentos(primeiroNomeOriginalDoMestre.toLowerCase()));
+                             const regex = new RegExp(`\\b${primeiroNomeEscapado}\\b`, 'i');
+                             if (regex.test(valHNormalizado)) {
+                                 matchEncontrado = true;
+                             }
+                        }
+                        if (matchEncontrado) {
+                            let isPrincipalH = false;
+                            if (nomeParaBuscaFocoOperador && buscaKeyOpMestre === nomeParaBuscaFocoOperador) {
+                                isPrincipalH = true;
+                            }
+                            todasAtribuicoes.push({
+                                operatorOriginalFullNameFromSheet: nomeCompletoOriginalDoMestre, 
+                                isPrincipal: isPrincipalH,
+                                ...detalhesComunsSlot
+                            });
+                            if(isTotalmenteEscaladoEsteEvento) algumOperadorAtribuidoParaContagemGeral = true;
+                            operadoresJaProcessadosParaEstaLinha.add(buscaKeyOpMestre);
+                        }
+                    });
+                }
+                if (isTotalmenteEscaladoEsteEvento && algumOperadorAtribuidoParaContagemGeral) {
+                    indicesEventosDistribuidos.add(idx); 
+                }
+                if (isDisponivelEsteEvento && operadorGOriginalBruto && operadorGOriginalBruto.match(/[a-zA-Z]/)) {
+                    const buscaKey = removerAcentos(operadorGOriginalBruto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                    const opInfo = definitiveMasterOperatorMap.get(buscaKey) || 
+                                   { nomeCompletoOriginal: operadorGOriginalBruto, nomeExibicao: null }; 
+                    if (!operadoresDisponiveisMap.has(buscaKey)) { 
+                        operadoresDisponiveisMap.set(buscaKey, {
+                            nomeOriginalCompleto: opInfo.nomeCompletoOriginal, 
+                            nomeExibicaoDefinitivo: opInfo.nomeExibicao, 
+                            local: local,
+                            isCancelado: isCancelado 
+                        });
+                    }
+                }
+            }); 
+            const atribuicoesOperadorPrincipal = todasAtribuicoes.filter(a => a.isPrincipal && a.isTotalmenteEscalado);
+            let corpoPrincipalHTML = "";
+            let alertaProximidadeAtivadoEsteCiclo = false; 
+            let operadorDoFocoEstaEscalado = atribuicoesOperadorPrincipal.length > 0;
+            const nomeExibicaoResultadoDoFoco = (nomeCompletoRealOperadorEmFoco ? gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco) : "").toUpperCase();
+
+            if (tipoDeVisualizacaoParam === 'minhaEscala' && operadorDoFocoEstaEscalado) {
+                const numEventos = atribuicoesOperadorPrincipal.length;
+                const textoSingularPluralEvento = numEventos === 1 ? 'EVENTO' : 'EVENTOS';
+                const mensagemEscalado = `${nomeExibicaoResultadoDoFoco} ESTÁ ESCALADO PARA ${numEventos} ${textoSingularPluralEvento} ${adverbioOriginalParaDataAlvo.toUpperCase()}!`;
+                corpoPrincipalHTML += `<p class="text-base font-semibold text-center text-primary-light mb-4 uppercase">${mensagemEscalado}</p>`;
+                
+                atribuicoesOperadorPrincipal.forEach((eventoDetalhado, index) => {
+                    let horaClassesCompletas = "font-bold italic text-primary-content"; 
+                    let cardEventoClasses = "event-details text-xs sm:text-sm space-y-1 pt-1"; 
+                    const horaDoEventoStr = eventoDetalhado.hora;
+                    const dataOriginalParaAlertaEfetiva = eventoDetalhado.dataOriginalParaAlerta; 
+                    let alertaEmojis = ""; let devePiscarEsteEvento = FORCAR_ALERTA_HORA_TESTE && index === 0; 
+                    
+                    if (!FORCAR_ALERTA_HORA_TESTE && !eventoDetalhado.isCancelado) { 
+                        if (horaDoEventoStr && horaDoEventoStr.includes(':') && 
+                            dataOriginalParaAlertaEfetiva && dataOriginalParaAlertaEfetiva.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+                            const [diaOriginal, mesOriginalNum, anoOriginal] = dataOriginalParaAlertaEfetiva.split('/').map(Number);
+                            const [horaEventoNum, minutoEventoNum] = horaDoEventoStr.split(':').map(Number);
+                            if (!isNaN(diaOriginal) && !isNaN(mesOriginalNum) && !isNaN(anoOriginal) && !isNaN(horaEventoNum) && !isNaN(minutoEventoNum)) {
+                                const dataHoraRealDoEvento = new Date(anoOriginal, mesOriginalNum - 1, diaOriginal, horaEventoNum, minutoEventoNum);
+                                if (dataOriginalParaAlertaEfetiva === formatarData(agora)) { 
+                                    const diffMillis = dataHoraRealDoEvento.getTime() - agora.getTime();
+                                    const diffMinutes = Math.floor(diffMillis / 60000);
+                                    if (diffMinutes > 0 && diffMinutes < 90) { devePiscarEsteEvento = true; }
+                                }
+                            }
+                        }
+                    }
+                    let canceladoTagHtml = "";
+                    if (eventoDetalhado.isCancelado) {
+                        cardEventoClasses += " opacity-60"; 
+                        canceladoTagHtml = `<p><strong class="font-medium text-red-400 blinking-text">🚨 EVENTO CANCELADO 🚨</strong></p>`;
+                        devePiscarEsteEvento = false; 
+                    }
+
+                    if (devePiscarEsteEvento) { 
+                        cardEventoClasses += " event-details-card-alert"; 
+                        alertaEmojis = `<span class="text-red-500 blinking-text ml-2">⚠️ ATENÇÃO ⚠️</span>`; 
+                        if (!alertaProximidadeAtivadoEsteCiclo) { 
+                            tocarSomRepetido(atencaoSound, 2, 5000); 
+                            alertaProximidadeAtivadoEsteCiclo = true; 
+                        }
+                    }
+                    
+                    let secretariaInfoHtml = "";
+                    const localNormalizado = removerAcentos((eventoDetalhado.local || "").toLowerCase());
+                    if (secretariaMap[localNormalizado]) {
+                         secretariaInfoHtml = `<p><strong class="font-medium text-secondary-content">☎️ Secret.:</strong> <span class="font-bold italic text-primary-content">${secretariaMap[localNormalizado]}</span></p>`;
+                    }
+                    if (index > 0) { corpoPrincipalHTML += `<hr class="my-3 border-opacity-20 border-white">`; }
+                    corpoPrincipalHTML += `
+                        <div class="${cardEventoClasses}"> 
+                            ${canceladoTagHtml}
+                            <p><strong class="font-medium text-secondary-content">📍 Local:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.local || ""}</span></p>
+                            <p><strong class="font-medium text-secondary-content">📝 Evento:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.evento || ""}</span></p>
+                            ${secretariaInfoHtml}
+                            ${eventoDetalhado.tipo && eventoDetalhado.tipo.toUpperCase() !== 'OUTROS' ? `<p><strong class="font-medium text-secondary-content">🏷️ Tipo:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.tipo}</span></p>` : ''}
+                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.dataOriginalParaAlerta || "N/D"}</span></p> 
+                            <p><strong class="font-medium text-secondary-content">⏰ Hora:</strong> <span class="${horaClassesCompletas}">${horaDoEventoStr || "N/A"}</span>${alertaEmojis}</p>
+                            <p><strong class="font-medium text-secondary-content">🛠️ Serviço:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.servico || ""}</span></p>
+                            ${eventoDetalhado.obs && eventoDetalhado.obs.trim() !== "" ? `<p><strong class="font-medium text-secondary-content">✨ Obs:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.obs}</span></p>` : ''}
+                        </div>`;
+                });
+                
+                if (primeiroSegundoNomeUsuarioParaBusca && nomeParaBuscaFocoOperador === primeiroSegundoNomeUsuarioParaBusca) { 
+                    if (!alertaProximidadeAtivadoEsteCiclo && !atribuicoesOperadorPrincipal.some(e => e.isCancelado)) { 
+                        tocarSom(escaladoSound); 
+                    }
+                } else { 
+                    tocarSom(outroOpEscaladoSound); 
+                }
+                if (!atribuicoesOperadorPrincipal.some(e => e.isCancelado)) { 
+                    dispararConfetti();
+                }
+
+            } else { 
+                if (tipoDeVisualizacaoParam === 'minhaEscala' && !operadorDoFocoEstaEscalado) { 
+                    if (fetchSuccess) tocarSom(naoEscaladoSound); 
+                    corpoPrincipalHTML += `
+                        <div class="text-center mb-6">
+                            <p class='text-lg status-operador-principal-texto uppercase mb-1'>${nomeExibicaoResultadoDoFoco} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
+                            <p class='text-xl mt-1 emoji-bounce'><span>🎉</span><span>🥳</span><span>🎊</span><span>🎉</span><span>🥳</span><span>🎊</span></p>
+                        </div>`;
+                }
+                const outrosOperadoresEscaladosContagem = {};
+                todasAtribuicoes.forEach(a => {
+                    if (!a.isTotalmenteEscalado) return;
+                    const opOriginalFullName = a.operatorOriginalFullNameFromSheet; 
+                    if (!opOriginalFullName || !opOriginalFullName.match(/[a-zA-Z]/)) return;
+                    
+                    const opBuscaKey = removerAcentos(opOriginalFullName.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                    const operadorMestreInfo = definitiveMasterOperatorMap.get(opBuscaKey) || 
+                                               { nomeCompletoOriginal: opOriginalFullName, nomeExibicao: null }; 
+                    
+                    if (buscaPorCliqueTabela && opBuscaKey === nomeParaBuscaFocoOperador && tipoDeVisualizacaoParam === 'minhaEscala') return; 
+                    
+                    if (!outrosOperadoresEscaladosContagem[opBuscaKey]) {
+                        outrosOperadoresEscaladosContagem[opBuscaKey] = { 
+                            nomeOriginalCompleto: operadorMestreInfo.nomeCompletoOriginal, 
+                            nomeExibicaoDefinitivo: operadorMestreInfo.nomeExibicao, 
+                            isCancelado: a.isCancelado, 
+                            qtd: 0
+                        };
+                    } else {
+                        if (a.isCancelado) outrosOperadoresEscaladosContagem[opBuscaKey].isCancelado = true;
+                    }
+                    outrosOperadoresEscaladosContagem[opBuscaKey].qtd++;
+                });
+
+                let listaFormatadaOutrosEscalados = formatarNomesParaTabela(Object.values(outrosOperadoresEscaladosContagem));
+                listaFormatadaOutrosEscalados.sort((a,b) => a.nomeExibicaoTabela.localeCompare(b.nomeExibicaoTabela, undefined, { sensitivity: 'base' }));
+                const totalEventosDistribuidosUnicos = indicesEventosDistribuidos.size;
+                const numOperadoresEscaladosUnicos = listaFormatadaOutrosEscalados.length;
+
+                if (listaFormatadaOutrosEscalados.length > 0) {
+                     corpoPrincipalHTML += `<div class="mt-4"> 
+                                        <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM ${dataAlvoFormatada}</p>
+                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
+                                        <table id="outrosOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
+                                             <thead><tr class="text-left text-secondary-content">
+                                                 <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
+                                                 <th class="font-medium pb-1 pl-2 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
+                                             </tr></thead><tbody>`;
+                    for (let i = 0; i < listaFormatadaOutrosEscalados.length; i += 2) {
+                        const operadorA = listaFormatadaOutrosEscalados[i];
+                        const operadorB = (i + 1 < listaFormatadaOutrosEscalados.length) ? listaFormatadaOutrosEscalados[i + 1] : null;
+                        const buscaKeyA = removerAcentos(operadorA.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                        let classeDestaqueA = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyA === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
+                        if (operadorA.isCancelado) classeDestaqueA += " evento-cancelado-nome"; 
+
+                        corpoPrincipalHTML += `<tr>
+                                <td class="py-1 pr-1 col-nome operador-cell-clickable ${classeDestaqueA}" data-operador-busca="${buscaKeyA}" data-operador-display-original="${operadorA.nomeOriginalCompleto}">${operadorA.nomeExibicaoTabela}</td>
+                                <td class="py-1 col-qtd ${classeDestaqueA}">${operadorA.qtd}</td>`;
+                        if (operadorB) {
+                            const buscaKeyB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                            let classeDestaqueB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
+                            if (operadorB.isCancelado) classeDestaqueB += " evento-cancelado-nome"; 
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable ${classeDestaqueB}" data-operador-busca="${buscaKeyB}" data-operador-display-original="${operadorB.nomeOriginalCompleto}">${operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="py-1 col-qtd ${classeDestaqueB}">${operadorB.qtd}</td>`;
+                        } else {
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-qtd"></td>`;
+                        }
+                        corpoPrincipalHTML += `</tr>`;
+                    }
+                    corpoPrincipalHTML += `</tbody></table></div>`;
+                } else if (tipoDeVisualizacaoParam === 'outrosEventos' || !operadorDoFocoEstaEscalado) { 
+                     corpoPrincipalHTML += `<p class='text-sm text-center text-secondary-content py-2'>Nenhum outro operador escalado ${adverbioParaUi.toLowerCase()}.</p>`;
+                }
+                
+                let listaFormatadaDisponiveis = formatarNomesParaTabela(Array.from(operadoresDisponiveisMap.values())
+                    .filter(opDisp => { 
+                        const buscaKeyDisp = removerAcentos(opDisp.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                        return !outrosOperadoresEscaladosContagem[buscaKeyDisp]; 
+                    }));
+                listaFormatadaDisponiveis.sort((a,b) => a.nomeExibicaoTabela.localeCompare(b.nomeExibicaoTabela, undefined, { sensitivity: 'base' }));
+                
+                const numDisponiveis = listaFormatadaDisponiveis.length;
+                const textoSingularPluralDisp = numDisponiveis === 1 ? "OPERADOR DISPONÍVEL" : "OPERADORES DISPONÍVEIS";
+
+                if (listaFormatadaDisponiveis.length > 0) {
+                    corpoPrincipalHTML += `<div class="mt-6"> 
+                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numDisponiveis} ${textoSingularPluralDisp} ${adverbioParaUi}:</p>
+                                        <table id="disponiveisOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
+                                             <thead><tr class="text-left text-secondary-content">
+                                                 <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-local-header">Local</th>
+                                                 <th class="font-medium pb-1 pl-2 col-nome-header">Operador</th><th class="font-medium pb-1 col-local-header">Local</th>
+                                             </tr></thead><tbody>`;
+                    for (let i = 0; i < listaFormatadaDisponiveis.length; i += 2) {
+                        const operadorA = listaFormatadaDisponiveis[i];
+                        const operadorB = (i + 1 < listaFormatadaDisponiveis.length) ? listaFormatadaDisponiveis[i + 1] : null;
+                         const buscaKeyDispA = removerAcentos(operadorA.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                         const classeDestaqueDispA = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyDispA === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
+                        corpoPrincipalHTML += `<tr>
+                                <td class="py-1 pr-1 col-nome ${classeDestaqueDispA}">${operadorA.nomeExibicaoTabela}</td><td class="py-1 col-local ${classeDestaqueDispA}">${abreviarLocal(operadorA.local)}</td>`;
+                        if (operadorB) {
+                            const buscaKeyDispB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+                            const classeDestaqueDispB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyDispB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome ${classeDestaqueDispB}">${operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="py-1 col-local ${classeDestaqueDispB}">${abreviarLocal(operadorB.local)}</td>`;
+                        } else {
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-local"></td>`;
+                        }
+                        corpoPrincipalHTML += `</tr>`;
+                    }
+                    corpoPrincipalHTML += `</tbody></table></div>`;
+                } 
+            }
+            
+            const finalOutputHTML = (corpoPrincipalHTML.trim() === "") 
+                ? `<p class='text-base text-center font-semibold text-secondary-content py-4'>Nenhuma atividade registrada para ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada}).</p>`
+                : corpoPrincipalHTML;
+            
+            resultadoDiv.innerHTML = finalOutputHTML;
+            gerenciarBotoesVisiveis(modoExibicaoAtual, operadorDoFocoEstaEscalado, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
+
+        } catch (error) {
+            fetchErrorObject = error; 
+            fetchSuccess = false; 
+            console.error(`Falha ao carregar dados da agenda. Erro:`, error.message); 
+            exibirStatusAtualizacao(false, fetchErrorObject); 
+            
+            resultadoDiv.innerHTML = `
+                <div class="text-center p-3 sm:p-4">
+                    <p class="text-lg font-bold text-red-400 mb-3">⚠️ FALHA AO CARREGAR DADOS ⚠️</p>
+                    <p class="text-sm text-primary-content mb-2">
+                        Não foi possível buscar as informações da escala no momento.
+                        Isso pode ser um problema temporário com sua conexão à internet ou com os serviços de busca de dados.
+                    </p>
+                    <p class="text-sm text-primary-content font-semibold mb-1 mt-3">O que você pode fazer?</p>
+                    <ul class="list-disc list-inside text-xs text-secondary-content text-left mx-auto max-w-md mb-3 px-2">
+                        <li><strong>Verifique sua conexão</strong> com a internet (Wi-Fi ou dados móveis).</li>
+                        <li>Aguarde alguns minutos e <strong>tente atualizar novamente</strong> usando o botão "ATUALIZAR DADOS".</li>
+                    </ul>
+                </div>`;
+            tocarSom(errorSound); 
+            gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco); 
+        }
+    }
+
+    function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBuscaOpFoco = "", nomeCompletoOpFoco = "") {
+        const nomeSalvoPrincipalLS = localStorage.getItem('operadorNomeSalvo');
+        minhaEscalaBtn.classList.add('hidden');
+        outrosEventosBtn.classList.add('hidden');
+        atualizarListasBtn.classList.add('hidden');
+        minhaEscalaBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
+        outrosEventosBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
+        atualizarListasBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
+
+        if (viewModoCorrente === 'inicialSemOperador' || areaPrincipalAppDiv.classList.contains('hidden')) {
+             if (viewModoCorrente !== 'boasVindas' && viewModoCorrente !== 'configNome' && viewModoCorrente !== 'confirmacaoNome' &&
+                 !nomeSalvoPrincipalLS && !nomeDefinidoNestaSessao && appInitialized) {
+            }
+            return; 
+        }
+        
+        const estaVendoPropriaEscalaPrincipal = nomeBuscaOpFoco === primeiroSegundoNomeUsuarioParaBusca && nomeCompletoOriginalUsuario !== "";
+
+
+        if (viewModoCorrente === 'minhaEscala') { 
+            if (!estaVendoPropriaEscalaPrincipal && nomeCompletoOriginalUsuario) { 
+                minhaEscalaBtn.innerHTML = formatarTextoBotao("MINHA ESCALA");
+                minhaEscalaBtn.classList.remove('hidden');
+                minhaEscalaBtn.classList.add('btn-custom-blue'); 
+            }
+            outrosEventosBtn.innerHTML = formatarTextoBotao("OUTROS EVENTOS");
+            outrosEventosBtn.classList.remove('hidden');
+            outrosEventosBtn.classList.add('btn-custom-green'); 
+        
+        } else if (viewModoCorrente === 'outrosEventos') {
+            if (nomeCompletoOriginalUsuario) { 
+                minhaEscalaBtn.innerHTML = formatarTextoBotao("MINHA ESCALA");
+                minhaEscalaBtn.classList.remove('hidden');
+                minhaEscalaBtn.classList.add('btn-custom-blue'); 
+            }
+        }
+        
+        atualizarListasBtn.innerHTML = formatarTextoBotao("ATUALIZAR DADOS");
+        atualizarListasBtn.classList.remove('hidden');
+        if (outrosEventosBtn.classList.contains('btn-custom-green') && !outrosEventosBtn.classList.contains('hidden')) {
+            atualizarListasBtn.classList.add('btn-custom-blue');
+        } else if (minhaEscalaBtn.classList.contains('btn-custom-blue') && !minhaEscalaBtn.classList.contains('hidden')) {
+             atualizarListasBtn.classList.add('btn-custom-green');
+        } else { 
+            atualizarListasBtn.classList.add('btn-custom-green'); 
+        }
+    }
+    
+    function dispararConfetti() { 
+        const confettiCount = 20; 
+        const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a8', '#ffd700'];
+        const containerParaConfetti = glassCardContainer; 
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = (Math.random() * 20 - 20) + 'px'; 
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = Math.random() * 0.5 + 's'; 
+            confetti.style.width = (Math.random() * 4 + 4) + 'px'; 
+            confetti.style.height = (Math.random() * 8 + 8) + 'px'; 
+            containerParaConfetti.appendChild(confetti);
+            setTimeout(() => {
+                if (confetti.parentElement) {
+                    confetti.remove();
+                }
+            }, 3500); 
+        }
+    }
+
+    async function appFlowController() { 
+        if (botaoPlanilhaOficialIcone) { 
+            botaoPlanilhaOficialIcone.href = URL_PLANILHA_OFICIAL_ABRIR;
+        }
+
+        if (!appInitialized) {
+            mostrarModal(initialDisclaimerModal);
+            let countdown = 5;
+            if (initialModalTimerSpan) initialModalTimerSpan.textContent = countdown;
+            if (initialDisclaimerOkBtn) initialDisclaimerOkBtn.disabled = true; 
+
+            const timerInterval = setInterval(() => {
+                countdown--;
+                if (initialModalTimerSpan) initialModalTimerSpan.textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    if (initialModalTimerSpan && initialModalTimerSpan.parentElement && initialModalTimerSpan.parentElement.tagName === 'BUTTON') {
+                         initialModalTimerSpan.parentElement.innerHTML = "OK"; 
+                    } else if (initialDisclaimerOkBtn) { 
+                         initialDisclaimerOkBtn.textContent = "OK";
+                    }
+                    if (initialDisclaimerOkBtn) initialDisclaimerOkBtn.disabled = false;
+                }
+            }, 1000);
+
+            initialDisclaimerOkBtn.addEventListener('click', async () => {
+                esconderModal(initialDisclaimerModal);
+                appInitialized = true; 
+                await proceedWithAppInitialization(); 
+            }, { once: true });
+        } else {
+            console.log("<strong>App</strong> retomado. Tentando atualizar dados...");
+            const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
+            const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
+            await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
+        }
+    }
+
+    async function proceedWithAppInitialization() { 
+    console.log("Modal inicial dispensado. Prosseguindo com inicialização do <strong>App</strong>...");
+    if (anoAtualFooterSpan) anoAtualFooterSpan.textContent = new Date().getFullYear();
+    if(initialDisclaimerTitleH2) initialDisclaimerTitleH2.textContent = "⚠️ ATENÇÃO! ⚠️";
+    if(periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢";
+
+    await carregarListaOperadoresDefinitiva(); 
+    await buscarMensagemDaPlanilha(); 
+
+    // Adicione a chamada para exibir a data aqui:
+    exibirDataAtualCabecalho(); 
+
+    const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
+    if (nomeSalvoLS) {
+        // ... resto do código ...
+    } else {
+        exibirTela('boasVindas');
+    }
+    startPeriodicChecks(); 
+}
+
+    function handleVisibilityChange() { 
+        if (document.visibilityState === 'visible' && appInitialized) { 
+            console.log("<strong>App</strong> tornou-se visível. Tentando atualizar dados...");
+            const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
+            const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
+            
+            buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
+        }
+    }
+    
+    function checkScheduledNotifications() {
+        if (!appInitialized) return; 
+
+        const agora = new Date();
+        const horaAtualStr = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
+        const dataAtualStr = formatarData(agora); 
+
+        for (const scheduledTime of SCHEDULED_NOTIFICATION_TIMES) {
+            if (horaAtualStr === scheduledTime) {
+                const storageKey = `notif_${scheduledTime.replace(":", "")}_${dataAtualStr}`; 
+                if (!sessionStorage.getItem(storageKey)) {
+                    if (initialDisclaimerModal.classList.contains('visible') || 
+                        (sheetMessageModal && sheetMessageModal.classList.contains('visible'))) { 
+                        continue; 
+                    }
+                    
+                    if (periodicNotificationModal) {
+                        const pElement = periodicNotificationModal.querySelector('p');
+                        if (pElement) pElement.innerHTML = DISCLAIMER_TEXT_MODAL.replace(/App/g, '<strong>App</strong>'); 
+                        if (periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢"; 
+                        mostrarModal(periodicNotificationModal);
+                        tocarSom(notificationSound);
+                        sessionStorage.setItem(storageKey, 'true'); 
+                    }
+                    break; 
+                }
+            }
+        }
+    }
+
+    function startPeriodicChecks() { 
+        if (periodicCheckIntervalId) {
+            clearInterval(periodicCheckIntervalId);
+        }
+        checkScheduledNotifications(); 
+        periodicCheckIntervalId = setInterval(checkScheduledNotifications, 60000); 
+    }
+    
+    window.onload = () => { 
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js') 
+            .then(function(registration) { console.log('Service Worker registrado com sucesso.'); })
+            .catch(function(error) { console.log('Falha ao registrar Service Worker:', error.message); });
+        }
+        appFlowController(); 
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', () => { 
+        if (appInitialized && document.visibilityState === 'visible') { 
+            console.log("<strong>App</strong> ganhou foco. Tentando atualizar dados...");
+            const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
+            const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
+            buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
+        }
+    });
+
+    document.getElementById('irParaDefinirNomeBtn').addEventListener('click', () => {
+        exibirTela('configNome');
+    });
+
+    definirOperadorBtn.addEventListener('click', () => {
+        const nomeInputOriginal = nomeOperadorInput.value.trim();
+        const partesNome = nomeInputOriginal.split(/\s+/).filter(n => n.length > 0);
+        if (partesNome.length >= 2) { 
+            erroNomeInputP.classList.add('hidden');
+            const primeiroESegundoDoInputParaDefinir = capitalizarNomeCompleto(partesNome.slice(0,2).join(" "));
+            const nomeExibicaoParaConfirmacao = gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir); 
+            
+            confirmacaoNomeDiv.innerHTML = `
+                <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
+                <p class="text-xs sm:text-sm text-secondary-content">O nome usado será <strong class="text-primary-content">"${nomeExibicaoParaConfirmacao}"</strong>.</p>
+                <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
+  <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">
+  <img src="nao.png" alt="Não" id="confirmarNomeNaoBtnInterno" style="cursor: pointer; width: 70px;" title="Não">
+</div>`;
+            exibirTela('confirmacaoNome');
+            document.getElementById('confirmarNomeSimBtnInterno').addEventListener('click', async () => {
+                definirOperadorPrincipalAtual(primeiroESegundoDoInputParaDefinir, false); 
+                if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") {
+                    modoExibicaoAtual = 'minhaEscala';
+                    localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
+                    exibirTela('principal');
+                    await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
+                } else { 
+                    erroNomeInputP.textContent = "Erro ao definir nome. Tente novamente.";
+                    erroNomeInputP.classList.remove('hidden');
+                    exibirTela('configNome');
+                }
+            });
+            document.getElementById('confirmarNomeNaoBtnInterno').addEventListener('click', () => {
+                exibirTela('configNome');
+            });
+        } else {
+            erroNomeInputP.textContent = "Por favor, digite pelo menos seu primeiro e segundo nome.";
+            erroNomeInputP.classList.remove('hidden');
+        }
+    });
+
+    minhaEscalaBtn.addEventListener('click', async () => {
+        const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
+        if (nomeSalvoLS) {
+            definirOperadorPrincipalAtual(nomeSalvoLS, false); 
+            modoExibicaoAtual = 'minhaEscala';
+            localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
+            exibirTela('principal'); 
+            await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
+        } else { 
+            exibirTela('configNome'); 
+        }
+    });
+
+    outrosEventosBtn.addEventListener('click', async () => {
+        modoExibicaoAtual = 'outrosEventos';
+        localStorage.removeItem('operadorNomeFocoVisualizacao'); 
+        exibirTela('principal'); 
+        await buscarEscalas("", "", 'outrosEventos'); 
+    });
+    
+    atualizarListasBtn.addEventListener('click', async () => {
+        let nomeBuscaAtual = ""; 
+        let nomeCompletoFocoAtual = ""; 
+
+        if (modoExibicaoAtual === 'minhaEscala') {
+            nomeCompletoFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
+            if (nomeCompletoFocoAtual) {
+                 const partesNomeFoco = nomeCompletoFocoAtual.split(/\s+/).slice(0,2).join(" ");
+                 nomeBuscaAtual = removerAcentos(partesNomeFoco.toLowerCase());
+            }
+        }
+        await buscarEscalas(nomeBuscaAtual, nomeCompletoFocoAtual, modoExibicaoAtual);
+    });
+    
+    resultadoDiv.addEventListener('click', async function(event) {
+        const targetCell = event.target.closest('td.operador-cell-clickable');
+        if (targetCell) {
+            const operadorBuscaKeyClicado = targetCell.dataset.operadorBusca; 
+            const operadorNomeCompletoOriginalClicado = targetCell.dataset.operadorDisplayOriginal; 
+            if (ultimaCelulaClicada && ultimaCelulaClicada !== targetCell) {
+                ultimaCelulaClicada.classList.remove('operador-cell-highlighted');
+            }
+            targetCell.classList.add('operador-cell-highlighted');
+            ultimaCelulaClicada = targetCell;
+            if (operadorBuscaKeyClicado && operadorNomeCompletoOriginalClicado) {
+                modoExibicaoAtual = 'minhaEscala'; 
+                localStorage.setItem('operadorNomeFocoVisualizacao', operadorNomeCompletoOriginalClicado); 
+                exibirTela('principal'); 
+                await buscarEscalas(operadorBuscaKeyClicado, operadorNomeCompletoOriginalClicado, 'minhaEscala', true); 
+            }
+        }
+    });
+
+    logoPrincipalApp.addEventListener('click', () => {
+        localStorage.removeItem('operadorNomeSalvo');
+        localStorage.removeItem('operadorNomeFocoVisualizacao'); 
+        primeiroSegundoNomeUsuarioParaBusca = "";
+        nomeCompletoOriginalUsuario = "";
+        nomeDefinidoNestaSessao = false;
+        modoExibicaoAtual = 'minhaEscala'; 
+        exibirTela('boasVindas');
+        if(botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('hidden'); 
+    });
+
+    sheetMessageOkBtn.addEventListener('click', () => esconderModal(sheetMessageModal));
+    periodicNotificationOkBtn.addEventListener('click', () => esconderModal(periodicNotificationModal));
+
+</script>
+</body>
+<style>
+
+#headerDateDisplay {
+    color: #FFFFFF;     /* Cor branca, para combinar com o estilo anterior do cabeçalho */
+    font-size: 0.875rem; /* Um tamanho sutil, equivalente a 'text-sm' do Tailwind */
+    margin-bottom: 0.25rem; /* Pequena margem inferior para separar do nome do operador */
+    line-height: 1.2;   /* Para melhor espaçamento vertical */
+}
+
+#modalDisclaimerSheetIcon {
+    position: absolute;
+    top: 120px;       /* Distância do topo da janela do modal */
+    right: 40px;      /* Distância da direita da janela do modal */
+    width: 60px;      /* Largura do ícone */
+    height: 60px;     /* Altura do ícone */
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+</style>
+
+<style>
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+</style>
+
+<script>
+    
+    
+    
+setInterval(() => {
+    const container = document.getElementById('updateStatusContainer');
+    const statusSpan = container ? container.querySelector('.status-message') : null;
+    if (!statusSpan) return;
+
+    // Captura texto original e hora
+    const textoOriginal = statusSpan.getAttribute('data-original') || statusSpan.textContent;
+    const texto = textoOriginal.toUpperCase();
+    const matchHora = texto.match(/\d{2}:\d{2}/);
+    if (!matchHora) return;
+
+    const partes = matchHora[0].split(":");
+    const horaDados = new Date();
+    horaDados.setHours(parseInt(partes[0]), parseInt(partes[1]), 0, 0);
+
+    const agora = new Date();
+    const diffMinutos = (agora.getTime() - horaDados.getTime()) / 60000;
+
+    if (diffMinutos >= 1) {
+        statusSpan.classList.add('blinking-red-status');
+        statusSpan.style.backgroundColor = '#ffffff';
+        statusSpan.style.color = '#b91c1c';
+        statusSpan.style.padding = '0.5rem';
+        statusSpan.style.borderRadius = '0.5rem';
+        statusSpan.style.display = 'inline-block';
+        statusSpan.style.fontWeight = 'bold';
+        statusSpan.style.animation = 'blink 1.2s infinite alternate';
+        statusSpan.setAttribute('data-original', textoOriginal);
+        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS / CONSULTE A PLANILHA⚠️`;
+
+        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
+        if (botaoPlanilha) botaoPlanilha.classList.add('pulsar-animacao-forte');
+    }
+}, 30000);
+</script>
+
+</html>

@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#005a43">
+    <meta name="theme-color" content="#4b0082">
     <link rel="apple-touch-icon" href="icon-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,7 +19,11 @@
     body {
         font-family: 'Cal Sans', sans-serif;
         font-weight: 400; /* Adicione esta linha */
-        background: linear-gradient(135deg, #4b0082 0%, #5e60ce 50%, #7d70ff 100%);
+        background-image: url('wallpaper.jpg');
+background-size: cover;
+background-position: center center;
+background-repeat: no-repeat;
+background-attachment: fixed;
         color: #e8e8e8;
         min-height: 100vh;
         display: flex;
@@ -1796,7 +1800,7 @@ setInterval(() => {
         const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
         if (botaoPlanilha) botaoPlanilha.classList.add('pulsar-animacao-forte');
     }
-}, 30000);
+}, 60000);
 </script>
 
 </html>

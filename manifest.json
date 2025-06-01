@@ -4,8 +4,8 @@
     "description": "Verificador de escala de trabalho",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#003c2d",
-    "theme_color": "#005a43",
+    "background_color": "#4b0082",
+    "theme_color": "#4b0082",
     "orientation": "portrait-primary",
     "icons": [
         {

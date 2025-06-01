@@ -484,7 +484,7 @@ background-attachment: fixed;
     const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub';
     const googleSheetDefinitiveListUrl = `${googleSheetBaseUrlForNamedTabs}?gid=615696807&single=true&output=csv`;
     const googleSheetMessageUrl = `${googleSheetBaseUrlForNamedTabs}?gid=1636658248&single=true&output=csv`;
-    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit?gid=1519973381#gid=1519973381';
+    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381';
 
     const proxyList = [
         { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },
@@ -1742,10 +1742,11 @@ statusHtml = `
 
 #modalDisclaimerSheetIcon {
     position: absolute;
-    top: 120px;       /* Distância do topo da janela do modal */
-    right: 40px;      /* Distância da direita da janela do modal */
-    width: 60px;      /* Largura do ícone */
-    height: 60px;     /* Altura do ícone */
+    right: 20px;     /* Mantido em 40px da direita */
+    bottom: 20px;    /* Nova linha: 40px da parte inferior */
+    width: 60px;
+    height: 60px;
+}
 }
 
 @keyframes blink {

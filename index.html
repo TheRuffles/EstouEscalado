@@ -83,7 +83,6 @@ background-attachment: fixed;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   padding: 0.5rem 1rem;
   text-align: center;
-  min-width: 140px;
 }
 
 .btn-custom-blue:hover:not(:disabled) {
@@ -100,7 +99,6 @@ background-attachment: fixed;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
   padding: 0.5rem 1rem;
   text-align: center;
-  min-width: 140px;
 }
 
 .btn-custom-green:hover:not(:disabled) {
@@ -228,12 +226,23 @@ background-attachment: fixed;
             50% { transform: translateY(-5px) scale(1.1); }
             100% { transform: translateY(0) scale(1); }
         }
-        #botoesAcaoContainer {
-            display: flex;
-            flex-wrap: wrap; 
-            justify-content: center;
-            gap: 0.5rem; 
-        }
+       /* Esta é a regra que você já tinha e que permanece como está */
+#botoesAcaoContainer {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 0.5rem; 
+}
+
+/* Esta é a NOVA REGRA que você deve ADICIONAR logo ABAIXO da regra acima */
+#botoesAcaoContainer > button.btn-custom {
+    flex-grow: 1;    /* Permite que o botão cresça para ocupar espaço extra */
+    flex-shrink: 1;  /* Permite que o botão encolha se não houver espaço suficiente */
+    flex-basis: 0;   /* Define uma base flexível para distribuição de espaço */
+    min-width: 0;    /* Crucial: permite que o botão encolha abaixo do tamanho do seu conteúdo, se necessário */
+}
+
+/* ... E depois continuam as outras regras do seu CSS, como .btn-custom-blue, .btn-custom-green, etc. ... */
 
         .modal-overlay {
             position: fixed;
@@ -484,7 +493,7 @@ background-attachment: fixed;
     const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub';
     const googleSheetDefinitiveListUrl = `${googleSheetBaseUrlForNamedTabs}?gid=615696807&single=true&output=csv`;
     const googleSheetMessageUrl = `${googleSheetBaseUrlForNamedTabs}?gid=1636658248&single=true&output=csv`;
-    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit?gid=1519973381';
+    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
 
     const proxyList = [
         { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },

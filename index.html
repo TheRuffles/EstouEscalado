@@ -9,383 +9,371 @@
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4b0082">
+    <meta name="theme-color" content="#005a43">
     <link rel="apple-touch-icon" href="icon-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EscalaApp">
     <script src="https://cdn.tailwindcss.com"></script>
+    
 <style>
     body {
-        font-family: 'Cal Sans', sans-serif;
-        font-weight: 400; /* Adicione esta linha */
-        background-image: url('wallpaper.jpg');
-background-size: cover;
-background-position: center center;
-background-repeat: no-repeat;
-background-attachment: fixed;
-        color: #e8e8e8;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.5rem;
-        overflow-x: hidden;
-    }
-    .glass-card-container {
-        background: rgba(130, 90, 230, 0.4);
-        backdrop-filter: blur(10px) saturate(150%);
-        -webkit-backdrop-filter: blur(10px) saturate(150%);
-        border-radius: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        width: 100%;
-        max-width: 32rem;
-        position: relative;
-        overflow: hidden;
-    }
-    .text-green-400 { color: #7d70ff !important; }
-        .text-header { color: #ffffff; }
-        .text-primary-content { color: #f0f0f0; }
-        .text-secondary-content { color: #c0c0c0; }
-        .status-operador-principal-texto {
+    font-family: 'Cal Sans', sans-serif; /* Sua fonte original */
+    font-weight: 400;
+    background-image: url('wallpaper.jpg'); /* Sua imagem de fundo */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #e8e8e8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    overflow-x: hidden;
+}
+.glass-card-container {
+    background: rgba(130, 90, 230, 0.4); /* Mantido do seu original, ajuste se o seu body tem (75,0,130)*/
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    width: 100%;
+    max-width: 32rem;
+    position: relative;
+    overflow: hidden;
+}
+.text-green-400 { color: #7d70ff !important; }
+.text-header { color: #ffffff; }
+.text-primary-content { color: #f0f0f0; }
+.text-secondary-content { color: #c0c0c0; }
+.status-operador-principal-texto {
     color: #BB86FC; /* Roxo claro e vibrante */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Sombra preta suave */
 }
-        .btn-custom {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-weight: normal;
-            font-size: 0.85rem;
-            line-height: 1.2;
-            padding-top: 0.4rem; padding-bottom: 0.4rem;
-            padding-left: 0.6rem; padding-right: 0.6rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease, opacity 0.2s ease;
-            margin: 0 0.1rem;
-            min-width: 80px;
-            text-align: center;
-            text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
-        }
-        .btn-custom:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .btn-custom:active:not(:disabled) {
-            transform: translateY(1px);
-        }
-        .btn-custom-blue {
-  background-color: #ffffff;
-  color: #111111;
-  font-weight: normal;
-  border-radius: 0.5rem;
-  border: 1px solid #cccccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  padding: 0.5rem 1rem;
-  text-align: center;
+.btn-custom {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: normal; /* Alterado de bold para normal como no seu original */
+    font-size: 0.85rem;
+    line-height: 1.2;
+    padding-top: 0.4rem; padding-bottom: 0.4rem;
+    padding-left: 0.6rem; padding-right: 0.6rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease, opacity 0.2s ease;
+    margin: 0 0.1rem;
+    min-width: 80px;
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
 }
-
+.btn-custom:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.btn-custom:active:not(:disabled) {
+    transform: translateY(1px);
+}
+.btn-custom-blue { /* Estilo dos botões de confirmação/definição */
+    background-color: #ffffff;
+    color: #111111;
+    font-weight: normal;
+    border-radius: 0.5rem;
+    border: 1px solid #cccccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
 .btn-custom-blue:hover:not(:disabled) {
-  background-color: #f3f4f6;
+    background-color: #f3f4f6;
 }
-        .btn-custom-red { background-color: rgba(220, 38, 38, 0.8); color: white; }
-        .btn-custom-red:hover:not(:disabled) { background-color: rgba(185, 28, 28, 0.9); }
-        .btn-custom-green {
-  background-color: #ffffff;      /* fundo branco */
-  color: #111111;                 /* texto preto */
-  font-weight: normal;
-  border-radius: 0.5rem;
-  border: 1px solid #cccccc;      /* borda leve */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
-  padding: 0.5rem 1rem;
-  text-align: center;
+.btn-custom-red { /* Para botões de 'NÃO' ou cancelamento */
+    background-color: rgba(220, 38, 38, 0.8); 
+    color: white; 
 }
-
+.btn-custom-red:hover:not(:disabled) { 
+    background-color: rgba(185, 28, 28, 0.9); 
+}
+.btn-custom-green { /* Para botões de 'OK' ou ações positivas */
+    background-color: #ffffff;      /* fundo branco */
+    color: #111111;                 /* texto preto */
+    font-weight: normal;
+    border-radius: 0.5rem;
+    border: 1px solid #cccccc;      /* borda leve */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
 .btn-custom-green:hover:not(:disabled) {
-  background-color: #f3f4f6;      /* leve cinza no hover */
+    background-color: #f3f4f6;      /* leve cinza no hover */
 }
-        #resultado {
-            background-color: rgba(0, 0, 0, 0.25);
-            border-radius: 0.5rem;
-            color: #e0e0e0;
-            position: relative;
-        }
-        #resultado .text-green-400 { color: #86efac; }
-        hr.border-white { border-color: rgba(255, 255, 255, 0.2); }
-        .loader {
-            border: 4px solid rgba(243, 243, 243, 0.2);
-            border-top: 4px solid #93c5fd;
-            border-radius: 50%; width: 30px; height: 30px;
-            animation: spin 1s linear infinite; margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .blinking-text { animation: blinker 1.2s linear infinite; } 
-        @keyframes blinker { 50% { opacity: 0.2; } }
+#resultado {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 0.5rem;
+    color: #e0e0e0;
+    position: relative;
+}
+#resultado .text-green-400 { color: #86efac; }
+hr.border-white { border-color: rgba(255, 255, 255, 0.2); }
+.loader {
+    border: 4px solid rgba(243, 243, 243, 0.2);
+    border-top: 4px solid #93c5fd;
+    border-radius: 50%; width: 30px; height: 30px;
+    animation: spin 1s linear infinite; margin: 20px auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.blinking-text { animation: blinker 1.2s linear infinite; } 
+@keyframes blinker { 50% { opacity: 0.2; } }
 
-        .event-details-card-alert { 
-            animation: pulse-bg 1.2s infinite alternate; 
-            border: 1px solid #f87171; 
-            border-radius: 0.375rem; 
-            margin: -4px; 
-            padding: 4px;
-            box-shadow: 0 0 8px rgba(248, 113, 113, 0.5); 
-        }
-        @keyframes pulse-bg {
-            0% { background-color: rgba(248, 113, 113, 0.1); } 
-            100% { background-color: rgba(248, 113, 113, 0.25); } 
-        }
-        .evento-cancelado-nome {
-            animation: pisca-cancelado 1.5s infinite;
-        }
-        @keyframes pisca-cancelado {
-            0%, 100% { color: #f0f0f0; }
-            50% { color: #005a43; }
-        }
+.event-details-card-alert { 
+    animation: pulse-bg 1.2s infinite alternate; 
+    border: 1px solid #f87171; 
+    border-radius: 0.375rem; 
+    margin: -4px; 
+    padding: 4px;
+    box-shadow: 0 0 8px rgba(248, 113, 113, 0.5); 
+}
+@keyframes pulse-bg {
+    0% { background-color: rgba(248, 113, 113, 0.1); } 
+    100% { background-color: rgba(248, 113, 113, 0.25); } 
+}
+.evento-cancelado-nome {
+    animation: pisca-cancelado 1.5s infinite;
+}
+@keyframes pisca-cancelado {
+    0%, 100% { color: #f0f0f0; }
+    50% { color: #005a43; }
+}
 
-        #outrosOperadoresTable, #disponiveisOperadoresTable {
-            table-layout: fixed;
-            width: 100%;
-        }
-        #outrosOperadoresTable th, #outrosOperadoresTable td,
-        #disponiveisOperadoresTable th, #disponiveisOperadoresTable td {
-            padding: 0.3rem 0.25rem;
-            word-break: break-word;
-        }
-        #outrosOperadoresTable td.col-nome,
-        #disponiveisOperadoresTable td.col-nome {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        #outrosOperadoresTable th.col-nome-header, 
-        #disponiveisOperadoresTable th.col-nome-header {
-            width: calc(50% - 3.5rem); 
-        }
-        #outrosOperadoresTable th.col-qtd-header, 
-        #disponiveisOperadoresTable th.col-local-header {
-            width: 3.5rem; 
-            text-align: center;
-        }
-        #outrosOperadoresTable td.col-qtd,
-        #disponiveisOperadoresTable td.col-local {
-            text-align: center;
-        }
-        td.operador-cell-clickable {
-            cursor: pointer;
-            transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, font-weight 0.15s ease-in-out;
-        }
-        td.operador-cell-clickable:hover,
-        td.operador-cell-clickable.highlight-main-user:hover {
-            background-color: white !important; 
-            color: #005a43 !important; 
-            font-weight: normal !important;
-        }
-        td.operador-cell-highlighted { 
-            background-color: white !important; 
-            color: #005a43 !important; 
-            font-weight: normal !important;
-        }
-        td.highlight-main-user { 
-            background-color: white; 
-            color: #005a43; 
-            font-weight: normal;
-            animation: pulse-text 1.5s infinite alternate;
-        }
-        @keyframes pulse-text {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        #outrosOperadoresTable tbody tr:nth-child(odd),
-        #disponiveisOperadoresTable tbody tr:nth-child(odd) {
-            background-color: rgba(5, 150, 105, 0.08); 
-        }
-        .confetti {
-            position: absolute;
-            width: 7px;
-            height: 14px;
-            opacity: 1;
-            animation: fall 3.5s linear forwards;
-            z-index: 1000;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1;}
-            60% { opacity: 0.8;} 
-            100% { transform: translateY(220px) rotateZ(360deg); opacity: 0;}
-        }
-        .emoji-bounce span {
-            display: inline-block;
-            animation: bounce 0.8s infinite alternate;
-            margin: 0 0.1em;
-        }
-        @keyframes bounce {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-5px) scale(1.1); }
-            100% { transform: translateY(0) scale(1); }
-        }
-       /* Esta é a regra que você já tinha e que permanece como está */
+#outrosOperadoresTable, #disponiveisOperadoresTable {
+    table-layout: fixed;
+    width: 100%;
+}
+#outrosOperadoresTable th, #outrosOperadoresTable td,
+#disponiveisOperadoresTable th, #disponiveisOperadoresTable td {
+    padding: 0.3rem 0.25rem;
+    word-break: break-word;
+}
+#outrosOperadoresTable td.col-nome,
+#disponiveisOperadoresTable td.col-nome {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#outrosOperadoresTable th.col-nome-header, 
+#disponiveisOperadoresTable th.col-nome-header {
+    width: calc(50% - 3.5rem); 
+}
+#outrosOperadoresTable th.col-qtd-header, 
+#disponiveisOperadoresTable th.col-local-header {
+    width: 3.5rem; 
+    text-align: center;
+}
+#outrosOperadoresTable td.col-qtd,
+#disponiveisOperadoresTable td.col-local {
+    text-align: center;
+}
+td.operador-cell-clickable {
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, font-weight 0.15s ease-in-out;
+}
+td.operador-cell-clickable:hover,
+td.operador-cell-clickable.highlight-main-user:hover {
+    background-color: white !important; 
+    color: #005a43 !important; 
+    font-weight: normal !important;
+}
+td.operador-cell-highlighted { 
+    background-color: white !important; 
+    color: #005a43 !important; 
+    font-weight: normal !important;
+}
+td.highlight-main-user { 
+    background-color: white; 
+    color: #005a43; 
+    font-weight: normal;
+    animation: pulse-text 1.5s infinite alternate;
+}
+@keyframes pulse-text {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+#outrosOperadoresTable tbody tr:nth-child(odd),
+#disponiveisOperadoresTable tbody tr:nth-child(odd) {
+    background-color: rgba(5, 150, 105, 0.08); 
+}
+.confetti {
+    position: absolute;
+    width: 7px;
+    height: 14px;
+    opacity: 1;
+    animation: fall 3.5s linear forwards;
+    z-index: 1000;
+}
+@keyframes fall {
+    0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1;}
+    60% { opacity: 0.8;} 
+    100% { transform: translateY(220px) rotateZ(360deg); opacity: 0;}
+}
+.emoji-bounce span {
+    display: inline-block;
+    animation: bounce 0.8s infinite alternate;
+    margin: 0 0.1em;
+}
+@keyframes bounce {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
+}
 #botoesAcaoContainer {
     display: flex;
     flex-wrap: wrap; 
     justify-content: center;
-    gap: 0.5rem; 
+    gap: 0.25rem; 
 }
+/* A regra antiga #botoesAcaoContainer > button.btn-custom foi removida porque os botões agora são imagens e são estilizados pela classe .action-image-button */
 
-/* Esta é a NOVA REGRA que você deve ADICIONAR logo ABAIXO da regra acima */
-#botoesAcaoContainer > button.btn-custom {
-    flex-grow: 1;    /* Permite que o botão cresça para ocupar espaço extra */
-    flex-shrink: 1;  /* Permite que o botão encolha se não houver espaço suficiente */
-    flex-basis: 0;   /* Define uma base flexível para distribuição de espaço */
-    min-width: 0;    /* Crucial: permite que o botão encolha abaixo do tamanho do seu conteúdo, se necessário */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); 
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000; opacity: 0; visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-
-/* ... E depois continuam as outras regras do seu CSS, como .btn-custom-blue, .btn-custom-green, etc. ... */
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75); 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000; 
-            opacity: 0; 
-            visibility: hidden; 
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.visible { 
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background: rgba(75, 0, 130, 0.5); 
-            backdrop-filter: blur(12px) saturate(160%);
-            -webkit-backdrop-filter: blur(12px) saturate(160%);
-            padding: 1.5rem; 
-            border-radius: 1.25rem; 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.45); 
-            text-align: center; 
-            max-width: 90%; 
-            width: 28rem;  
-            color: #f0f0f0; 
-            transform: scale(0.95); 
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.visible .modal-content {
-            transform: scale(1);
-        }
-        .modal-content h2 { 
-            color: #ffffff;
-            font-size: 1.25rem; 
-            font-weight: normal;
-            margin-bottom: 1rem;
-            text-transform: uppercase; 
-        }
-        .modal-content p {
-            color: #e8e8e8; 
-            font-size: 0.9rem;
-            margin-bottom: 1.25rem;
-            line-height: 1.5;
-        }
-
-        #updateStatusContainer {
-            text-align: center;
-            padding: 0.4rem 0.5rem; 
-            background-color: rgba(0,0,0,0.2); 
-            color: #b0b0b0;
-            border-bottom: 1px solid rgba(255,255,255,0.05); 
-        }
-        #updateStatusContainer .status-message { 
-            font-weight: normal;
-            font-size: 0.8rem; 
-        }
-        #updateStatusContainer .blinking-red-status {
-            color: #f87171 !important; 
-            animation: blinker 1.0s linear infinite; 
-        }
-        #updateStatusContainer .disclaimer-text { 
-            display: block;
-            font-size: 0.7rem; 
-            margin-top: 0.25rem;
-            color: #a0a0a0;
-        }
-        
-        #displayOperadorCabecalho {
-            font-size: 1.125rem; /* Equivalente a text-lg do Tailwind, para dar mais destaque */
-            font-weight: normal;
-            text-transform: uppercase;
-            color: #FFD700; 
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
-            margin-top: -0.25rem; 
-            margin-bottom: 0.5rem; 
-            letter-spacing: 0.05em; 
-            line-height: 1.2; 
-            padding: 0.1rem 0;
-            min-height: 1.1rem; 
-        }
-
-        .planilha-oficial-icone-flutuante {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            width: 56px; 
-            height: 56px;
-            z-index: 999; 
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out;
-        }
-        .planilha-oficial-icone-flutuante img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
-        .planilha-oficial-icone-flutuante:hover {
-            transform: scale(1.1);
-        }
-        .pulsar-animacao { 
-            animation: pulsar 1.8s infinite ease-in-out;
-        }
-        @keyframes pulsar {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.12); }
-        }
-
-<style>
+.modal-overlay.visible { opacity: 1; visibility: visible; }
+.modal-content {
+    background: rgba(75, 0, 130, 0.5); 
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    padding: 1.5rem; border-radius: 1.25rem; 
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45); 
+    text-align: center; max-width: 90%; width: 28rem;  
+    color: #f0f0f0; transform: scale(0.95); 
+    transition: transform 0.3s ease;
+}
+.modal-overlay.visible .modal-content { transform: scale(1); }
+.modal-content h2 { 
+    color: #ffffff; font-size: 1.25rem; font-weight: normal; /* Mantido 'normal' do seu CSS original */
+    margin-bottom: 1rem; text-transform: uppercase; 
+}
+.modal-content p {
+    color: #e8e8e8; font-size: 0.9rem;
+    margin-bottom: 1.25rem; line-height: 1.5;
+}
+#updateStatusContainer {
+    text-align: center; padding: 0.4rem 0.5rem; 
+    background-color: rgba(0,0,0,0.2); color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+}
+#updateStatusContainer .status-message { 
+    font-weight: normal; font-size: 0.8rem; 
+}
+#updateStatusContainer .blinking-red-status {
+    color: #f87171 !important; 
+    animation: blinker 1.0s linear infinite; 
+}
+#updateStatusContainer .disclaimer-text { 
+    display: block; font-size: 0.7rem; 
+    margin-top: 0.25rem; color: #a0a0a0;
+}
+#displayOperadorCabecalho {
+    font-size: 1.125rem; font-weight: normal;
+    text-transform: uppercase; color: #FFD700; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+    margin-top: -0.25rem; margin-bottom: 0.5rem; 
+    letter-spacing: 0.05em; line-height: 1.2; 
+    padding: 0.1rem 0; min-height: 1.1rem; 
+}
+.planilha-oficial-icone-flutuante {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    width: 56px; height: 56px;
+    z-index: 999; cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+.planilha-oficial-icone-flutuante img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.planilha-oficial-icone-flutuante:hover { transform: scale(1.1); }
+.pulsar-animacao { animation: pulsar 1.8s infinite ease-in-out; }
+@keyframes pulsar {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+/* Regras que estavam em uma <style> aninhada no seu original, agora corrigidas e incorporadas */
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
-
 @keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-2px); }
-  40% { transform: translateX(2px); }
-  60% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
-  100% { transform: translateX(0); }
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+    100% { transform: translateX(0); }
 }
-
 .pulsar-animacao-forte {
-  animation: pulse 1.2s infinite ease-in-out, shake 0.4s infinite;
+    animation: pulse 1.2s infinite ease-in-out, shake 0.4s infinite;
 }
-</style>
 
+/* NOVAS REGRAS PARA OS BOTÕES DE IMAGEM */
+/* ESTILOS FINAIS E CORRETOS PARA OS BOTÕES DE IMAGEM */
+.action-image-button {
+    cursor: pointer;
+    flex-grow: 1;    /* Permite que o elemento da imagem se estique para ocupar espaço */
+    flex-shrink: 1;  /* Permite que encolha se necessário */
+    flex-basis: 0;   /* Base para o cálculo do tamanho flexível, ajuda a dividir o espaço */
 
+    width: 100%;     /* Faz a imagem usar 100% da largura do 'slot' que o flexbox dá */
+    height: auto;    /* Altura se ajusta para manter proporção da imagem original */
+    /* A max-height será definida pelas regras específicas abaixo */
+    object-fit: contain; /* Garante que imagem inteira caiba e mantenha proporção */
+
+    /* Overrides para garantir aparência limpa */
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.action-image-button:focus {
+    outline: none; /* Remove contorno de foco */
+}
+
+/* Estilos específicos baseados na quantidade de botões visíveis */
+#botoesAcaoContainer.button-count-1 .action-image-button {
+    max-height: 120px; /* Altura para UM botão (ex: resultaria em ~248px larg x 120px alt com imagem 300x145) */
+}
+#botoesAcaoContainer.button-count-2 .action-image-button {
+    max-height: 100px; /* Altura para DOIS botões (resulta em ~207px larg x 100px alt - o que você gostou!) */
+}
+#botoesAcaoContainer.button-count-3 .action-image-button {
+    max-height: 65px;  /* Altura para TRÊS botões (resulta em ~93px larg x 45px alt) */
+}
+
+#headerDateDisplay {
+    color: #FFFFFF;
+    font-size: 0.875rem; 
+    margin-bottom: 0.25rem; 
+    line-height: 1.2;
+    text-align: center;
+}
+
+    </style>
 </head>
 <body>
 
     <div id="initialDisclaimerModal" class="modal-overlay"> 
         <div class="modal-content">
-            <img src="ofc_sheet.png" alt="Ícone Planilha" id="modalDisclaimerSheetIcon">
             <h2 id="initialDisclaimerTitle">⚠️ ATENÇÃO! ⚠️</h2>
             <p>LEMBRE-SE: Este <strong>App</strong> é um auxiliar. Sempre confirme os dados na Planilha Oficial.</p>
             <button id="initialDisclaimerOkBtn" class="btn-custom btn-custom-green" disabled>OK (<span id="initialModalTimer">5</span>s)</button>
@@ -434,7 +422,7 @@ background-attachment: fixed;
         <div id="configNomeOperador" class="text-center p-3 space-y-2 text-primary-content hidden">
             <h2 class="text-base font-semibold">Identifique-se</h2>
             <p class="text-xs sm:text-sm text-secondary-content">Digite seu **primeiro e segundo nome** (ex: Carlos Silva).</p>
-            <p id="avisoIconePlanilha" class="text-sm font-semibold text-yellow-400 my-2 hidden">💡 DICA: O ícone da planilha no canto da tela leva você à Planilha Oficial para conferência!</p>
+            <p id="avisoIconePlanilha" class="text-xs text-sky-300 my-2 hidden">Dica: O ícone da planilha no canto da tela leva você à Planilha Oficial para conferência!</p>
             <div>
                 <input type="text" id="nomeOperadorInput" placeholder="Ex: Carlos Silva" class="p-2 border border-gray-500 bg-white bg-opacity-80 text-gray-800 rounded-md w-full max-w-xs focus:ring-2 focus:ring-green-400 focus:border-green-400 text-sm">
             </div>
@@ -449,9 +437,9 @@ background-attachment: fixed;
         <div id="areaPrincipalApp" class="hidden">
             <div id="resultado" class="p-3 sm:p-4 shadow min-h-[100px]"></div>
             <div id="botoesAcaoContainer" class="mt-6">
-                <button id="minhaEscalaBtn" class="btn-custom hidden"></button>
-                <button id="outrosEventosBtn" class="btn-custom hidden"></button>
-                <button id="atualizarListasBtn" class="btn-custom hidden"></button>
+                <img id="minhaEscalaBtn" src="minha_escala.png" alt="Minha Escala" class="action-image-button hidden">
+<img id="outrosEventosBtn" src="outros_eventos.png" alt="Outros Eventos" class="action-image-button hidden">
+<img id="atualizarListasBtn" src="atualizar_dados.png" alt="Atualizar Dados" class="action-image-button hidden">
             </div>
         </div>
 
@@ -473,27 +461,11 @@ background-attachment: fixed;
     <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
 
 <script>
-    
-    function exibirDataAtualCabecalho() {
-    const elementoData = document.getElementById('headerDateDisplay');
-    if (elementoData) {
-        const hoje = new Date();
-        const diaSemana = hoje.toLocaleDateString('pt-BR', { weekday: 'long' });
-        const dia = hoje.getDate();
-        const mes = hoje.toLocaleDateString('pt-BR', { month: 'long' });
-        const ano = hoje.getFullYear();
-
-        // Formata a data e capitaliza o dia da semana e o mês
-        const dataFormatada = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)}, ${dia} de ${mes.charAt(0).toUpperCase() + mes.slice(1)} de ${ano}`;
-        elementoData.textContent = dataFormatada;
-    }
-}
-    
     const googleSheetDataUrl = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/export?format=csv&gid=1519973381';
     const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub';
     const googleSheetDefinitiveListUrl = `${googleSheetBaseUrlForNamedTabs}?gid=615696807&single=true&output=csv`;
     const googleSheetMessageUrl = `${googleSheetBaseUrlForNamedTabs}?gid=1636658248&single=true&output=csv`;
-    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
+    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit?gid=1519973381#gid=1519973381';
 
     const proxyList = [
         { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },
@@ -720,21 +692,11 @@ background-attachment: fixed;
         let spanClasses = "status-message"; 
 
         if (sucesso) {
-            statusHtml = `<span class="${spanClasses} text-green-300">DADOS ATUALIZADOS ÀS ${horaFormatada}</span>`; 
+            statusHtml = `<span class="${spanClasses} text-green-300">Dados atualizados às ${horaFormatada}</span>`; 
             if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
-            botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
-
         } else {
-            sspanClasses += " blinking-red-status";
-            if (botaoPlanilhaOficialIcone) {
-    botaoPlanilhaOficialIcone.classList.add('pulsar-animacao-forte');
-}
-
-statusHtml = `
-    <span class="${spanClasses}" style="text-transform: uppercase;">
-        ÚLTIMA ATUALIZAÇÃO ÀS ${horaFormatada}<br>CONSULTAR A PLANILHA
-    </span>`;
-
+            spanClasses += " blinking-red-status"; 
+            statusHtml = `<span class="${spanClasses}">Última atualização às ${horaFormatada}</span>`; 
             let motivoFalha = "";
             if (erroInfo && erroInfo.message) {
                 if (erroInfo.message.toLowerCase().includes("failed to fetch") || 
@@ -1293,7 +1255,7 @@ statusHtml = `
                     if (fetchSuccess) tocarSom(naoEscaladoSound); 
                     corpoPrincipalHTML += `
                         <div class="text-center mb-6">
-                            <p class='text-lg status-operador-principal-texto uppercase mb-1'>${nomeExibicaoResultadoDoFoco} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
+                            <p class='text-lg font-bold text-green-400 uppercase mb-1'>${nomeExibicaoResultadoDoFoco} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
                             <p class='text-xl mt-1 emoji-bounce'><span>🎉</span><span>🥳</span><span>🎊</span><span>🎉</span><span>🥳</span><span>🎊</span></p>
                         </div>`;
                 }
@@ -1330,7 +1292,7 @@ statusHtml = `
                 if (listaFormatadaOutrosEscalados.length > 0) {
                      corpoPrincipalHTML += `<div class="mt-4"> 
                                         <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM ${dataAlvoFormatada}</p>
-                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
+                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS ${adverbioParaUi}:</p>
                                         <table id="outrosOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
                                              <thead><tr class="text-left text-secondary-content">
                                                  <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
@@ -1432,53 +1394,73 @@ statusHtml = `
         }
     }
 
-    function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBuscaOpFoco = "", nomeCompletoOpFoco = "") {
-        const nomeSalvoPrincipalLS = localStorage.getItem('operadorNomeSalvo');
-        minhaEscalaBtn.classList.add('hidden');
-        outrosEventosBtn.classList.add('hidden');
-        atualizarListasBtn.classList.add('hidden');
-        minhaEscalaBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
-        outrosEventosBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
-        atualizarListasBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
+function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBuscaOpFoco = "", nomeCompletoOpFoco = "") {
+    const nomeSalvoPrincipalLS = localStorage.getItem('operadorNomeSalvo');
+    minhaEscalaBtn.classList.add('hidden');
+    outrosEventosBtn.classList.add('hidden');
+    atualizarListasBtn.classList.add('hidden');
+    minhaEscalaBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
+    outrosEventosBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
+    atualizarListasBtn.classList.remove('btn-custom-green', 'btn-custom-blue');
 
-        if (viewModoCorrente === 'inicialSemOperador' || areaPrincipalAppDiv.classList.contains('hidden')) {
-             if (viewModoCorrente !== 'boasVindas' && viewModoCorrente !== 'configNome' && viewModoCorrente !== 'confirmacaoNome' &&
-                 !nomeSalvoPrincipalLS && !nomeDefinidoNestaSessao && appInitialized) {
-            }
-            return; 
+    if (viewModoCorrente === 'inicialSemOperador' || areaPrincipalAppDiv.classList.contains('hidden')) {
+        if (viewModoCorrente !== 'boasVindas' && viewModoCorrente !== 'configNome' && viewModoCorrente !== 'confirmacaoNome' &&
+            !nomeSalvoPrincipalLS && !nomeDefinidoNestaSessao && appInitialized) {
+            // Lógica existente
         }
-        
-        const estaVendoPropriaEscalaPrincipal = nomeBuscaOpFoco === primeiroSegundoNomeUsuarioParaBusca && nomeCompletoOriginalUsuario !== "";
+        return; 
+    }
+    
+    const estaVendoPropriaEscalaPrincipal = nomeBuscaOpFoco === primeiroSegundoNomeUsuarioParaBusca && nomeCompletoOriginalUsuario !== "";
 
-
-        if (viewModoCorrente === 'minhaEscala') { 
-            if (!estaVendoPropriaEscalaPrincipal && nomeCompletoOriginalUsuario) { 
-                minhaEscalaBtn.innerHTML = formatarTextoBotao("MINHA ESCALA");
-                minhaEscalaBtn.classList.remove('hidden');
-                minhaEscalaBtn.classList.add('btn-custom-blue'); 
-            }
-            outrosEventosBtn.innerHTML = formatarTextoBotao("OUTROS EVENTOS");
-            outrosEventosBtn.classList.remove('hidden');
-            outrosEventosBtn.classList.add('btn-custom-green'); 
-        
-        } else if (viewModoCorrente === 'outrosEventos') {
-            if (nomeCompletoOriginalUsuario) { 
-                minhaEscalaBtn.innerHTML = formatarTextoBotao("MINHA ESCALA");
-                minhaEscalaBtn.classList.remove('hidden');
-                minhaEscalaBtn.classList.add('btn-custom-blue'); 
-            }
+    if (viewModoCorrente === 'minhaEscala') { 
+        if (!estaVendoPropriaEscalaPrincipal && nomeCompletoOriginalUsuario) { 
+            minhaEscalaBtn.classList.remove('hidden');
+            minhaEscalaBtn.classList.add('btn-custom-blue'); 
         }
-        
-        atualizarListasBtn.innerHTML = formatarTextoBotao("ATUALIZAR DADOS");
-        atualizarListasBtn.classList.remove('hidden');
-        if (outrosEventosBtn.classList.contains('btn-custom-green') && !outrosEventosBtn.classList.contains('hidden')) {
-            atualizarListasBtn.classList.add('btn-custom-blue');
-        } else if (minhaEscalaBtn.classList.contains('btn-custom-blue') && !minhaEscalaBtn.classList.contains('hidden')) {
-             atualizarListasBtn.classList.add('btn-custom-green');
-        } else { 
-            atualizarListasBtn.classList.add('btn-custom-green'); 
+        outrosEventosBtn.classList.remove('hidden');
+        outrosEventosBtn.classList.add('btn-custom-green'); 
+    } else if (viewModoCorrente === 'outrosEventos') {
+        if (nomeCompletoOriginalUsuario) { 
+            minhaEscalaBtn.classList.remove('hidden');
+            minhaEscalaBtn.classList.add('btn-custom-blue'); 
         }
     }
+    
+    atualizarListasBtn.classList.remove('hidden');
+    if (outrosEventosBtn.classList.contains('btn-custom-green') && !outrosEventosBtn.classList.contains('hidden')) {
+        atualizarListasBtn.classList.add('btn-custom-blue');
+    } else if (minhaEscalaBtn.classList.contains('btn-custom-blue') && !minhaEscalaBtn.classList.contains('hidden')) {
+        atualizarListasBtn.classList.add('btn-custom-green');
+    } else { 
+        atualizarListasBtn.classList.add('btn-custom-green'); 
+    } // <--- Chave que fecha o último 'else' da lógica de cores dos botões.
+
+    // Novo código para contar botões visíveis e aplicar classes (COLE O BLOCO RECORTADO AQUI)
+    const botoesAcaoContainer = document.getElementById('botoesAcaoContainer');
+    let visibleButtonCount = 0;
+
+    // As variáveis minhaEscalaBtn, outrosEventosBtn, atualizarListasBtn
+    // já são definidas globalmente e devem estar acessíveis aqui.
+    if (minhaEscalaBtn && !minhaEscalaBtn.classList.contains('hidden')) {
+        visibleButtonCount++;
+    }
+    if (outrosEventosBtn && !outrosEventosBtn.classList.contains('hidden')) {
+        visibleButtonCount++;
+    }
+    if (atualizarListasBtn && !atualizarListasBtn.classList.contains('hidden')) {
+        visibleButtonCount++;
+    }
+
+    if (botoesAcaoContainer) { 
+        botoesAcaoContainer.classList.remove('button-count-1', 'button-count-2', 'button-count-3');
+        if (visibleButtonCount > 0) {
+            botoesAcaoContainer.classList.add('button-count-' + visibleButtonCount);
+        }
+    }
+    // Fim do novo código
+
+} // <--- ESTA É A CHAVE DE FECHAMENTO FINAL E CORRETA DA FUNÇÃO gerenciarBotoesVisiveis
     
     function dispararConfetti() { 
         const confettiCount = 20; 
@@ -1541,25 +1523,26 @@ statusHtml = `
     }
 
     async function proceedWithAppInitialization() { 
-    console.log("Modal inicial dispensado. Prosseguindo com inicialização do <strong>App</strong>...");
-    if (anoAtualFooterSpan) anoAtualFooterSpan.textContent = new Date().getFullYear();
-    if(initialDisclaimerTitleH2) initialDisclaimerTitleH2.textContent = "⚠️ ATENÇÃO! ⚠️";
-    if(periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢";
+        console.log("Modal inicial dispensado. Prosseguindo com inicialização do <strong>App</strong>...");
+        if (anoAtualFooterSpan) anoAtualFooterSpan.textContent = new Date().getFullYear();
+        if(initialDisclaimerTitleH2) initialDisclaimerTitleH2.textContent = "⚠️ ATENÇÃO! ⚠️";
+        if(periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢";
 
-    await carregarListaOperadoresDefinitiva(); 
-    await buscarMensagemDaPlanilha(); 
-
-    // Adicione a chamada para exibir a data aqui:
-    exibirDataAtualCabecalho(); 
-
-    const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
-    if (nomeSalvoLS) {
-        // ... resto do código ...
-    } else {
-        exibirTela('boasVindas');
+        await carregarListaOperadoresDefinitiva(); 
+        await buscarMensagemDaPlanilha(); 
+        exibirDataAtualCabecalho();
+        const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
+        if (nomeSalvoLS) {
+            definirOperadorPrincipalAtual(nomeSalvoLS, false); 
+            modoExibicaoAtual = 'minhaEscala';
+            localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
+            exibirTela('principal'); 
+            await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
+        } else {
+            exibirTela('boasVindas');
+        }
+        startPeriodicChecks(); 
     }
-    startPeriodicChecks(); 
-}
 
     function handleVisibilityChange() { 
         if (document.visibilityState === 'visible' && appInitialized) { 
@@ -1644,10 +1627,10 @@ statusHtml = `
                 <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
                 <p class="text-xs sm:text-sm text-secondary-content">O nome usado será <strong class="text-primary-content">"${nomeExibicaoParaConfirmacao}"</strong>.</p>
                 <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
-                <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
-  <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">
-  <img src="nao.png" alt="Não" id="confirmarNomeNaoBtnInterno" style="cursor: pointer; width: 70px;" title="Não">
-</div>`;
+                <div class="space-x-3 mt-3">
+                    <button id="confirmarNomeSimBtnInterno" class="btn-custom btn-custom-blue">SIM</button>
+                    <button id="confirmarNomeNaoBtnInterno" class="btn-custom btn-custom-red">NÃO</button>
+                </div>`;
             exibirTela('confirmacaoNome');
             document.getElementById('confirmarNomeSimBtnInterno').addEventListener('click', async () => {
                 definirOperadorPrincipalAtual(primeiroESegundoDoInputParaDefinir, false); 
@@ -1740,76 +1723,4 @@ statusHtml = `
 
 </script>
 </body>
-<style>
-
-#headerDateDisplay {
-    color: #FFFFFF;     /* Cor branca, para combinar com o estilo anterior do cabeçalho */
-    font-size: 0.875rem; /* Um tamanho sutil, equivalente a 'text-sm' do Tailwind */
-    margin-bottom: 0.25rem; /* Pequena margem inferior para separar do nome do operador */
-    line-height: 1.2;   /* Para melhor espaçamento vertical */
-}
-
-#modalDisclaimerSheetIcon {
-    position: absolute;
-    right: 10px;     /* Mantido em 40px da direita */
-    bottom: 10px;    /* Nova linha: 40px da parte inferior */
-    width: 60px;
-    height: 60px;
-}
-
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-</style>
-
-<style>
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-</style>
-
-<script>
-    
-    
-    
-setInterval(() => {
-    const container = document.getElementById('updateStatusContainer');
-    const statusSpan = container ? container.querySelector('.status-message') : null;
-    if (!statusSpan) return;
-
-    // Captura texto original e hora
-    const textoOriginal = statusSpan.getAttribute('data-original') || statusSpan.textContent;
-    const texto = textoOriginal.toUpperCase();
-    const matchHora = texto.match(/\d{2}:\d{2}/);
-    if (!matchHora) return;
-
-    const partes = matchHora[0].split(":");
-    const horaDados = new Date();
-    horaDados.setHours(parseInt(partes[0]), parseInt(partes[1]), 0, 0);
-
-    const agora = new Date();
-    const diffMinutos = (agora.getTime() - horaDados.getTime()) / 60000;
-
-    if (diffMinutos >= 1) {
-        statusSpan.classList.add('blinking-red-status');
-        statusSpan.style.backgroundColor = '#ffffff';
-        statusSpan.style.color = '#b91c1c';
-        statusSpan.style.padding = '0.5rem';
-        statusSpan.style.borderRadius = '0.5rem';
-        statusSpan.style.display = 'inline-block';
-        statusSpan.style.fontWeight = 'bold';
-        statusSpan.style.animation = 'blink 1.2s infinite alternate';
-        statusSpan.setAttribute('data-original', textoOriginal);
-        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS / CONSULTE A PLANILHA⚠️`;
-
-        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
-        if (botaoPlanilha) botaoPlanilha.classList.add('pulsar-animacao-forte');
-    }
-}, 60000);
-</script>
-
 </html>

@@ -942,43 +942,20 @@ td.highlight-main-user {
         throw lastError || new Error(`Falha ao buscar ${targetUrl.substring(0,60)}... após ${MAX_TOTAL_ATTEMPTS} tentativas.`);
     }
 
+    // MODIFICADO: Garante que nomeExibicaoDefinitivo (apelido da Col B, ou Col A como fallback) seja usado e capitalizado.
+    // Se não encontrado no mapa, usa nomeOriginalCompleto (da agenda) formatado.
     async function carregarListaOperadoresDefinitiva() { 
-        let response;
-        let csvText;
-
         try {
-            // Tenta buscar diretamente a URL da planilha de operadores definitivos
-            console.log(`Tentativa direta para ${googleSheetDefinitiveListUrl.substring(0,60)}...`);
-            const directResponse = await fetch(googleSheetDefinitiveListUrl);
-            if (!directResponse.ok) {
-                throw new Error(`Falha no acesso direto: ${directResponse.status}`);
-            }
-            csvText = await directResponse.text();
-            if (csvText && typeof csvText === 'string' && csvText.trim() !== "") {
-                console.log(`Sucesso (direto) ao carregar lista definitiva.`);
-            } else {
-                throw new Error(`Corpo vazio ou inválido no acesso direto.`);
-            }
-            
-        } catch (directError) {
-            console.warn(`Acesso direto à lista definitiva falhou (${directError.message}). Tentando com proxies...`);
-            // Se o acesso direto falhar, tenta com os proxies
-            try {
-                response = await fetchWithProxyRetries(googleSheetDefinitiveListUrl, proxyList, true); 
-                csvText = await response.text();
-                console.log(`Sucesso (via proxy) ao carregar lista definitiva.`);
-            } catch (proxyError) {
-                throw proxyError; // Propaga o erro do proxy se tudo falhar
-            }
-        }
-
-        try {
+            // Revertido para usar fetchWithProxyRetries para carregar a lista de operadores definitivos
+            const response = await fetchWithProxyRetries(googleSheetDefinitiveListUrl, proxyList, true); 
+            const csvText = await response.text();
             const linhasOperadores = parseCSV(csvText); 
             definitiveMasterOperatorMap.clear();
             linhasOperadores.forEach((linha, index) => {
                 if(index === 0 && (linha[0] || "").toLowerCase().trim() === "nome completo" && (linha[1] || "").toLowerCase().trim() === "nome de exibição") return; 
                 if (linha && linha.length >= 1 && typeof linha[0] === 'string' && linha[0].trim() !== "") { 
                     const nomeCompletoOriginalDaPlanilha = linha[0].trim(); 
+                    // Se a Coluna B (apelido) estiver vazia, usa o nome da Coluna A como nome de exibição
                     let nomeExibicaoParaMapa = (linha[1] && typeof linha[1] === 'string' && linha[1].trim() !== "")
                                                ? linha[1].trim() 
                                                : nomeCompletoOriginalDaPlanilha; 
@@ -993,12 +970,12 @@ td.highlight-main-user {
                 }
             });
             console.log("Lista de operadores definitiva carregada. Tamanho do mapa:", definitiveMasterOperatorMap.size);
-        } catch (parseError) {
-            console.error("ERRO AO PROCESSAR CSV DA LISTA DE OPERADORES:", parseError.message);
+        } catch (error) {
+            console.error("FALHA CRÍTICA AO CARREGAR LISTA DE OPERADORES:", error.message);
             definitiveMasterOperatorMap.clear(); 
-            if (updateStatusContainer) { 
+             if (updateStatusContainer) { 
                 updateStatusContainer.classList.remove('hidden');
-                updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO GRAVE: Não foi possível processar a lista de operadores. O <strong>App</strong> pode não funcionar.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+                updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO GRAVE: Não foi possível carregar a lista de operadores. O <strong>App</strong> pode não funcionar.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
             }
         }
     }

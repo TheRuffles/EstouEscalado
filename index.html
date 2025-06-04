@@ -326,6 +326,16 @@ td.highlight-main-user {
     animation: pulse 1.2s infinite ease-in-out, shake 0.4s infinite;
 }
 
+@keyframes pulsar-e-crescer {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.18); } /* Cresce para 18% a mais, aproximadamente 1/6 extra do tamanho original */
+    100% { transform: scale(1); }
+}
+
+.pulsar-nome-operador {
+    animation: pulsar-e-crescer 1.5s ease-in-out infinite alternate;
+}
+
 /* NOVAS REGRAS PARA OS BOTÕES DE IMAGEM */
 /* ESTILOS FINAIS E CORRETOS PARA OS BOTÕES DE IMAGEM */
 .action-image-button {
@@ -355,7 +365,7 @@ td.highlight-main-user {
     max-height: 120px; /* Altura para UM botão (ex: resultaria em ~248px larg x 120px alt com imagem 300x145) */
 }
 #botoesAcaoContainer.button-count-2 .action-image-button {
-    max-height: 60px; /* Altura para DOIS botões (resulta em ~207px larg x 100px alt - o que você gostou!) */
+    max-height: 90px; /* Altura para DOIS botões (resulta em ~207px larg x 100px alt - o que você gostou!) */
 }
 #botoesAcaoContainer.button-count-3 .action-image-button {
     max-height: 55px;  /* Altura para TRÊS botões (resulta em ~93px larg x 45px alt) */
@@ -751,12 +761,71 @@ td.highlight-main-user {
         configNomeOperadorDiv.classList.add('hidden');
         confirmacaoNomeDiv.classList.add('hidden');
         areaPrincipalAppDiv.classList.add('hidden'); 
-        if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('hidden'); 
+        if (botaoPlanilhaOficialIcone) {
+             botaoPlanilhaOficialIcone.classList.add('hidden'); 
+             botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
+             botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
+             botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador'); // Garante que a animação seja removida ao mudar de tela
+        }
         if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.add('hidden');
         
         if (resultadoDiv && nomeTela !== 'principal') { 
             resultadoDiv.innerHTML = ''; 
         }
+        
+        let nomeParaCabecalhoPrincipal = ""; // Começa vazio por padrão
+        if (nomeCompletoOriginalUsuario) { // Se um usuário está definido, usa o nome dele
+            nomeParaCabecalhoPrincipal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario);
+        } else if (nomeTela === 'principal' && modoExibicaoAtual === 'outrosEventos') {
+            // Se está na tela principal, modo outros eventos, e NENHUM usuário definido, mostra "VISÃO GERAL"
+            nomeParaCabecalhoPrincipal = "VISÃO GERAL";
+        } // Em outros casos (boasvindas, config nome sem usuário), fica vazio.
+        
+        atualizarDisplayOperadorCabecalho(); // Chamada única para atualizar o cabeçalho
+
+
+        if (nomeTela === 'boasVindas') {
+            telaBoasVindasDiv.classList.remove('hidden');
+        } else if (nomeTela === 'configNome') {
+            configNomeOperadorDiv.classList.remove('hidden');
+            if(nomeOperadorInput) nomeOperadorInput.value = nomeCompletoOriginalUsuario || ''; 
+            if(erroNomeInputP) erroNomeInputP.classList.add('hidden');
+            if (botaoPlanilhaOficialIcone) { 
+                botaoPlanilhaOficialIcone.classList.remove('hidden');
+                // Remove outras animações para não conflitar
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao'); 
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
+                // Adiciona a nova animação de pulsar e crescer para a tela de configuração de nome
+                botaoPlanilhaOficialIcone.classList.add('pulsar-nome-operador');
+            }
+            if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.remove('hidden');
+
+        } else if (nomeTela === 'confirmacaoNome') {
+            confirmacaoNomeDiv.classList.remove('hidden');
+            if (botaoPlanilhaOficialIcone) {
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador'); // Garante que a animação seja removida nesta transição
+                botaoPlanilhaOficialIcone.classList.remove('hidden'); 
+            }
+        } else if (nomeTela === 'principal') {
+            areaPrincipalAppDiv.classList.remove('hidden'); 
+            if (botaoPlanilhaOficialIcone) {
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador'); // Garante que a animação seja removida
+                botaoPlanilhaOficialIcone.classList.remove('hidden'); 
+            }
+            // ... restante do código da tela principal
+        }
+        
+        if (appInitialized && nomeTela !== 'boasVindas' && nomeTela !== 'configNome' && nomeTela !== 'confirmacaoNome' && 
+            initialDisclaimerModal.classList.contains('visible') === false) {
+             if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden');
+        }
+        // Remove a lógica de pulsar animacao pois agora é tratada por pulsar-animacao-forte e setInterval
+        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone) { 
+            botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
+        }
+
+        gerenciarBotoesVisiveis(nomeTela, false, "", ""); 
+    }
         
         let nomeParaCabecalhoPrincipal = ""; // Começa vazio por padrão
         if (nomeCompletoOriginalUsuario) { // Se um usuário está definido, usa o nome dele
@@ -1212,8 +1281,7 @@ td.highlight-main-user {
                 corpoPrincipalHTML += `<p class="text-base font-semibold text-center text-primary-light mb-4 uppercase">${mensagemEscalado}</p>`;
                 
                 atribuicoesOperadorPrincipal.forEach((eventoDetalhado, index) => {
-                    // A classe text-green-400 para horaClassesCompletas foi restaurada aqui
-                    let horaClassesCompletas = "font-bold italic text-green-400"; 
+                    let horaClassesCompletas = "font-bold italic text-primary-content"; // <-- **ESTA LINHA**
                     let cardEventoClasses = "event-details text-xs sm:text-sm space-y-1 pt-1"; 
                     const horaDoEventoStr = eventoDetalhado.hora;
                     const dataOriginalParaAlertaEfetiva = eventoDetalhado.dataOriginalParaAlerta; 
@@ -1323,7 +1391,7 @@ td.highlight-main-user {
                 if (listaFormatadaOutrosEscalados.length > 0) {
                      corpoPrincipalHTML += `<div class="mt-4"> 
                                         <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM ${dataAlvoFormatada}</p>
-                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS ${adverbioParaUi}:</p>
+                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
                                         <table id="outrosOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
                                              <thead><tr class="text-left text-secondary-content">
                                                  <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
@@ -1782,7 +1850,8 @@ setInterval(() => {
         statusSpan.style.fontWeight = 'bold';
         statusSpan.style.animation = 'blink 1.2s infinite alternate';
         statusSpan.setAttribute('data-original', textoOriginal); // Armazena o texto original
-        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS / CONSULTE A PLANILHA⚠️`; // Mensagem de alerta
+        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS<br>CONSULTE A PLANILHA⚠️`; // Mensagem de alerta em duas linhas
+        statusSpan.style.animation = 'blink 0.5s linear infinite alternate'; // Piscar mais rápido (0.5s)
 
         const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
         if (botaoPlanilha) {

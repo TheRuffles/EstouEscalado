@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#005a43">
+    <meta name="theme-color" content="#4b0082">
     <link rel="apple-touch-icon" href="icon-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -50,7 +50,7 @@
 .text-primary-content { color: #f0f0f0; }
 .text-secondary-content { color: #c0c0c0; }
 .status-operador-principal-texto {
-    color: #BB86FC; /* Roxo claro e vibrante */
+    color: #7d70ff !important; /* Roxo mais escuro do original */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Sombra preta suave */
 }
 .btn-custom {
@@ -297,7 +297,8 @@ td.highlight-main-user {
     transition: transform 0.2s ease-in-out;
 }
 .planilha-oficial-icone-flutuante img {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
@@ -354,10 +355,10 @@ td.highlight-main-user {
     max-height: 120px; /* Altura para UM botão (ex: resultaria em ~248px larg x 120px alt com imagem 300x145) */
 }
 #botoesAcaoContainer.button-count-2 .action-image-button {
-    max-height: 55px; /* Altura para DOIS botões (resulta em ~207px larg x 100px alt - o que você gostou!) */
+    max-height: 90px; /* Altura para DOIS botões (resulta em ~207px larg x 100px alt - o que você gostou!) */
 }
 #botoesAcaoContainer.button-count-3 .action-image-button {
-    max-height: 50px;  /* Altura para TRÊS botões (resulta em ~93px larg x 45px alt) */
+    max-height: 55px;  /* Altura para TRÊS botões (resulta em ~93px larg x 45px alt) */
 }
 
 #headerDateDisplay {
@@ -374,6 +375,7 @@ td.highlight-main-user {
 
     <div id="initialDisclaimerModal" class="modal-overlay"> 
         <div class="modal-content">
+            <img src="ofc_sheet.png" alt="Ícone Planilha" id="modalDisclaimerSheetIcon" style="position: absolute; right: 10px; bottom: 10px; width: 60px; height: 60px;">
             <h2 id="initialDisclaimerTitle">⚠️ ATENÇÃO! ⚠️</h2>
             <p>LEMBRE-SE: Este <strong>App</strong> é um auxiliar. Sempre confirme os dados na Planilha Oficial.</p>
             <button id="initialDisclaimerOkBtn" class="btn-custom btn-custom-green" disabled>OK (<span id="initialModalTimer">5</span>s)</button>
@@ -422,7 +424,7 @@ td.highlight-main-user {
         <div id="configNomeOperador" class="text-center p-3 space-y-2 text-primary-content hidden">
             <h2 class="text-base font-semibold">Identifique-se</h2>
             <p class="text-xs sm:text-sm text-secondary-content">Digite seu **primeiro e segundo nome** (ex: Carlos Silva).</p>
-            <p id="avisoIconePlanilha" class="text-xs text-sky-300 my-2 hidden">Dica: O ícone da planilha no canto da tela leva você à Planilha Oficial para conferência!</p>
+            <p id="avisoIconePlanilha" class="text-sm font-semibold text-yellow-400 my-2 hidden">💡 DICA: O ícone da planilha no canto da tela leva você à Planilha Oficial para conferência!</p>
             <div>
                 <input type="text" id="nomeOperadorInput" placeholder="Ex: Carlos Silva" class="p-2 border border-gray-500 bg-white bg-opacity-80 text-gray-800 rounded-md w-full max-w-xs focus:ring-2 focus:ring-green-400 focus:border-green-400 text-sm">
             </div>
@@ -438,8 +440,8 @@ td.highlight-main-user {
             <div id="resultado" class="p-3 sm:p-4 shadow min-h-[100px]"></div>
             <div id="botoesAcaoContainer" class="mt-6">
                 <img id="minhaEscalaBtn" src="minha_escala.png" alt="Minha Escala" class="action-image-button hidden">
-<img id="outrosEventosBtn" src="outros_eventos.png" alt="Outros Eventos" class="action-image-button hidden">
-<img id="atualizarListasBtn" src="atualizar_dados.png" alt="Atualizar Dados" class="action-image-button hidden">
+                <img id="outrosEventosBtn" src="outros_eventos.png" alt="Outros Eventos" class="action-image-button hidden">
+                <img id="atualizarListasBtn" src="atualizar_dados.png" alt="Atualizar Dados" class="action-image-button hidden">
             </div>
         </div>
 
@@ -461,11 +463,29 @@ td.highlight-main-user {
     <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
 
 <script>
+    // Início da função exibirDataAtualCabecalho reintroduzida
+    function exibirDataAtualCabecalho() {
+        const elementoData = document.getElementById('headerDateDisplay');
+        if (elementoData) {
+            const hoje = new Date();
+            const diaSemana = hoje.toLocaleDateString('pt-BR', { weekday: 'long' });
+            const dia = hoje.getDate();
+            const mes = hoje.toLocaleDateString('pt-BR', { month: 'long' });
+            const ano = hoje.getFullYear();
+
+            // Formata a data e capitaliza o dia da semana e o mês
+            const dataFormatada = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)}, ${dia} de ${mes.charAt(0).toUpperCase() + mes.slice(1)} de ${ano}`;
+            elementoData.textContent = dataFormatada;
+        }
+    }
+    // Fim da função exibirDataAtualCabecalho reintroduzida
+
     const googleSheetDataUrl = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/export?format=csv&gid=1519973381';
     const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub';
     const googleSheetDefinitiveListUrl = `${googleSheetBaseUrlForNamedTabs}?gid=615696807&single=true&output=csv`;
     const googleSheetMessageUrl = `${googleSheetBaseUrlForNamedTabs}?gid=1636658248&single=true&output=csv`;
-    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit?gid=1519973381#gid=1519973381';
+    // URL da planilha oficial agora aponta para o início da planilha
+    const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
 
     const proxyList = [
         { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },
@@ -692,10 +712,20 @@ td.highlight-main-user {
         let spanClasses = "status-message"; 
 
         if (sucesso) {
-            statusHtml = `<span class="${spanClasses} text-green-300">Dados atualizados às ${horaFormatada}</span>`; 
-            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
+            statusHtml = `<span class="${spanClasses} text-green-300">DADOS ATUALIZADOS ÀS ${horaFormatada}</span>`; 
+            if (botaoPlanilhaOficialIcone) {
+                // Remove ambas as classes de pulso ao atualizar com sucesso
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
+            }
         } else {
             spanClasses += " blinking-red-status"; 
+            
+            // Adiciona a animação de pulso forte em caso de erro
+            if (botaoPlanilhaOficialIcone) {
+                botaoPlanilhaOficialIcone.classList.add('pulsar-animacao-forte');
+            }
+
             statusHtml = `<span class="${spanClasses}">Última atualização às ${horaFormatada}</span>`; 
             let motivoFalha = "";
             if (erroInfo && erroInfo.message) {
@@ -711,7 +741,6 @@ td.highlight-main-user {
                  motivoFalha = " (Falha desconhecida)";
             }
             statusHtml = statusHtml.slice(0, -7) + motivoFalha + `</span>`; 
-            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('pulsar-animacao');
         }
         statusHtml += `<span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         updateStatusContainer.innerHTML = statusHtml;
@@ -748,9 +777,9 @@ td.highlight-main-user {
             if(erroNomeInputP) erroNomeInputP.classList.add('hidden');
             if (botaoPlanilhaOficialIcone) { 
                 botaoPlanilhaOficialIcone.classList.remove('hidden');
-                if (!updateStatusContainer.querySelector('.blinking-red-status')) { // Só pulsa se não houver erro
-                    botaoPlanilhaOficialIcone.classList.add('pulsar-animacao');
-                }
+                // A lógica de pulso forte agora está no setInterval e exibirStatusAtualizacao
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao'); 
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
             }
             if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.remove('hidden');
 
@@ -780,7 +809,8 @@ td.highlight-main-user {
             initialDisclaimerModal.classList.contains('visible') === false) {
              if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden');
         }
-        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone && !updateStatusContainer.querySelector('.blinking-red-status')) {
+        // Remove a lógica de pulsar animacao pois agora é tratada por pulsar-animacao-forte e setInterval
+        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone) { 
             botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
         }
 
@@ -1182,7 +1212,8 @@ td.highlight-main-user {
                 corpoPrincipalHTML += `<p class="text-base font-semibold text-center text-primary-light mb-4 uppercase">${mensagemEscalado}</p>`;
                 
                 atribuicoesOperadorPrincipal.forEach((eventoDetalhado, index) => {
-                    let horaClassesCompletas = "font-bold italic text-primary-content"; 
+                    // A classe text-green-400 para horaClassesCompletas foi restaurada aqui
+                    let horaClassesCompletas = "font-bold italic text-green-400"; 
                     let cardEventoClasses = "event-details text-xs sm:text-sm space-y-1 pt-1"; 
                     const horaDoEventoStr = eventoDetalhado.hora;
                     const dataOriginalParaAlertaEfetiva = eventoDetalhado.dataOriginalParaAlerta; 
@@ -1255,7 +1286,7 @@ td.highlight-main-user {
                     if (fetchSuccess) tocarSom(naoEscaladoSound); 
                     corpoPrincipalHTML += `
                         <div class="text-center mb-6">
-                            <p class='text-lg font-bold text-green-400 uppercase mb-1'>${nomeExibicaoResultadoDoFoco} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
+                            <p class='text-lg status-operador-principal-texto uppercase mb-1'>${nomeExibicaoResultadoDoFoco} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
                             <p class='text-xl mt-1 emoji-bounce'><span>🎉</span><span>🥳</span><span>🎊</span><span>🎉</span><span>🥳</span><span>🎊</span></p>
                         </div>`;
                 }
@@ -1530,7 +1561,8 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
         await carregarListaOperadoresDefinitiva(); 
         await buscarMensagemDaPlanilha(); 
-        exibirDataAtualCabecalho();
+        // Chamada para exibir a data atual no cabeçalho
+        exibirDataAtualCabecalho(); 
         const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
         if (nomeSalvoLS) {
             definirOperadorPrincipalAtual(nomeSalvoLS, false); 
@@ -1627,9 +1659,9 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
                 <p class="text-xs sm:text-sm text-secondary-content">O nome usado será <strong class="text-primary-content">"${nomeExibicaoParaConfirmacao}"</strong>.</p>
                 <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
-                <div class="space-x-3 mt-3">
-                    <button id="confirmarNomeSimBtnInterno" class="btn-custom btn-custom-blue">SIM</button>
-                    <button id="confirmarNomeNaoBtnInterno" class="btn-custom btn-custom-red">NÃO</button>
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
+                    <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">
+                    <img src="nao.png" alt="Não" id="confirmarNomeNaoBtnInterno" style="cursor: pointer; width: 70px;" title="Não">
                 </div>`;
             exibirTela('confirmacaoNome');
             document.getElementById('confirmarNomeSimBtnInterno').addEventListener('click', async () => {
@@ -1720,6 +1752,67 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
     sheetMessageOkBtn.addEventListener('click', () => esconderModal(sheetMessageModal));
     periodicNotificationOkBtn.addEventListener('click', () => esconderModal(periodicNotificationModal));
+
+// Início do setInterval para alerta de dados desatualizados
+setInterval(() => {
+    const container = document.getElementById('updateStatusContainer');
+    const statusSpan = container ? container.querySelector('.status-message') : null;
+    if (!statusSpan) return;
+
+    // Captura texto original e hora
+    const textoOriginal = statusSpan.getAttribute('data-original') || statusSpan.textContent;
+    const texto = textoOriginal.toUpperCase();
+    const matchHora = texto.match(/\d{2}:\d{2}/);
+    if (!matchHora) return;
+
+    const partes = matchHora[0].split(":");
+    const horaDados = new Date();
+    horaDados.setHours(parseInt(partes[0]), parseInt(partes[1]), 0, 0);
+
+    const agora = new Date();
+    const diffMinutos = (agora.getTime() - horaDados.getTime()) / 60000;
+
+    if (diffMinutos >= 1) { // Se a diferença for de 1 minuto ou mais
+        statusSpan.classList.add('blinking-red-status');
+        statusSpan.style.backgroundColor = '#ffffff';
+        statusSpan.style.color = '#b91c1c';
+        statusSpan.style.padding = '0.5rem';
+        statusSpan.style.borderRadius = '0.5rem';
+        statusSpan.style.display = 'inline-block';
+        statusSpan.style.fontWeight = 'bold';
+        statusSpan.style.animation = 'blink 1.2s infinite alternate';
+        statusSpan.setAttribute('data-original', textoOriginal); // Armazena o texto original
+        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS / CONSULTE A PLANILHA⚠️`; // Mensagem de alerta
+
+        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
+        if (botaoPlanilha) {
+            // Garante que a animação forte seja aplicada
+            botaoPlanilha.classList.remove('pulsar-animacao'); 
+            botaoPlanilha.classList.add('pulsar-animacao-forte');
+        }
+    } else {
+        // Se os dados estiverem atualizados (dentro de 1 minuto), reverte o estilo e remove a animação forte
+        statusSpan.classList.remove('blinking-red-status');
+        statusSpan.style.backgroundColor = ''; // Remove estilo inline
+        statusSpan.style.color = ''; // Remove estilo inline
+        statusSpan.style.padding = '';
+        statusSpan.style.borderRadius = '';
+        statusSpan.style.display = '';
+        statusSpan.style.fontWeight = '';
+        statusSpan.style.animation = ''; // Remove animação inline
+        statusSpan.textContent = textoOriginal; // Restaura o texto original
+
+        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
+        if (botaoPlanilha) {
+            botaoPlanilha.classList.remove('pulsar-animacao-forte');
+            // Se houve sucesso na atualização e não há outros motivos para pulsar, remove a animação normal
+            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {
+                botaoPlanilha.classList.remove('pulsar-animacao');
+            }
+        }
+    }
+}, 60000); // Verifica a cada 1 minuto
+// Fim do setInterval para alerta de dados desatualizados
 
 </script>
 </body>

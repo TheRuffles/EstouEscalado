@@ -326,9 +326,15 @@ td.highlight-main-user {
     animation: pulse 1.2s infinite ease-in-out, shake 0.4s infinite;
 }
 
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 @keyframes pulsar-e-crescer {
     0% { transform: scale(1); }
-    50% { transform: scale(1.18); } /* Cresce para 18% a mais, aproximadamente 1/6 extra do tamanho original */
+    50% { transform: scale(1.65); } /* Cresce para 18% a mais, aproximadamente 1/6 extra do tamanho original */
     100% { transform: scale(1); }
 }
 
@@ -827,64 +833,7 @@ td.highlight-main-user {
         gerenciarBotoesVisiveis(nomeTela, false, "", ""); 
     }
         
-        let nomeParaCabecalhoPrincipal = ""; // Começa vazio por padrão
-        if (nomeCompletoOriginalUsuario) { // Se um usuário está definido, usa o nome dele
-            nomeParaCabecalhoPrincipal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario);
-        } else if (nomeTela === 'principal' && modoExibicaoAtual === 'outrosEventos') {
-            // Se está na tela principal, modo outros eventos, e NENHUM usuário definido, mostra "VISÃO GERAL"
-            nomeParaCabecalhoPrincipal = "VISÃO GERAL";
-        } // Em outros casos (boasvindas, config nome sem usuário), fica vazio.
         
-        atualizarDisplayOperadorCabecalho(); // Chamada única para atualizar o cabeçalho
-
-
-        if (nomeTela === 'boasVindas') {
-            telaBoasVindasDiv.classList.remove('hidden');
-        } else if (nomeTela === 'configNome') {
-            configNomeOperadorDiv.classList.remove('hidden');
-            if(nomeOperadorInput) nomeOperadorInput.value = nomeCompletoOriginalUsuario || ''; 
-            if(erroNomeInputP) erroNomeInputP.classList.add('hidden');
-            if (botaoPlanilhaOficialIcone) { 
-                botaoPlanilhaOficialIcone.classList.remove('hidden');
-                // A lógica de pulso forte agora está no setInterval e exibirStatusAtualizacao
-                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao'); 
-                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
-            }
-            if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.remove('hidden');
-
-        } else if (nomeTela === 'confirmacaoNome') {
-            confirmacaoNomeDiv.classList.remove('hidden');
-            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden'); 
-        } else if (nomeTela === 'principal') {
-            areaPrincipalAppDiv.classList.remove('hidden'); 
-            if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden'); 
-            
-            let nomeParaDisplayLoader;
-            if (modoExibicaoAtual === 'minhaEscala') {
-                const nomeFocoLoader = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
-                nomeParaDisplayLoader = nomeFocoLoader ? gerarNomeParaDisplayPrincipal(nomeFocoLoader) : ""; // Vazio se não definido
-            } else { 
-                nomeParaDisplayLoader = "todos os operadores";
-            }
-
-            if(resultadoDiv) resultadoDiv.innerHTML = `
-                <div class="flex flex-col items-center">
-                    <div class="loader"></div>
-                    <p class="text-base text-secondary-content">Analisando agenda para ${nomeParaDisplayLoader}...</p>
-                </div>`;
-        }
-        
-        if (appInitialized && nomeTela !== 'boasVindas' && nomeTela !== 'configNome' && nomeTela !== 'confirmacaoNome' && 
-            initialDisclaimerModal.classList.contains('visible') === false) {
-             if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden');
-        }
-        // Remove a lógica de pulsar animacao pois agora é tratada por pulsar-animacao-forte e setInterval
-        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone) { 
-            botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
-        }
-
-        gerenciarBotoesVisiveis(nomeTela, false, "", ""); 
-    }
 
     function mostrarModal(modalElement) { 
         if (modalElement) modalElement.classList.add('visible');
@@ -1848,7 +1797,6 @@ setInterval(() => {
         statusSpan.style.borderRadius = '0.5rem';
         statusSpan.style.display = 'inline-block';
         statusSpan.style.fontWeight = 'bold';
-        statusSpan.style.animation = 'blink 1.2s infinite alternate';
         statusSpan.setAttribute('data-original', textoOriginal); // Armazena o texto original
         statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS<br>CONSULTE A PLANILHA⚠️`; // Mensagem de alerta em duas linhas
         statusSpan.style.animation = 'blink 0.5s linear infinite alternate'; // Piscar mais rápido (0.5s)

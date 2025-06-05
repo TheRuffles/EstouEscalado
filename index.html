@@ -680,8 +680,8 @@ td.highlight-main-user {
             if (op.nomeExibicaoDefinitivo && op.nomeExibicaoDefinitivo.trim() !== "") {
                 nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeExibicaoDefinitivo);
             } else if (op.nomeOriginalCompleto) { 
-                // Fallback: Se nomeExibicaoDefinitivo estiver vazio, usa o nome completo original (Coluna A)
-                // Em vez de gerarNomeParaDisplayPrincipal, usamos o nome completo capitalizado
+                // Fallback: Se nomeExibicaoDefinitivo estiver vazio, usa o nome_completo original (Coluna A)
+                // Em vez de gerarNomeParaDisplayPrincipal, usamos o nome_completo capitalizado
                 // ou mantemos gerarNomeParaDisplayPrincipal se essa for a preferência de fallback.
                 // Para esta alteração, se nome_exibicao (Col B) está vazio, mostramos nome_completo (Col A)
                 nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeOriginalCompleto);
@@ -999,21 +999,21 @@ td.highlight-main-user {
     console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos brutos lidos do CSV (esperados para operadores):", JSON.stringify(headersRaw));
     console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos normalizados para busca (esperados para operadores):", JSON.stringify(headers));
 
-    const idxNomeCompleto = headers.indexOf("nome completo");
-    const idxNomeExibicao = headers.indexOf("nome de exibicao");
+    const idxNomeCompleto = headers.indexOf("nome_completo");
+    const idxNomeExibicao = headers.indexOf("nome_exibicao");
 
     let erroCabecalho = false;
     if (idxNomeCompleto === -1) {
-        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome completo' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
+        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome_completo' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
         erroCabecalho = true;
     }
     if (idxNomeExibicao === -1) {
-        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome de exibicao' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
+        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome_exibicao' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
         erroCabecalho = true;
     }
 
     if (erroCabecalho) {
-        console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome completo', 'nome de exibicao') não foram encontrados no CSV após normalização.");
+        console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome_completo', 'nome_exibicao') não foram encontrados no CSV após normalização.");
         if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { 
              updateStatusContainer.classList.remove('hidden');
              updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
@@ -1896,10 +1896,10 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 
                 if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") { // nomeCompletoOriginalUsuario é o "Primeiro SegundoNome" do input
                     modoExibicaoAtual = 'minhaEscala';
-                    // O nome de foco para visualização deve ser o nome completo original da planilha, se encontrado,
+                    // O nome de foco para visualização deve ser o nome_completo original da planilha, se encontrado,
                     // ou o input se não. A função definirOperadorPrincipalAtual já lida com o mapa.
                     // Para buscarEscalas, usamos primeiroSegundoNomeUsuarioParaBusca (chave) e nomeCompletoOriginalUsuario (input).
-                    localStorage.setItem('operadorNomeFocoVisualizacao', primeiroSegundoNomeUsuarioParaBusca); // Ou o nome completo da planilha? Para consistência...
+                    localStorage.setItem('operadorNomeFocoVisualizacao', primeiroSegundoNomeUsuarioParaBusca); // Ou o nome_completo da planilha? Para consistência...
                                                                                                             // Melhor usar o que foi usado para busca no mapa, ou o nome original do mapa.
                                                                                                             // Vamos usar o nomeCompletoOriginalUsuario (que é o input P S).
                     
@@ -1992,10 +1992,10 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
             if (operadorBuscaKeyClicado && operadorNomeCompletoOriginalClicado) {
                 modoExibicaoAtual = 'minhaEscala'; 
-                // Guarda o nome completo original da planilha (Coluna A) para foco
+                // Guarda o nome_completo original da planilha (Coluna A) para foco
                 localStorage.setItem('operadorNomeFocoVisualizacao', operadorNomeCompletoOriginalClicado); 
                 exibirTela('principal'); 
-                // Passa a chave de busca e o nome completo original para buscarEscalas
+                // Passa a chave de busca e o nome_completo original para buscarEscalas
                 await buscarEscalas(operadorBuscaKeyClicado, operadorNomeCompletoOriginalClicado, 'minhaEscala', true); 
             }
         }

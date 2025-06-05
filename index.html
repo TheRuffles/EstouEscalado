@@ -988,10 +988,10 @@ td.highlight-main-user {
         const idxNomeExibicao = headers.indexOf("nome de exibicao");
 
         if (idxNomeCompleto === -1 || idxNomeExibicao === -1) {
-            console.error("Cabeçalhos 'nome_completo' ou 'nome_exibicao' não encontrados no arquivo operadores_msg.csv.");
+            console.error("Cabeçalhos 'nome_completo' ou 'nome_exibicao' não encontrados no arquivo operadores_nomes_msg.csv.");
             if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { 
                  updateStatusContainer.classList.remove('hidden');
-                 updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos em operadores_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+                 updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
             }
             return;
         }
@@ -1030,7 +1030,7 @@ td.highlight-main-user {
     
     async function buscarMensagemDaPlanilha(parsedCsvData) {
         if (!parsedCsvData || parsedCsvData.length < 1) { 
-            console.warn("Não foi possível buscar mensagem: dados do CSV local (operadores_msg.csv) estão vazios ou inválidos.");
+            console.warn("Não foi possível buscar mensagem: dados do CSV local (operadores_nomes_msg.csv) estão vazios ou inválidos.");
             return;
         }
 
@@ -1039,7 +1039,7 @@ td.highlight-main-user {
         const idxMensagem = headers.indexOf("mensagem");
 
         if (idxMensagem === -1) {
-            console.warn("Cabeçalho 'mensagem' não encontrado no arquivo operadores_msg.csv. Nenhuma mensagem de aviso será exibida.");
+            console.warn("Cabeçalho 'mensagem' não encontrado no arquivo operadores_nomes_msg.csv. Nenhuma mensagem de aviso será exibida.");
             return;
         }
 
@@ -1056,7 +1056,7 @@ td.highlight-main-user {
             mostrarModal(sheetMessageModal);
             tocarSom(notificationSound);
         } else if (tituloMsg.trim() !== "") {
-            console.log("Título da mensagem encontrado no CSV local ('operadores_msg.csv'), mas o corpo da mensagem está vazio. Modal de aviso não será exibido.");
+            console.log("Título da mensagem encontrado no CSV local ('operadores_nomes_msg.csv'), mas o corpo da mensagem está vazio. Modal de aviso não será exibido.");
         }
     }
     
@@ -1638,7 +1638,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
             } else {
                 console.warn("Mapa de operadores vazio na retomada (appFlowController). Tentando recarregar dados locais.");
-                const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+                const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                 if (localCsvData) {
                     await carregarListaOperadoresDefinitiva(localCsvData);
                     // MODIFICADO: Tenta restaurar nome de exibição se operador principal estava definido
@@ -1665,15 +1665,15 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         if(initialDisclaimerTitleH2) initialDisclaimerTitleH2.textContent = "⚠️ ATENÇÃO! ⚠️";
         if(periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢";
 
-        const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+        const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
 
         if (localCsvData) {
             await carregarListaOperadoresDefinitiva(localCsvData); 
             await buscarMensagemDaPlanilha(localCsvData); 
         } else {
-            console.error("Falha crítica ao carregar dados locais de operadores_msg.csv. O aplicativo pode ter funcionalidades limitadas.");
+            console.error("Falha crítica ao carregar dados locais de operadores_nomes_msg.csv. O aplicativo pode ter funcionalidades limitadas.");
             if (areaPrincipalAppDiv && !areaPrincipalAppDiv.classList.contains('hidden') && resultadoDiv) {
-                 resultadoDiv.innerHTML = `<p class='text-base text-center font-semibold text-red-400 py-4'>ERRO GRAVE: Não foi possível carregar dados essenciais de 'operadores_msg.csv'.</p>`;
+                 resultadoDiv.innerHTML = `<p class='text-base text-center font-semibold text-red-400 py-4'>ERRO GRAVE: Não foi possível carregar dados essenciais de 'operadores_nomes_msg.csv'.</p>`;
             }
         }
         
@@ -1720,7 +1720,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                  console.warn("App visível, mas mapa de operadores vazio. Tentando recarregar dados locais e escalas.");
                  // Recarrega dados e tenta restaurar estado do operador
                  (async () => {
-                    const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+                    const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                     if (localCsvData) {
                         await carregarListaOperadoresDefinitiva(localCsvData);
                         const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
@@ -1797,7 +1797,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
             } else { 
                  console.warn("App ganhou foco, mas mapa de operadores vazio. Tentando recarregar dados locais e escalas.");
-                 const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+                 const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                  if (localCsvData) {
                      await carregarListaOperadoresDefinitiva(localCsvData);
                      const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
@@ -1848,7 +1848,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             document.getElementById('confirmarNomeSimBtnInterno').addEventListener('click', async () => {
                 if (definitiveMasterOperatorMap.size === 0) {
                     console.warn("Tentando definir operador, mas a lista de operadores (mapa) está vazia. Tentando recarregar CSV...");
-                    const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+                    const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                     if (localCsvData) {
                         await carregarListaOperadoresDefinitiva(localCsvData);
                     } else {
@@ -1926,7 +1926,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                  nomeBuscaAtual = removerAcentos(partesNomeFoco.toLowerCase());
             }
         }
-        const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+        const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
         if (localCsvData) {
             await carregarListaOperadoresDefinitiva(localCsvData);
             await buscarMensagemDaPlanilha(localCsvData); 

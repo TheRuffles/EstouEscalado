@@ -993,7 +993,7 @@ td.highlight-main-user {
     definitiveMasterOperatorMap.clear();
 
     const headersRaw = (linhasOperadores[0] || []); 
-    const headers = headersRaw.map(h => removerAcentos((h || "").toLowerCase().trim()));
+    const headers = headersRaw.map(h => (h || "").trim());
 
     // Logs para depuração dos cabeçalhos dos operadores
     console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos brutos lidos do CSV (esperados para operadores):", JSON.stringify(headersRaw));
@@ -1057,7 +1057,7 @@ td.highlight-main-user {
 
     const linhas = parsedCsvData;
     const headersRaw = (linhas[0] || []);
-    const headers = headersRaw.map(h => removerAcentos((h || "").toLowerCase().trim()));
+    const headers = headersRaw.map(h => (h || "").trim());
 
     console.log("[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem):", JSON.stringify(headersRaw));
     console.log("[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem):", JSON.stringify(headers));

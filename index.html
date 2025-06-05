@@ -89,24 +89,24 @@
     background-color: #f3f4f6;
 }
 .btn-custom-red { /* Para botões de 'NÃO' ou cancelamento */
-    background-color: rgba(220, 38, 38, 0.8); 
-    color: white; 
+    background-color: rgba(220, 38, 38, 0.8);  
+    color: white;  
 }
-.btn-custom-red:hover:not(:disabled) { 
-    background-color: rgba(185, 28, 28, 0.9); 
+.btn-custom-red:hover:not(:disabled) {  
+    background-color: rgba(185, 28, 28, 0.9);  
 }
 .btn-custom-green { /* Para botões de 'OK' ou ações positivas */
-    background-color: #ffffff;      /* fundo branco */
-    color: #111111;                 /* texto preto */
+    background-color: #ffffff;       /* fundo branco */
+    color: #111111;                  /* texto preto */
     font-weight: normal;
     border-radius: 0.5rem;
-    border: 1px solid #cccccc;      /* borda leve */
+    border: 1px solid #cccccc;       /* borda leve */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
     padding: 0.5rem 1rem;
     text-align: center;
 }
 .btn-custom-green:hover:not(:disabled) {
-    background-color: #f3f4f6;      /* leve cinza no hover */
+    background-color: #f3f4f6;       /* leve cinza no hover */
 }
 #resultado {
     background-color: rgba(0, 0, 0, 0.25);
@@ -126,20 +126,20 @@ hr.border-white { border-color: rgba(255, 255, 255, 0.2); }
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-.blinking-text { animation: blinker 1.2s linear infinite; } 
+.blinking-text { animation: blinker 1.2s linear infinite; }  
 @keyframes blinker { 50% { opacity: 0.2; } }
 
-.event-details-card-alert { 
-    animation: pulse-bg 1.2s infinite alternate; 
-    border: 1px solid #f87171; 
-    border-radius: 0.375rem; 
-    margin: -4px; 
+.event-details-card-alert {  
+    animation: pulse-bg 1.2s infinite alternate;  
+    border: 1px solid #f87171;  
+    border-radius: 0.375rem;  
+    margin: -4px;  
     padding: 4px;
-    box-shadow: 0 0 8px rgba(248, 113, 113, 0.5); 
+    box-shadow: 0 0 8px rgba(248, 113, 113, 0.5);  
 }
 @keyframes pulse-bg {
-    0% { background-color: rgba(248, 113, 113, 0.1); } 
-    100% { background-color: rgba(248, 113, 113, 0.25); } 
+    0% { background-color: rgba(248, 113, 113, 0.1); }  
+    100% { background-color: rgba(248, 113, 113, 0.25); }  
 }
 .evento-cancelado-nome {
     animation: pisca-cancelado 1.5s infinite;
@@ -164,13 +164,13 @@ hr.border-white { border-color: rgba(255, 255, 255, 0.2); }
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#outrosOperadoresTable th.col-nome-header, 
+#outrosOperadoresTable th.col-nome-header,  
 #disponiveisOperadoresTable th.col-nome-header {
-    width: calc(50% - 3.5rem); 
+    width: calc(50% - 3.5rem);  
 }
-#outrosOperadoresTable th.col-qtd-header, 
+#outrosOperadoresTable th.col-qtd-header,  
 #disponiveisOperadoresTable th.col-local-header {
-    width: 3.5rem; 
+    width: 3.5rem;  
     text-align: center;
 }
 #outrosOperadoresTable td.col-qtd,
@@ -183,18 +183,18 @@ td.operador-cell-clickable {
 }
 td.operador-cell-clickable:hover,
 td.operador-cell-clickable.highlight-main-user:hover {
-    background-color: white !important; 
-    color: #005a43 !important; 
+    background-color: white !important;  
+    color: #005a43 !important;  
     font-weight: normal !important;
 }
-td.operador-cell-highlighted { 
-    background-color: white !important; 
-    color: #005a43 !important; 
+td.operador-cell-highlighted {  
+    background-color: white !important;  
+    color: #005a43 !important;  
     font-weight: normal !important;
 }
-td.highlight-main-user { 
-    background-color: white; 
-    color: #005a43; 
+td.highlight-main-user {  
+    background-color: white;  
+    color: #005a43;  
     font-weight: normal;
     animation: pulse-text 1.5s infinite alternate;
 }
@@ -205,7 +205,7 @@ td.highlight-main-user {
 }
 #outrosOperadoresTable tbody tr:nth-child(odd),
 #disponiveisOperadoresTable tbody tr:nth-child(odd) {
-    background-color: rgba(5, 150, 105, 0.08); 
+    background-color: rgba(5, 150, 105, 0.08);  
 }
 .confetti {
     position: absolute;
@@ -217,7 +217,7 @@ td.highlight-main-user {
 }
 @keyframes fall {
     0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1;}
-    60% { opacity: 0.8;} 
+    60% { opacity: 0.8;}  
     100% { transform: translateY(220px) rotateZ(360deg); opacity: 0;}
 }
 .emoji-bounce span {
@@ -232,62 +232,62 @@ td.highlight-main-user {
 }
 #botoesAcaoContainer {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;  
     justify-content: center;
-    gap: 0.25rem; 
+    gap: 0.25rem;  
 }
 
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); 
+    background-color: rgba(0, 0, 0, 0.75);  
     display: flex; align-items: center; justify-content: center;
-    z-index: 2000; opacity: 0; visibility: hidden; 
+    z-index: 2000; opacity: 0; visibility: hidden;  
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 .modal-overlay.visible { opacity: 1; visibility: visible; }
 .modal-content {
-    background: rgba(75, 0, 130, 0.5); 
+    background: rgba(75, 0, 130, 0.5);  
     backdrop-filter: blur(12px) saturate(160%);
     -webkit-backdrop-filter: blur(12px) saturate(160%);
-    padding: 1.5rem; border-radius: 1.25rem; 
-    border: 1px solid rgba(255, 255, 255, 0.15); 
-    box-shadow: 0 8px 32px rgba(0,0,0,0.45); 
+    padding: 1.5rem; border-radius: 1.25rem;  
+    border: 1px solid rgba(255, 255, 255, 0.15);  
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);  
     text-align: center; max-width: 90%; width: 28rem;  
-    color: #f0f0f0; transform: scale(0.95); 
+    color: #f0f0f0; transform: scale(0.95);  
     transition: transform 0.3s ease;
 }
 .modal-overlay.visible .modal-content { transform: scale(1); }
-.modal-content h2 { 
+.modal-content h2 {  
     color: #ffffff; font-size: 1.25rem; font-weight: normal; /* Mantido 'normal' do seu CSS original */
-    margin-bottom: 1rem; text-transform: uppercase; 
+    margin-bottom: 1rem; text-transform: uppercase;  
 }
 .modal-content p {
     color: #e8e8e8; font-size: 0.9rem;
     margin-bottom: 1.25rem; line-height: 1.5;
 }
 #updateStatusContainer {
-    text-align: center; padding: 0.4rem 0.5rem; 
+    text-align: center; padding: 0.4rem 0.5rem;  
     background-color: rgba(0,0,0,0.2); color: #b0b0b0;
-    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    border-bottom: 1px solid rgba(255,255,255,0.05);  
 }
-#updateStatusContainer .status-message { 
-    font-weight: normal; font-size: 0.8rem; 
+#updateStatusContainer .status-message {  
+    font-weight: normal; font-size: 0.8rem;  
 }
 #updateStatusContainer .blinking-red-status {
-    color: #f87171 !important; 
-    animation: blinker 1.0s linear infinite; 
+    color: #f87171 !important;  
+    animation: blinker 1.0s linear infinite;  
 }
-#updateStatusContainer .disclaimer-text { 
-    display: block; font-size: 0.7rem; 
+#updateStatusContainer .disclaimer-text {  
+    display: block; font-size: 0.7rem;  
     margin-top: 0.25rem; color: #a0a0a0;
 }
 #displayOperadorCabecalho {
     font-size: 1.125rem; font-weight: normal;
-    text-transform: uppercase; color: #FFD700; 
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
-    margin-top: -0.25rem; margin-bottom: 0.5rem; 
-    letter-spacing: 0.05em; line-height: 1.2; 
-    padding: 0.1rem 0; min-height: 1.1rem; 
+    text-transform: uppercase; color: #FFD700;  
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);  
+    margin-top: -0.25rem; margin-bottom: 0.5rem;  
+    letter-spacing: 0.05em; line-height: 1.2;  
+    padding: 0.1rem 0; min-height: 1.1rem;  
 }
 .planilha-oficial-icone-flutuante {
     position: fixed; bottom: 1.5rem; right: 1.5rem;
@@ -367,10 +367,10 @@ td.highlight-main-user {
 
 /* Estilos específicos baseados na quantidade de botões visíveis */
 #botoesAcaoContainer.button-count-1 .action-image-button {
-    max-height: 120px; 
+    max-height: 120px;  
 }
 #botoesAcaoContainer.button-count-2 .action-image-button {
-    max-height: 90px; 
+    max-height: 90px;  
 }
 #botoesAcaoContainer.button-count-3 .action-image-button {
     max-height: 55px;
@@ -378,8 +378,8 @@ td.highlight-main-user {
 
 #headerDateDisplay {
     color: #FFFFFF;
-    font-size: 0.875rem; 
-    margin-bottom: 0.25rem; 
+    font-size: 0.875rem;  
+    margin-bottom: 0.25rem;  
     line-height: 1.2;
     text-align: center;
 }
@@ -388,7 +388,7 @@ td.highlight-main-user {
 </head>
 <body>
 
-    <div id="initialDisclaimerModal" class="modal-overlay"> 
+    <div id="initialDisclaimerModal" class="modal-overlay">  
         <div class="modal-content">
             <img src="ofc_sheet.png" alt="Ícone Planilha" id="modalDisclaimerSheetIcon" style="position: absolute; right: 10px; bottom: 10px; width: 60px; height: 60px;">
             <h2 id="initialDisclaimerTitle">⚠️ ATENÇÃO! ⚠️</h2>
@@ -399,8 +399,8 @@ td.highlight-main-user {
 
     <div id="sheetMessageModal" class="modal-overlay">
         <div class="modal-content">
-            <h2 id="sheetMessageTitle">✨ AVISO ✨</h2> 
-            <p id="sheetMessageText"></p> 
+            <h2 id="sheetMessageTitle">✨ AVISO ✨</h2>  
+            <p id="sheetMessageText"></p>  
             <button id="sheetMessageOkBtn" class="btn-custom btn-custom-blue">Ok, entendido</button>
         </div>
     </div>
@@ -408,7 +408,7 @@ td.highlight-main-user {
     <div id="periodicNotificationModal" class="modal-overlay">
         <div class="modal-content">
             <h2 id="periodicNotificationTitle">📢 LEMBRETE IMPORTANTE 📢</h2>
-            <p></p> 
+            <p></p>  
             <button id="periodicNotificationOkBtn" class="btn-custom btn-custom-blue">CIENTE</button>
         </div>
     </div>
@@ -416,7 +416,7 @@ td.highlight-main-user {
     <div class="glass-card-container p-4 sm:p-6">
         <header class="text-center mb-4">
             <p id="headerDateDisplay" class="text-center"></p>
-            <p id="displayOperadorCabecalho" class="text-center"></p> 
+            <p id="displayOperadorCabecalho" class="text-center"></p>  
             <img id="logoPrincipalApp" src="appescala.png" alt="Logotipo Principal - Clique para Redefinir Operador" class="w-full max-h-12 sm:max-h-16 object-contain my-2 cursor-pointer" title="Clique para alterar o operador definido">
         </header>
         
@@ -495,35 +495,35 @@ td.highlight-main-user {
     // Fim da função exibirDataAtualCabecalho reintroduzida
 
     const googleSheetDataUrl = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/export?format=csv&gid=1519973381';
-    const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub'; 
+    const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub';  
     const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
 
     const proxyList = [
         { name: "CodeTabs", prefix: 'https://api.codetabs.com/v1/proxy?quest=', needsEncode: false }
     ];
-    const MAX_TOTAL_ATTEMPTS = 9; 
-    const FORCAR_ALERTA_HORA_TESTE = false; 
+    const MAX_TOTAL_ATTEMPTS = 9;  
+    const FORCAR_ALERTA_HORA_TESTE = false;  
     const DISCLAIMER_TEXT_MODAL = "<strong>App</strong> de consulta não oficial. A confirmação dos dados nos canais oficiais da Câmara é responsabilidade do usuário.";
     const DISCLAIMER_TEXT_UPDATE_STATUS = "Lembre-se: este <strong>App</strong> é um auxiliar. Sempre confirme os dados na planilha oficial.";
     const SCHEDULED_NOTIFICATION_TIMES = ["08:00", "10:00", "12:00", "15:00", "17:00", "19:00"];
 
-    let primeiroSegundoNomeUsuarioParaBusca = ""; 
-    let nomeCompletoOriginalUsuario = ""; 
-    let nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO: Para guardar o nome de exibição do usuário principal
-    let modoExibicaoAtual = 'minhaEscala'; 
+    let primeiroSegundoNomeUsuarioParaBusca = "";  
+    let nomeCompletoOriginalUsuario = "";  
+    let nomeExibicaoUsuarioPrincipal = ""; // Para guardar o nome de exibição (Coluna B) do usuário principal, usado INTERNAMENTE e para TABELAS.
+    let modoExibicaoAtual = 'minhaEscala';  
     let definitiveMasterOperatorMap = new Map();
     let ultimaCelulaClicada = null;
     let nomeDefinidoNestaSessao = false;
-    let appInitialized = false; 
-    let periodicCheckIntervalId = null; 
+    let appInitialized = false;  
+    let periodicCheckIntervalId = null;  
 
     const resultadoDiv = document.getElementById('resultado');
     const escaladoSound = document.getElementById('escaladoSound');
     const naoEscaladoSound = document.getElementById('naoEscaladoSound');
-    const atencaoSound = document.getElementById('atencaoSound'); 
+    const atencaoSound = document.getElementById('atencaoSound');  
     const outroOpEscaladoSound = document.getElementById('outroOpEscaladoSound');
     const errorSound = document.getElementById('errorSound');
-    const notificationSound = document.getElementById('notificationSound'); 
+    const notificationSound = document.getElementById('notificationSound');  
     
     const minhaEscalaBtn = document.getElementById('minhaEscalaBtn');
     const outrosEventosBtn = document.getElementById('outrosEventosBtn');
@@ -541,22 +541,22 @@ td.highlight-main-user {
     const initialDisclaimerModal = document.getElementById('initialDisclaimerModal');
     const initialDisclaimerOkBtn = document.getElementById('initialDisclaimerOkBtn');
     const initialModalTimerSpan = document.getElementById('initialModalTimer');
-    const updateStatusContainer = document.getElementById('updateStatusContainer'); 
-    const displayOperadorCabecalhoP = document.getElementById('displayOperadorCabecalho'); 
-    const anoAtualFooterSpan = document.getElementById('anoAtualFooter'); 
+    const updateStatusContainer = document.getElementById('updateStatusContainer');  
+    const displayOperadorCabecalhoP = document.getElementById('displayOperadorCabecalho');  
+    const anoAtualFooterSpan = document.getElementById('anoAtualFooter');  
 
-    const sheetMessageModal = document.getElementById('sheetMessageModal'); 
-    const sheetMessageTitleH2 = document.getElementById('sheetMessageTitle'); 
-    const sheetMessageTextP = document.getElementById('sheetMessageText'); 
-    const sheetMessageOkBtn = document.getElementById('sheetMessageOkBtn'); 
+    const sheetMessageModal = document.getElementById('sheetMessageModal');  
+    const sheetMessageTitleH2 = document.getElementById('sheetMessageTitle');  
+    const sheetMessageTextP = document.getElementById('sheetMessageText');  
+    const sheetMessageOkBtn = document.getElementById('sheetMessageOkBtn');  
 
-    const periodicNotificationModal = document.getElementById('periodicNotificationModal'); 
+    const periodicNotificationModal = document.getElementById('periodicNotificationModal');  
     const periodicNotificationOkBtn = document.getElementById('periodicNotificationOkBtn');
     const initialDisclaimerTitleH2 = document.getElementById('initialDisclaimerTitle');
     const periodicNotificationTitleH2 = document.getElementById('periodicNotificationTitle');
 
-    const botaoPlanilhaOficialIcone = document.getElementById('botaoPlanilhaOficialIcone'); 
-    const avisoIconePlanilhaP = document.getElementById('avisoIconePlanilha'); 
+    const botaoPlanilhaOficialIcone = document.getElementById('botaoPlanilhaOficialIcone');  
+    const avisoIconePlanilhaP = document.getElementById('avisoIconePlanilha');  
 
     const secretariaMap = {
         "plenário 01": "4701", "plenario 01": "4701", "plenário 02": "4702", "plenario 02": "4702",
@@ -586,7 +586,7 @@ td.highlight-main-user {
         const localNorm = removerAcentos(localOriginal.toLowerCase());
         for (const key in abreviacoesLocais) {
             if (localNorm.startsWith(key)) {
-                if (key === "plenario" || key === "plenário") { 
+                if (key === "plenario" || key === "plenário") {  
                     const numeroMatch = localOriginal.match(/\d+/);
                     const numero = numeroMatch ? parseInt(numeroMatch[0], 10) : null;
                     return numero !== null ? `${abreviacoesLocais[key]} ${numero}` : abreviacoesLocais[key];
@@ -616,12 +616,12 @@ td.highlight-main-user {
         const text = safeCsvText.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
         for (let i = 0; i < text.length; i++) {
-            const char = text[i]; 
+            const char = text[i];  
             if (inQuotes) {
                 if (char === '"') {
                     if (i + 1 < text.length && text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; }
                 } else { field += char; }
-            } else { 
+            } else {  
                 if (char === '"') { inQuotes = true;
                 } else if (char === ',') { currentRow.push(field.trim()); field = "";
                 } else if (char === '\n') {
@@ -643,14 +643,14 @@ td.highlight-main-user {
         const ano = dateObj.getFullYear();
         return `${dia}/${mes}/${ano}`;
     }
-     function formatarHora(dateObj) { 
+     function formatarHora(dateObj) {  
         if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) { return "N/D"; }
         const hora = String(dateObj.getHours()).padStart(2, '0');
         const minuto = String(dateObj.getMinutes()).padStart(2, '0');
         return `${hora}:${minuto}`;
     }
 
-    function capitalizarNomeCompleto(nomeCompleto) { 
+    function capitalizarNomeCompleto(nomeCompleto) {  
         if (!nomeCompleto || typeof nomeCompleto !== 'string') return "";
         return nomeCompleto.trim().split(/\s+/)
             .map(palavra => {
@@ -662,14 +662,14 @@ td.highlight-main-user {
             .join(" ");
     }
     
-    function gerarNomeParaDisplayPrincipal(nomeOriginalOperador) { 
-        if (!nomeOriginalOperador || typeof nomeOriginalOperador !== 'string' || nomeOriginalOperador.trim() === "") return ""; 
+    function gerarNomeParaDisplayPrincipal(nomeOriginalOperador) {  
+        if (!nomeOriginalOperador || typeof nomeOriginalOperador !== 'string' || nomeOriginalOperador.trim() === "") return "";  
         const partesNome = nomeOriginalOperador.trim().split(/\s+/).filter(n => n.length > 0);
-        if (partesNome.length === 0) return ""; 
+        if (partesNome.length === 0) return "";  
         
         const doisPrimeirosNomes = partesNome.slice(0, 2)
-                                        .map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase())
-                                        .join(" ");
+                                            .map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase())
+                                            .join(" ");
         return doisPrimeirosNomes;
     }
     
@@ -679,27 +679,22 @@ td.highlight-main-user {
             // Prioriza nomeExibicaoDefinitivo (que vem da Coluna B do CSV via o mapa)
             if (op.nomeExibicaoDefinitivo && op.nomeExibicaoDefinitivo.trim() !== "") {
                 nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeExibicaoDefinitivo);
-            } else if (op.nomeOriginalCompleto) { 
+            } else if (op.nomeOriginalCompleto) {  
                 // Fallback: Se nomeExibicaoDefinitivo estiver vazio, usa o nome_completo original (Coluna A)
-                // Em vez de gerarNomeParaDisplayPrincipal, usamos o nome_completo capitalizado
-                // ou mantemos gerarNomeParaDisplayPrincipal se essa for a preferência de fallback.
-                // Para esta alteração, se nome_exibicao (Col B) está vazio, mostramos nome_completo (Col A)
                 nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeOriginalCompleto);
-                // Se o desejado fosse ainda os "dois primeiros nomes" como fallback:
-                // nomeFinalParaTabela = gerarNomeParaDisplayPrincipal(op.nomeOriginalCompleto);
             } else {
-                nomeFinalParaTabela = "N/D"; 
+                nomeFinalParaTabela = "N/D";  
             }
-            return { 
-                ...op, 
+            return {  
+                ...op,  
                 nomeExibicaoTabela: nomeFinalParaTabela,
-                isCancelado: op.isCancelado || false 
+                isCancelado: op.isCancelado || false  
             };
         });
     }
 
-    function tocarSom(soundElement) { 
-        if (soundElement && soundElement.readyState >= 2) { 
+    function tocarSom(soundElement) {  
+        if (soundElement && soundElement.readyState >= 2) {  
             soundElement.currentTime = 0;
             soundElement.play().catch(e => {});
         }
@@ -716,42 +711,42 @@ td.highlight-main-user {
     }
 
     function exibirStatusAtualizacao(sucesso, erroInfo = null) {
-        if (!updateStatusContainer) return; 
+        if (!updateStatusContainer) return;  
         updateStatusContainer.classList.remove('hidden');
         const agora = new Date();
         const horaFormatada = formatarHora(agora);
         let statusHtml = "";
-        let spanClasses = "status-message"; 
+        let spanClasses = "status-message";  
 
         if (sucesso) {
-            statusHtml = `<span class="${spanClasses} text-green-300">DADOS ATUALIZADOS ÀS ${horaFormatada}</span>`; 
+            statusHtml = `<span class="${spanClasses} text-green-300">DADOS ATUALIZADOS ÀS ${horaFormatada}</span>`;  
             if (botaoPlanilhaOficialIcone) {
                 botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
                 botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
             }
         } else {
-            spanClasses += " blinking-red-status"; 
+            spanClasses += " blinking-red-status";  
             if (botaoPlanilhaOficialIcone) {
                 botaoPlanilhaOficialIcone.classList.add('pulsar-animacao-forte');
             }
 
-            statusHtml = `<span class="${spanClasses}">Última atualização às ${horaFormatada}</span>`; 
+            statusHtml = `<span class="${spanClasses}">Última atualização às ${horaFormatada}</span>`;  
             let motivoFalha = "";
             if (erroInfo && erroInfo.message) {
-                if (erroInfo.message.toLowerCase().includes("failed to fetch") || 
+                if (erroInfo.message.toLowerCase().includes("failed to fetch") ||  
                     erroInfo.message.toLowerCase().includes("networkerror") ||
                     erroInfo.message.toLowerCase().includes("timeout") ||
-                    erroInfo.message.toLowerCase().includes("corpo inválido/vazio")) { 
+                    erroInfo.message.toLowerCase().includes("corpo inválido/vazio")) {  
                     motivoFalha = " (Falha de conexão/dados)";
-                } else if (erroInfo.message.toLowerCase().includes("http error")) { 
+                } else if (erroInfo.message.toLowerCase().includes("http error")) {  
                     motivoFalha = " (Falha ao carregar CSV local)";
-                } else { 
+                } else {  
                     motivoFalha = " (Erro ao buscar dados)";
                 }
-            } else { 
+            } else {  
                  motivoFalha = " (Falha desconhecida)";
             }
-            statusHtml = statusHtml.slice(0, -7) + motivoFalha + `</span>`; 
+            statusHtml = statusHtml.slice(0, -7) + motivoFalha + `</span>`;  
         }
         statusHtml += `<span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         updateStatusContainer.innerHTML = statusHtml;
@@ -761,31 +756,31 @@ td.highlight-main-user {
         telaBoasVindasDiv.classList.add('hidden');
         configNomeOperadorDiv.classList.add('hidden');
         confirmacaoNomeDiv.classList.add('hidden');
-        areaPrincipalAppDiv.classList.add('hidden'); 
+        areaPrincipalAppDiv.classList.add('hidden');  
         if (botaoPlanilhaOficialIcone) {
-             botaoPlanilhaOficialIcone.classList.add('hidden'); 
+             botaoPlanilhaOficialIcone.classList.add('hidden');  
              botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
              botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
-             botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador'); 
+             botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador');  
         }
         if (avisoIconePlanilhaP) avisoIconePlanilhaP.classList.add('hidden');
         
-        if (resultadoDiv && nomeTela !== 'principal') { 
-            resultadoDiv.innerHTML = ''; 
+        if (resultadoDiv && nomeTela !== 'principal') {  
+            resultadoDiv.innerHTML = '';  
         }
         
-        atualizarDisplayOperadorCabecalho(); // Chamada movida para depois de limpar nomeExibicaoUsuarioPrincipal se necessário
+        atualizarDisplayOperadorCabecalho(); 
 
 
         if (nomeTela === 'boasVindas') {
             telaBoasVindasDiv.classList.remove('hidden');
         } else if (nomeTela === 'configNome') {
             configNomeOperadorDiv.classList.remove('hidden');
-            if(nomeOperadorInput) nomeOperadorInput.value = nomeCompletoOriginalUsuario || ''; 
+            if(nomeOperadorInput) nomeOperadorInput.value = nomeCompletoOriginalUsuario || '';  
             if(erroNomeInputP) erroNomeInputP.classList.add('hidden');
-            if (botaoPlanilhaOficialIcone) { 
+            if (botaoPlanilhaOficialIcone) {  
                 botaoPlanilhaOficialIcone.classList.remove('hidden');
-                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao'); 
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');  
                 botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao-forte');
                 botaoPlanilhaOficialIcone.classList.add('pulsar-nome-operador');
             }
@@ -794,41 +789,40 @@ td.highlight-main-user {
         } else if (nomeTela === 'confirmacaoNome') {
             confirmacaoNomeDiv.classList.remove('hidden');
             if (botaoPlanilhaOficialIcone) {
-                botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador'); 
-                botaoPlanilhaOficialIcone.classList.remove('hidden'); 
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador');  
+                botaoPlanilhaOficialIcone.classList.remove('hidden');  
             }
         } else if (nomeTela === 'principal') {
-            areaPrincipalAppDiv.classList.remove('hidden'); 
+            areaPrincipalAppDiv.classList.remove('hidden');  
             if (botaoPlanilhaOficialIcone) {
-                botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador'); 
-                botaoPlanilhaOficialIcone.classList.remove('hidden'); 
+                botaoPlanilhaOficialIcone.classList.remove('pulsar-nome-operador');  
+                botaoPlanilhaOficialIcone.classList.remove('hidden');  
             }
         }
         
-        if (appInitialized && nomeTela !== 'boasVindas' && nomeTela !== 'configNome' && nomeTela !== 'confirmacaoNome' && 
+        if (appInitialized && nomeTela !== 'boasVindas' && nomeTela !== 'configNome' && nomeTela !== 'confirmacaoNome' &&  
             initialDisclaimerModal.classList.contains('visible') === false) {
              if (botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.remove('hidden');
         }
-        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone) { 
+        if (nomeTela !== 'configNome' && botaoPlanilhaOficialIcone) {  
             botaoPlanilhaOficialIcone.classList.remove('pulsar-animacao');
         }
 
-        gerenciarBotoesVisiveis(nomeTela, false, "", ""); 
+        gerenciarBotoesVisiveis(nomeTela, false, "", "");  
     }
         
-    function mostrarModal(modalElement) { 
+    function mostrarModal(modalElement) {  
         if (modalElement) modalElement.classList.add('visible');
     }
-    function esconderModal(modalElement) { 
+    function esconderModal(modalElement) {  
         if (modalElement) modalElement.classList.remove('visible');
     }
     
-    // MODIFICADO: Para lidar com nomeExibicaoUsuarioPrincipal
     function definirOperadorPrincipalAtual(nomeInputPrimeiroSegundo, ehBuscaDeTerceiro = false) {
         // nomeInputPrimeiroSegundo é esperado ser "Primeiro SegundoNome" do input do usuário
         if (!nomeInputPrimeiroSegundo || typeof nomeInputPrimeiroSegundo !== 'string') {
             if (!ehBuscaDeTerceiro) {
-                nomeExibicaoUsuarioPrincipal = ""; // Limpa se o input for inválido
+                nomeExibicaoUsuarioPrincipal = ""; 
                 nomeCompletoOriginalUsuario = "";
                 primeiroSegundoNomeUsuarioParaBusca = "";
                 localStorage.removeItem('operadorNomeExibicaoSalvo');
@@ -839,49 +833,41 @@ td.highlight-main-user {
         const chaveBuscaNormalizada = removerAcentos(nomeInputPrimeiroSegundo.toLowerCase());
         const opInfoMaster = definitiveMasterOperatorMap.get(chaveBuscaNormalizada);
         
-        if (!ehBuscaDeTerceiro) { 
-            // nomeCompletoOriginalUsuario armazena o que o usuário digitou (Primeiro Segundo Nome)
-            // para consistência com a chave de busca e o que é salvo.
-            nomeCompletoOriginalUsuario = nomeInputPrimeiroSegundo; 
-            primeiroSegundoNomeUsuarioParaBusca = chaveBuscaNormalizada; 
+        if (!ehBuscaDeTerceiro) {  
+            nomeCompletoOriginalUsuario = nomeInputPrimeiroSegundo;  
+            primeiroSegundoNomeUsuarioParaBusca = chaveBuscaNormalizada;  
             localStorage.setItem('operadorNomeSalvo', nomeCompletoOriginalUsuario);
             nomeDefinidoNestaSessao = true;
 
             if (opInfoMaster && opInfoMaster.nomeExibicao && opInfoMaster.nomeExibicao.trim() !== "") {
-                nomeExibicaoUsuarioPrincipal = opInfoMaster.nomeExibicao.trim(); // Pega da Coluna B do CSV
+                nomeExibicaoUsuarioPrincipal = opInfoMaster.nomeExibicao.trim(); // Pega da Coluna B do CSV para uso INTERNO e TABELAS
                 localStorage.setItem('operadorNomeExibicaoSalvo', nomeExibicaoUsuarioPrincipal);
             } else {
-                // Se não há nome de exibição no CSV (Coluna B vazia), limpamos.
-                // A função atualizarDisplayOperadorCabecalho usará o fallback (Primeiro Segundo Nome).
-                nomeExibicaoUsuarioPrincipal = ""; 
+                nomeExibicaoUsuarioPrincipal = "";  
                 localStorage.removeItem('operadorNomeExibicaoSalvo');
             }
-            atualizarDisplayOperadorCabecalho(); 
+            atualizarDisplayOperadorCabecalho();  
         }
         
-        // Para retorno, mantenha a lógica de fornecer informações baseadas no que foi encontrado no mapa
         const nomeCompletoPlanilha = opInfoMaster ? opInfoMaster.nomeCompletoOriginal : nomeInputPrimeiroSegundo;
         const nomeExibicaoPlanilha = opInfoMaster ? opInfoMaster.nomeExibicao : null;
 
         return {
-            busca: chaveBuscaNormalizada, 
-            abreviado: gerarNomeParaDisplayPrincipal(nomeCompletoPlanilha), // Pode ser usado como fallback se necessário
-            completoOriginalDaPlanilha: nomeCompletoPlanilha, 
+            busca: chaveBuscaNormalizada,  
+            abreviado: gerarNomeParaDisplayPrincipal(nomeCompletoPlanilha), 
+            completoOriginalDaPlanilha: nomeCompletoPlanilha,  
             nomeExibicaoPuroDoMapa: nomeExibicaoPlanilha
         };
     }
 
-    // MODIFICADO: Para usar nomeExibicaoUsuarioPrincipal quando disponível
-    function atualizarDisplayOperadorCabecalho() { 
+    function atualizarDisplayOperadorCabecalho() {  
         if (!displayOperadorCabecalhoP) return;
-        let textoFinal = ""; 
+        let textoFinal = "";  
 
-        if (nomeExibicaoUsuarioPrincipal && nomeExibicaoUsuarioPrincipal.trim() !== "") {
-            // Prioriza o nome de exibição da Coluna B do CSV
-            textoFinal = capitalizarNomeCompleto(nomeExibicaoUsuarioPrincipal);
-        } else if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") { 
-            // Fallback para os dois primeiros nomes (do input, que é Primeiro Segundo Nome)
-            textoFinal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario); 
+        // MODIFICADO: Sempre usa o "Primeiro SegundoNome" do input para o cabeçalho do usuário principal.
+        // nomeExibicaoUsuarioPrincipal (da Coluna B) não é mais usado aqui para o usuário principal.
+        if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") {  
+            textoFinal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario);  
         } else if (modoExibicaoAtual === 'outrosEventos' && !areaPrincipalAppDiv.classList.contains('hidden') && appInitialized) {
             textoFinal = "VISÃO GERAL";
         }
@@ -889,11 +875,11 @@ td.highlight-main-user {
     }
 
 
-    async function fetchWithProxyRetries(targetUrl, proxies, isCsv = true) { 
+    async function fetchWithProxyRetries(targetUrl, proxies, isCsv = true) {  
         let attempts = 0;
         let lastError = null;
-        let currentProxyIndex = 0; 
-        const attemptsPerProxy = Math.ceil(MAX_TOTAL_ATTEMPTS / proxies.length); 
+        let currentProxyIndex = 0;  
+        const attemptsPerProxy = Math.ceil(MAX_TOTAL_ATTEMPTS / proxies.length);  
 
         while (attempts < MAX_TOTAL_ATTEMPTS) {
             const currentProxy = proxies[currentProxyIndex];
@@ -902,7 +888,7 @@ td.highlight-main-user {
             console.log(`Tentativa ${attempts + 1}/${MAX_TOTAL_ATTEMPTS}: Usando proxy ${currentProxy.name} para ${targetUrl.substring(0,60)}...`);
             
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 12000); 
+            const timeoutId = setTimeout(() => controller.abort(), 12000);  
 
             try {
                 const response = await fetch(urlToFetch, { signal: controller.signal });
@@ -910,38 +896,38 @@ td.highlight-main-user {
 
                 if (response.ok) {
                     if (isCsv) {
-                        const text = await response.text(); 
-                        if (text && typeof text === 'string' && text.trim() !== "") { 
+                        const text = await response.text();  
+                        if (text && typeof text === 'string' && text.trim() !== "") {  
                             console.log(`Sucesso (CSV) na tentativa ${attempts + 1} com proxy: ${currentProxy.name}`);
                             return new Response(text, { status: response.status, statusText: response.statusText, headers: response.headers });
                         } else {
                             console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} retornou OK mas corpo inválido/vazio para CSV: ${targetUrl.substring(0,60)}...`);
                             lastError = new Error(`Proxy ${currentProxy.name} retornou corpo inválido/vazio para CSV`);
                         }
-                    } else { 
+                    } else {  
                          console.log(`Sucesso (não CSV) na tentativa ${attempts + 1} com proxy: ${currentProxy.name}`);
-                        return response; 
+                        return response;  
                     }
-                } else { 
+                } else {  
                     console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} falhou para ${targetUrl.substring(0,60)}... com status: ${response.status}`);
                     lastError = new Error(`Proxy ${currentProxy.name} retornou status ${response.status}`);
                 }
-            } catch (error) { 
-                clearTimeout(timeoutId); 
+            } catch (error) {  
+                clearTimeout(timeoutId);  
                 if (error.name === 'AbortError') {
                     console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} TIMEOUT para ${targetUrl.substring(0,60)}...`);
                     lastError = new Error(`Timeout com proxy ${currentProxy.name}`);
                 } else {
                     console.warn(`Tentativa ${attempts + 1}: Proxy ${currentProxy.name} ERRO para ${targetUrl.substring(0,60)}... :`, error.message);
-                    lastError = error; 
+                    lastError = error;  
                 }
             }
             
             attempts++;
-            currentProxyIndex = (currentProxyIndex + 1) % proxies.length; 
+            currentProxyIndex = (currentProxyIndex + 1) % proxies.length;  
                         
             if (attempts < MAX_TOTAL_ATTEMPTS) {
-                await new Promise(resolve => setTimeout(resolve, 850)); 
+                await new Promise(resolve => setTimeout(resolve, 850));  
             }
         }
 
@@ -951,16 +937,14 @@ td.highlight-main-user {
 
     async function fetchAndParseLocalCSV(filePath) {
     try {
-        const response = await fetch(filePath); 
+        const response = await fetch(filePath);  
         if (!response.ok) {
-            // Log mais detalhado do erro HTTP
-            throw new Error(`HTTP error! status: <span class="math-inline">\{response\.status\} \(</span>{response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
+            throw new Error(`HTTP error! status: ${response.status} (${response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
         }
-        let csvText = await response.text(); // Alterado para let para poder modificar
+        let csvText = await response.text(); 
 
-        // NOVO CÓDIGO: Verifica e remove BOM (Byte Order Mark) se presente
-        if (csvText && csvText.charCodeAt(0) === 0xFEFF) { 
-            csvText = csvText.substring(1); 
+        if (csvText && csvText.charCodeAt(0) === 0xFEFF) {  
+            csvText = csvText.substring(1);  
             console.log("INFO: BOM (Byte Order Mark) detectado e removido do arquivo CSV:", filePath);
         }
 
@@ -968,22 +952,22 @@ td.highlight-main-user {
             throw new Error(`Arquivo CSV local (${filePath}) está vazio ou não pôde ser lido após verificação de BOM.`);
         }
         console.log(`INFO: CSV local (${filePath}) lido com sucesso, tamanho: ${csvText.length} caracteres.`);
-        return parseCSV(csvText); 
+        return parseCSV(csvText);  
     } catch (error) {
-        console.error(`ERRO CRÍTICO ao buscar ou parsear CSV local (${filePath}):`, error.message, error); // Loga o objeto de erro completo
+        console.error(`ERRO CRÍTICO ao buscar ou parsear CSV local (${filePath}):`, error.message, error); 
         if (resultadoDiv) {
             resultadoDiv.innerHTML = `<p class='text-base text-center font-semibold text-red-400 py-2'>FALHA CRÍTICA: Não foi possível carregar o arquivo de dados base ('${filePath}'). Detalhe: ${error.message}. Verifique se o arquivo está na pasta correta, não está vazio e se o servidor web tem permissão para acessá-lo.</p>`;
         }
         if (updateStatusContainer) {
             updateStatusContainer.classList.remove('hidden');
-            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. <span class="math-inline">\{error\.message\}</span\><span class\="disclaimer\-text"\></span>{DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. ${error.message}</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         }
-        return null; 
+        return null;  
     }
 }
 
     async function carregarListaOperadoresDefinitiva(parsedCsvData) {
-    if (!parsedCsvData || parsedCsvData.length < 1) { 
+    if (!parsedCsvData || parsedCsvData.length < 1) {  
         console.error("[carregarListaOperadoresDefinitiva] FALHA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
         definitiveMasterOperatorMap.clear();
         return;
@@ -992,10 +976,9 @@ td.highlight-main-user {
     const linhasOperadores = parsedCsvData;
     definitiveMasterOperatorMap.clear();
 
-    const headersRaw = (linhasOperadores[0] || []); 
+    const headersRaw = (linhasOperadores[0] || []);  
     const headers = headersRaw.map(h => (h || "").trim());
 
-    // Logs para depuração dos cabeçalhos dos operadores
     console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos brutos lidos do CSV (esperados para operadores):", JSON.stringify(headersRaw));
     console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos normalizados para busca (esperados para operadores):", JSON.stringify(headers));
 
@@ -1014,7 +997,7 @@ td.highlight-main-user {
 
     if (erroCabecalho) {
         console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome_completo', 'nome_exibicao') não foram encontrados no CSV após normalização.");
-        if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { 
+        if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {  
              updateStatusContainer.classList.remove('hidden');
              updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         }
@@ -1028,29 +1011,27 @@ td.highlight-main-user {
             let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
 
             if (nomeCompletoOriginalDaPlanilha === "") {
-                // console.warn(`[carregarListaOperadoresDefinitiva] Linha ${i+1} do CSV local pulada: nome_completo vazio.`); // Opcional, pode gerar muito log
                 continue;
             }
 
             const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
             if (buscaKey) {
                 definitiveMasterOperatorMap.set(buscaKey, {
-                    nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha, 
-                    nomeExibicao: nomeExibicaoParaMapa       
+                    nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,  
+                    nomeExibicao: nomeExibicaoParaMapa        
                 });
             }
-        } else if (linha && linha.join("").trim() !== "") { 
-             // console.warn(`[carregarListaOperadoresDefinitiva] Linha ${i+1} do CSV local ignorada: estrutura inesperada.`); // Opcional
+        } else if (linha && linha.join("").trim() !== "") {  
         }
     }
     console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho do mapa:", definitiveMasterOperatorMap.size);
-    if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) { 
+    if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) {  
          console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo e formato das colunas 'nome_completo' e 'nome_exibicao'.");
     }
 }
     
     async function buscarMensagemDaPlanilha(parsedCsvData) {
-    if (!parsedCsvData || parsedCsvData.length < 1) { 
+    if (!parsedCsvData || parsedCsvData.length < 1) {  
         console.warn("[buscarMensagemDaPlanilha] FALHA: Dados do CSV local (operadores_nomes_msg.csv) estão vazios ou inválidos para buscar mensagem.");
         return;
     }
@@ -1069,20 +1050,18 @@ td.highlight-main-user {
         return;
     }
 
-    // Título: Linha 2 do CSV (índice 1 do array 'linhas'), coluna "mensagem"
     const tituloMsg = (linhas.length > 1 && linhas[1] && typeof linhas[1][idxMensagem] !== 'undefined') ? (linhas[1][idxMensagem] || "").trim() : "";
-    // Corpo: Linha 3 do CSV (índice 2 do array 'linhas'), coluna "mensagem"
     const corpoMsg = (linhas.length > 2 && linhas[2] && typeof linhas[2][idxMensagem] !== 'undefined') ? (linhas[2][idxMensagem] || "").trim() : "";
 
-    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='<span class="math-inline">\{tituloMsg\}', Corpo\='</span>{corpoMsg}' (da coluna índice ${idxMensagem})`);
+    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='${tituloMsg}', Corpo='${corpoMsg}' (da coluna índice ${idxMensagem})`);
 
-    if (corpoMsg.trim() !== "") { 
+    if (corpoMsg.trim() !== "") {  
         if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
-            esconderModal(periodicNotificationModal); 
+            esconderModal(periodicNotificationModal);  
         }
-        const tituloFinalModal = tituloMsg.trim() !== "" ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨"; 
+        const tituloFinalModal = tituloMsg.trim() !== "" ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨";  
         if (sheetMessageTitleH2) sheetMessageTitleH2.textContent = tituloFinalModal;
-        if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>'); 
+        if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>');  
         mostrarModal(sheetMessageModal);
         tocarSom(notificationSound);
     } else if (tituloMsg.trim() !== "") {
@@ -1093,49 +1072,47 @@ td.highlight-main-user {
 }
     
     async function buscarEscalas(nomeParaBuscaFocoOperadorParam, nomeCompletoOriginalDoFocoParam, tipoDeVisualizacaoParam = 'minhaEscala', buscaPorCliqueTabela = false) {
-        atualizarDisplayOperadorCabecalho(); 
-        localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalDoFocoParam || ""); 
+        atualizarDisplayOperadorCabecalho();  
+        localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalDoFocoParam || "");  
 
-        const nomeParaBuscaFocoOperador = nomeParaBuscaFocoOperadorParam || ""; 
+        const nomeParaBuscaFocoOperador = nomeParaBuscaFocoOperadorParam || "";  
         const nomeCompletoRealOperadorEmFoco = nomeCompletoOriginalDoFocoParam || nomeCompletoOriginalUsuario || "";
 
         const agora = new Date();
         const horaAtualConsulta = agora.getHours();
-        const diaDaSemanaConsulta = agora.getDay(); 
+        const diaDaSemanaConsulta = agora.getDay();  
         const dataConsultaHojeReal = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
         let dataAlvoDaConsulta = new Date(dataConsultaHojeReal);
         let adverbioOriginalParaDataAlvo = "HOJE";
 
-        if ( (diaDaSemanaConsulta === 5 && horaAtualConsulta >= 20) || 
+        if ( (diaDaSemanaConsulta === 5 && horaAtualConsulta >= 20) ||  
              (diaDaSemanaConsulta === 6) ||  
              (diaDaSemanaConsulta === 0) ) {  
             adverbioOriginalParaDataAlvo = "NA PRÓXIMA SEGUNDA-FEIRA";
             if (diaDaSemanaConsulta === 5) { dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 3);
             } else if (diaDaSemanaConsulta === 6) { dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 2);
             } else { dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 1); }
-        } else if (diaDaSemanaConsulta >= 1 && diaDaSemanaConsulta <= 4) { 
+        } else if (diaDaSemanaConsulta >= 1 && diaDaSemanaConsulta <= 4) {  
             if (horaAtualConsulta >= 20) {
                 dataAlvoDaConsulta.setDate(dataAlvoDaConsulta.getDate() + 1);
                 adverbioOriginalParaDataAlvo = "AMANHÃ";
             }
-        } 
+        }  
         
         const dataAlvoFormatada = formatarData(dataAlvoDaConsulta);
-        let nomeExibicaoLoader = "todos os operadores"; 
+        let nomeExibicaoLoader = "todos os operadores";  
 
+        // MODIFICADO: Para usar "Primeiro SegundoNome" para o loader quando em 'minhaEscala'
         if(tipoDeVisualizacaoParam === 'minhaEscala'){
-            // MODIFICADO: Usa nomeExibicaoUsuarioPrincipal para o loader se disponível para o operador em foco
-            if (nomeCompletoRealOperadorEmFoco === nomeCompletoOriginalUsuario && nomeExibicaoUsuarioPrincipal) {
-                nomeExibicaoLoader = capitalizarNomeCompleto(nomeExibicaoUsuarioPrincipal);
-            } else if (nomeCompletoRealOperadorEmFoco) { 
-                 nomeExibicaoLoader = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
+            if (nomeCompletoRealOperadorEmFoco) { 
+                nomeExibicaoLoader = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             } else { 
-                 nomeExibicaoLoader = (nomeExibicaoUsuarioPrincipal || (nomeCompletoOriginalUsuario ? gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario) : ""));
+                nomeExibicaoLoader = ""; // Ou uma string padrão como "operador selecionado"
             }
-        } 
+        }  
         
         let adverbioLoaderParaMensagem = adverbioOriginalParaDataAlvo === "HOJE" ? "" : ` (${adverbioOriginalParaDataAlvo.toLowerCase()})`;
-        if (adverbioLoaderParaMensagem.trim() === "") adverbioLoaderParaMensagem = ` (${dataAlvoFormatada})`; 
+        if (adverbioLoaderParaMensagem.trim() === "") adverbioLoaderParaMensagem = ` (${dataAlvoFormatada})`;  
         else adverbioLoaderParaMensagem = ` (${adverbioOriginalParaDataAlvo.toLowerCase()} - ${dataAlvoFormatada})`;
 
         if (ultimaCelulaClicada && !buscaPorCliqueTabela) {
@@ -1153,23 +1130,23 @@ td.highlight-main-user {
         
         const nomeSalvoPrincipalNoStorage = localStorage.getItem('operadorNomeSalvo');
         if (tipoDeVisualizacaoParam === 'minhaEscala' && !nomeParaBuscaFocoOperador && !nomeSalvoPrincipalNoStorage && !nomeDefinidoNestaSessao) {
-             exibirTela('boasVindas'); 
+             exibirTela('boasVindas');  
              return;
         }
 
-        let fetchSuccess = false; 
-        let fetchErrorObject = null; 
+        let fetchSuccess = false;  
+        let fetchErrorObject = null;  
 
         try {
-            const response = await fetchWithProxyRetries(googleSheetDataUrl, proxyList, true); 
+            const response = await fetchWithProxyRetries(googleSheetDataUrl, proxyList, true);  
             const csvText = await response.text();
-            fetchSuccess = true; 
-            exibirStatusAtualizacao(true); 
+            fetchSuccess = true;  
+            exibirStatusAtualizacao(true);  
 
             const todasLinhasDoCSV = parseCSV(csvText);
-            if (todasLinhasDoCSV.length === 0) { 
+            if (todasLinhasDoCSV.length === 0) {  
                 resultadoDiv.innerHTML = `<p class='text-lg font-bold text-green-400 py-4'>PLANILHA VAZIA OU INACESSÍVEL!</p>`;
-                if (fetchSuccess) tocarSom(naoEscaladoSound); 
+                if (fetchSuccess) tocarSom(naoEscaladoSound);  
                 gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
                 return;
             }
@@ -1189,13 +1166,13 @@ td.highlight-main-user {
                              indiceInicioEventos = 1;
                         }
                     } else {
-                         indiceInicioEventos = 0; 
+                         indiceInicioEventos = 0;  
                     }
                 }
             }
             
             const dadosEventosParaProcessar = todasLinhasDoCSV.slice(indiceInicioEventos);
-            if (dadosEventosParaProcessar.length === 0 ) { 
+            if (dadosEventosParaProcessar.length === 0 ) {  
                 resultadoDiv.innerHTML = `<p class='text-base text-center font-bold text-green-400 py-4'>NENHUM EVENTO NA AGENDA PARA ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada})</p>`;
                 if (fetchSuccess) tocarSom(naoEscaladoSound);
                 gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
@@ -1208,62 +1185,62 @@ td.highlight-main-user {
             }
 
             const todasAtribuicoes = [];
-            const operadoresDisponiveisMap = new Map(); 
-            const indicesEventosDistribuidos = new Set(); 
+            const operadoresDisponiveisMap = new Map();  
+            const indicesEventosDistribuidos = new Set();  
 
-            dadosEventosParaProcessar.forEach((linha, idx) => { 
-                if (linha.length < 7) return; 
-                const dataEfetivaDoEvento = dataAlvoFormatada; 
-                const local = (linha[1] || "").trim(); 
-                const horaOriginalStr = (linha[2] || "").trim(); 
-                const tipo = (linha[3] || "").trim(); 
-                const evento = (linha[4] || "").trim(); 
-                const servico = (linha[5] || "").trim(); 
-                const operadorGOriginalBruto = (linha[6] || "").trim(); 
-                const valorColunaH = (linha.length > 7) ? (linha[7] || "").trim() : ""; 
+            dadosEventosParaProcessar.forEach((linha, idx) => {  
+                if (linha.length < 7) return;  
+                const dataEfetivaDoEvento = dataAlvoFormatada;  
+                const local = (linha[1] || "").trim();  
+                const horaOriginalStr = (linha[2] || "").trim();  
+                const tipo = (linha[3] || "").trim();  
+                const evento = (linha[4] || "").trim();  
+                const servico = (linha[5] || "").trim();  
+                const operadorGOriginalBruto = (linha[6] || "").trim();  
+                const valorColunaH = (linha.length > 7) ? (linha[7] || "").trim() : "";  
                 
                 const obsLower = valorColunaH.toLowerCase();
                 const isCancelado = obsLower.includes("cancelado") || obsLower.includes("cancelada");
 
                 const localNormalizadoParaUlysses = removerAcentos(local.toLowerCase());
-                let isTotalmenteEscaladoEsteEvento = (local !== "" && horaOriginalStr !== "" && (evento !== "" || tipo !== "" || servico !== "")) || 
-                                                    localNormalizadoParaUlysses.includes("plenário ulysses") || localNormalizadoParaUlysses.includes("plenario ulysses");
+                let isTotalmenteEscaladoEsteEvento = (local !== "" && horaOriginalStr !== "" && (evento !== "" || tipo !== "" || servico !== "")) ||  
+                                                     localNormalizadoParaUlysses.includes("plenário ulysses") || localNormalizadoParaUlysses.includes("plenario ulysses");
                 const isDisponivelEsteEvento = local !== "" && !isTotalmenteEscaladoEsteEvento && !localNormalizadoParaUlysses.includes("plenário ulysses") && !localNormalizadoParaUlysses.includes("plenario ulysses");
-                const detalhesComunsSlot = { 
-                    dataOriginalParaAlerta: dataEfetivaDoEvento, 
-                    dataParaExibicao: dataAlvoFormatada, 
-                    local, hora: horaOriginalStr, tipo, evento, servico, obs: valorColunaH, 
-                    isTotalmenteEscalado: isTotalmenteEscaladoEsteEvento, 
+                const detalhesComunsSlot = {  
+                    dataOriginalParaAlerta: dataEfetivaDoEvento,  
+                    dataParaExibicao: dataAlvoFormatada,  
+                    local, hora: horaOriginalStr, tipo, evento, servico, obs: valorColunaH,  
+                    isTotalmenteEscalado: isTotalmenteEscaladoEsteEvento,  
                     isDisponivel: isDisponivelEsteEvento,
-                    isCancelado: isCancelado 
+                    isCancelado: isCancelado  
                 };
                 let algumOperadorAtribuidoParaContagemGeral = false;
                 const operadoresJaProcessadosParaEstaLinha = new Set();
                 if (operadorGOriginalBruto && operadorGOriginalBruto.match(/[a-zA-Z]/)) {
                     const opGChaveBusca = removerAcentos(operadorGOriginalBruto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                     let isPrincipalG = false;
-                    if (nomeParaBuscaFocoOperador && opGChaveBusca === nomeParaBuscaFocoOperador) { 
+                    if (nomeParaBuscaFocoOperador && opGChaveBusca === nomeParaBuscaFocoOperador) {  
                         isPrincipalG = true;
                     }
-                    todasAtribuicoes.push({ 
-                        operatorOriginalFullNameFromSheet: operadorGOriginalBruto, 
-                        isPrincipal: isPrincipalG, 
-                        ...detalhesComunsSlot 
+                    todasAtribuicoes.push({  
+                        operatorOriginalFullNameFromSheet: operadorGOriginalBruto,  
+                        isPrincipal: isPrincipalG,  
+                        ...detalhesComunsSlot  
                     });
                     if(isTotalmenteEscaladoEsteEvento) algumOperadorAtribuidoParaContagemGeral = true;
                     operadoresJaProcessadosParaEstaLinha.add(opGChaveBusca);
                 }
                 if (valorColunaH && definitiveMasterOperatorMap.size > 0) {
                     const valHNormalizado = removerAcentos(valorColunaH.toLowerCase());
-                    definitiveMasterOperatorMap.forEach((masterOpDetails, buscaKeyOpMestre) => { 
-                        if (operadoresJaProcessadosParaEstaLinha.has(buscaKeyOpMestre)) return; 
-                        const nomeCompletoOriginalDoMestre = masterOpDetails.nomeCompletoOriginal; 
-                        const primeiroNomeOriginalDoMestre = masterOpDetails.nomeExibicao ? masterOpDetails.nomeExibicao.split(" ")[0] : masterOpDetails.nomeCompletoOriginal.split(" ")[0]; 
+                    definitiveMasterOperatorMap.forEach((masterOpDetails, buscaKeyOpMestre) => {  
+                        if (operadoresJaProcessadosParaEstaLinha.has(buscaKeyOpMestre)) return;  
+                        const nomeCompletoOriginalDoMestre = masterOpDetails.nomeCompletoOriginal;  
+                        const primeiroNomeOriginalDoMestre = masterOpDetails.nomeExibicao ? masterOpDetails.nomeExibicao.split(" ")[0] : masterOpDetails.nomeCompletoOriginal.split(" ")[0];  
                         const normFullNameOpMestre = removerAcentos(nomeCompletoOriginalDoMestre.toLowerCase());
                         let matchEncontrado = false;
                         if (valHNormalizado.includes(buscaKeyOpMestre) || valHNormalizado.includes(normFullNameOpMestre)) {
                             matchEncontrado = true;
-                        } else if (valHNormalizado.length > 2) { 
+                        } else if (valHNormalizado.length > 2) {  
                             if (buscaKeyOpMestre.startsWith(valHNormalizado) || normFullNameOpMestre.startsWith(valHNormalizado)) {
                                 matchEncontrado = true;
                             }
@@ -1281,7 +1258,7 @@ td.highlight-main-user {
                                 isPrincipalH = true;
                             }
                             todasAtribuicoes.push({
-                                operatorOriginalFullNameFromSheet: nomeCompletoOriginalDoMestre, 
+                                operatorOriginalFullNameFromSheet: nomeCompletoOriginalDoMestre,  
                                 isPrincipal: isPrincipalH,
                                 ...detalhesComunsSlot
                             });
@@ -1291,38 +1268,34 @@ td.highlight-main-user {
                     });
                 }
                 if (isTotalmenteEscaladoEsteEvento && algumOperadorAtribuidoParaContagemGeral) {
-                    indicesEventosDistribuidos.add(idx); 
+                    indicesEventosDistribuidos.add(idx);  
                 }
                 if (isDisponivelEsteEvento && operadorGOriginalBruto && operadorGOriginalBruto.match(/[a-zA-Z]/)) {
                     const buscaKey = removerAcentos(operadorGOriginalBruto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-                    const opInfo = definitiveMasterOperatorMap.get(buscaKey) || 
-                                   { nomeCompletoOriginal: operadorGOriginalBruto, nomeExibicao: null }; 
-                    if (!operadoresDisponiveisMap.has(buscaKey)) { 
+                    const opInfo = definitiveMasterOperatorMap.get(buscaKey) ||  
+                                   { nomeCompletoOriginal: operadorGOriginalBruto, nomeExibicao: null };  
+                    if (!operadoresDisponiveisMap.has(buscaKey)) {  
                         operadoresDisponiveisMap.set(buscaKey, {
-                            nomeOriginalCompleto: opInfo.nomeCompletoOriginal, 
-                            nomeExibicaoDefinitivo: opInfo.nomeExibicao, 
+                            nomeOriginalCompleto: opInfo.nomeCompletoOriginal,  
+                            nomeExibicaoDefinitivo: opInfo.nomeExibicao,  
                             local: local,
-                            isCancelado: isCancelado 
+                            isCancelado: isCancelado  
                         });
                     }
                 }
-            }); 
+            });  
             const atribuicoesOperadorPrincipal = todasAtribuicoes.filter(a => a.isPrincipal && a.isTotalmenteEscalado);
             let corpoPrincipalHTML = "";
-            let alertaProximidadeAtivadoEsteCiclo = false; 
+            let alertaProximidadeAtivadoEsteCiclo = false;  
             let operadorDoFocoEstaEscalado = atribuicoesOperadorPrincipal.length > 0;
             
-            // MODIFICADO: Usa nomeExibicaoUsuarioPrincipal ou o nome de exibição do operador em foco
+            // MODIFICADO: Usa gerarNomeParaDisplayPrincipal para nomeExibicaoDoFocoParaResultado
             let nomeExibicaoDoFocoParaResultado = "";
-            if (nomeParaBuscaFocoOperador === primeiroSegundoNomeUsuarioParaBusca && nomeExibicaoUsuarioPrincipal) { // Se é o usuário principal e tem nome de exibição
-                nomeExibicaoDoFocoParaResultado = capitalizarNomeCompleto(nomeExibicaoUsuarioPrincipal);
-            } else if (nomeCompletoRealOperadorEmFoco) { // Se é outro operador em foco ou usuário principal sem nome de exibição específico
-                 const opInfoFoco = definitiveMasterOperatorMap.get(nomeParaBuscaFocoOperador);
-                 if (opInfoFoco && opInfoFoco.nomeExibicao) {
-                     nomeExibicaoDoFocoParaResultado = capitalizarNomeCompleto(opInfoFoco.nomeExibicao);
-                 } else {
-                    nomeExibicaoDoFocoParaResultado = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
-                 }
+            if (nomeCompletoRealOperadorEmFoco) { 
+                // nomeCompletoRealOperadorEmFoco é "Primeiro SegundoNome" do input/localStorage 
+                // ou nome_completo_original da Col A do CSV para operadores clicados na tabela.
+                // gerarNomeParaDisplayPrincipal garante o formato "Primeiro SegundoNome" capitalizado.
+                nomeExibicaoDoFocoParaResultado = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             }
             nomeExibicaoDoFocoParaResultado = nomeExibicaoDoFocoParaResultado.toUpperCase();
 
@@ -1334,20 +1307,20 @@ td.highlight-main-user {
                 corpoPrincipalHTML += `<p class="text-base font-semibold text-center text-primary-light mb-4 uppercase">${mensagemEscalado}</p>`;
                 
                 atribuicoesOperadorPrincipal.forEach((eventoDetalhado, index) => {
-                    let horaClassesCompletas = "font-bold italic text-primary-content"; 
-                    let cardEventoClasses = "event-details text-xs sm:text-sm space-y-1 pt-1"; 
+                    let horaClassesCompletas = "font-bold italic text-primary-content";  
+                    let cardEventoClasses = "event-details text-xs sm:text-sm space-y-1 pt-1";  
                     const horaDoEventoStr = eventoDetalhado.hora;
-                    const dataOriginalParaAlertaEfetiva = eventoDetalhado.dataOriginalParaAlerta; 
-                    let alertaEmojis = ""; let devePiscarEsteEvento = FORCAR_ALERTA_HORA_TESTE && index === 0; 
+                    const dataOriginalParaAlertaEfetiva = eventoDetalhado.dataOriginalParaAlerta;  
+                    let alertaEmojis = ""; let devePiscarEsteEvento = FORCAR_ALERTA_HORA_TESTE && index === 0;  
                     
-                    if (!FORCAR_ALERTA_HORA_TESTE && !eventoDetalhado.isCancelado) { 
-                        if (horaDoEventoStr && horaDoEventoStr.includes(':') && 
+                    if (!FORCAR_ALERTA_HORA_TESTE && !eventoDetalhado.isCancelado) {  
+                        if (horaDoEventoStr && horaDoEventoStr.includes(':') &&  
                             dataOriginalParaAlertaEfetiva && dataOriginalParaAlertaEfetiva.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
                             const [diaOriginal, mesOriginalNum, anoOriginal] = dataOriginalParaAlertaEfetiva.split('/').map(Number);
                             const [horaEventoNum, minutoEventoNum] = horaDoEventoStr.split(':').map(Number);
                             if (!isNaN(diaOriginal) && !isNaN(mesOriginalNum) && !isNaN(anoOriginal) && !isNaN(horaEventoNum) && !isNaN(minutoEventoNum)) {
                                 const dataHoraRealDoEvento = new Date(anoOriginal, mesOriginalNum - 1, diaOriginal, horaEventoNum, minutoEventoNum);
-                                if (dataOriginalParaAlertaEfetiva === formatarData(agora)) { 
+                                if (dataOriginalParaAlertaEfetiva === formatarData(agora)) {  
                                     const diffMillis = dataHoraRealDoEvento.getTime() - agora.getTime();
                                     const diffMinutes = Math.floor(diffMillis / 60000);
                                     if (diffMinutes > 0 && diffMinutes < 90) { devePiscarEsteEvento = true; }
@@ -1357,17 +1330,17 @@ td.highlight-main-user {
                     }
                     let canceladoTagHtml = "";
                     if (eventoDetalhado.isCancelado) {
-                        cardEventoClasses += " opacity-60"; 
+                        cardEventoClasses += " opacity-60";  
                         canceladoTagHtml = `<p><strong class="font-medium text-red-400 blinking-text">🚨 EVENTO CANCELADO 🚨</strong></p>`;
-                        devePiscarEsteEvento = false; 
+                        devePiscarEsteEvento = false;  
                     }
 
-                    if (devePiscarEsteEvento) { 
-                        cardEventoClasses += " event-details-card-alert"; 
-                        alertaEmojis = `<span class="text-red-500 blinking-text ml-2">⚠️ ATENÇÃO ⚠️</span>`; 
-                        if (!alertaProximidadeAtivadoEsteCiclo) { 
-                            tocarSomRepetido(atencaoSound, 2, 5000); 
-                            alertaProximidadeAtivadoEsteCiclo = true; 
+                    if (devePiscarEsteEvento) {  
+                        cardEventoClasses += " event-details-card-alert";  
+                        alertaEmojis = `<span class="text-red-500 blinking-text ml-2">⚠️ ATENÇÃO ⚠️</span>`;  
+                        if (!alertaProximidadeAtivadoEsteCiclo) {  
+                            tocarSomRepetido(atencaoSound, 2, 5000);  
+                            alertaProximidadeAtivadoEsteCiclo = true;  
                         }
                     }
                     
@@ -1378,33 +1351,33 @@ td.highlight-main-user {
                     }
                     if (index > 0) { corpoPrincipalHTML += `<hr class="my-3 border-opacity-20 border-white">`; }
                     corpoPrincipalHTML += `
-                        <div class="${cardEventoClasses}"> 
+                        <div class="${cardEventoClasses}">  
                             ${canceladoTagHtml}
                             <p><strong class="font-medium text-secondary-content">📍 Local:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.local || ""}</span></p>
                             <p><strong class="font-medium text-secondary-content">📝 Evento:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.evento || ""}</span></p>
                             ${secretariaInfoHtml}
                             ${eventoDetalhado.tipo && eventoDetalhado.tipo.toUpperCase() !== 'OUTROS' ? `<p><strong class="font-medium text-secondary-content">🏷️ Tipo:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.tipo}</span></p>` : ''}
-                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.dataOriginalParaAlerta || "N/D"}</span></p> 
+                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.dataOriginalParaAlerta || "N/D"}</span></p>  
                             <p><strong class="font-medium text-secondary-content">⏰ Hora:</strong> <span class="${horaClassesCompletas}">${horaDoEventoStr || "N/A"}</span>${alertaEmojis}</p>
                             <p><strong class="font-medium text-secondary-content">🛠️ Serviço:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.servico || ""}</span></p>
                             ${eventoDetalhado.obs && eventoDetalhado.obs.trim() !== "" ? `<p><strong class="font-medium text-secondary-content">✨ Obs:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.obs}</span></p>` : ''}
                         </div>`;
                 });
                 
-                if (primeiroSegundoNomeUsuarioParaBusca && nomeParaBuscaFocoOperador === primeiroSegundoNomeUsuarioParaBusca) { 
-                    if (!alertaProximidadeAtivadoEsteCiclo && !atribuicoesOperadorPrincipal.some(e => e.isCancelado)) { 
-                        tocarSom(escaladoSound); 
+                if (primeiroSegundoNomeUsuarioParaBusca && nomeParaBuscaFocoOperador === primeiroSegundoNomeUsuarioParaBusca) {  
+                    if (!alertaProximidadeAtivadoEsteCiclo && !atribuicoesOperadorPrincipal.some(e => e.isCancelado)) {  
+                        tocarSom(escaladoSound);  
                     }
-                } else { 
-                    tocarSom(outroOpEscaladoSound); 
+                } else {  
+                    tocarSom(outroOpEscaladoSound);  
                 }
-                if (!atribuicoesOperadorPrincipal.some(e => e.isCancelado)) { 
+                if (!atribuicoesOperadorPrincipal.some(e => e.isCancelado)) {  
                     dispararConfetti();
                 }
 
-            } else { 
-                if (tipoDeVisualizacaoParam === 'minhaEscala' && !operadorDoFocoEstaEscalado) { 
-                    if (fetchSuccess) tocarSom(naoEscaladoSound); 
+            } else {  
+                if (tipoDeVisualizacaoParam === 'minhaEscala' && !operadorDoFocoEstaEscalado) {  
+                    if (fetchSuccess) tocarSom(naoEscaladoSound);  
                     corpoPrincipalHTML += `
                         <div class="text-center mb-6">
                             <p class='text-lg status-operador-principal-texto uppercase mb-1'>${nomeExibicaoDoFocoParaResultado} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
@@ -1414,20 +1387,20 @@ td.highlight-main-user {
                 const outrosOperadoresEscaladosContagem = {};
                 todasAtribuicoes.forEach(a => {
                     if (!a.isTotalmenteEscalado) return;
-                    const opOriginalFullName = a.operatorOriginalFullNameFromSheet; 
+                    const opOriginalFullName = a.operatorOriginalFullNameFromSheet;  
                     if (!opOriginalFullName || !opOriginalFullName.match(/[a-zA-Z]/)) return;
                     
                     const opBuscaKey = removerAcentos(opOriginalFullName.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-                    const operadorMestreInfo = definitiveMasterOperatorMap.get(opBuscaKey) || 
-                                               { nomeCompletoOriginal: opOriginalFullName, nomeExibicao: null }; 
+                    const operadorMestreInfo = definitiveMasterOperatorMap.get(opBuscaKey) ||  
+                                               { nomeCompletoOriginal: opOriginalFullName, nomeExibicao: null };  
                     
-                    if (buscaPorCliqueTabela && opBuscaKey === nomeParaBuscaFocoOperador && tipoDeVisualizacaoParam === 'minhaEscala') return; 
+                    if (buscaPorCliqueTabela && opBuscaKey === nomeParaBuscaFocoOperador && tipoDeVisualizacaoParam === 'minhaEscala') return;  
                     
                     if (!outrosOperadoresEscaladosContagem[opBuscaKey]) {
-                        outrosOperadoresEscaladosContagem[opBuscaKey] = { 
-                            nomeOriginalCompleto: operadorMestreInfo.nomeCompletoOriginal, 
-                            nomeExibicaoDefinitivo: operadorMestreInfo.nomeExibicao, 
-                            isCancelado: a.isCancelado, 
+                        outrosOperadoresEscaladosContagem[opBuscaKey] = {  
+                            nomeOriginalCompleto: operadorMestreInfo.nomeCompletoOriginal,  
+                            nomeExibicaoDefinitivo: operadorMestreInfo.nomeExibicao,  
+                            isCancelado: a.isCancelado,  
                             qtd: 0
                         };
                     } else {
@@ -1442,20 +1415,20 @@ td.highlight-main-user {
                 const numOperadoresEscaladosUnicos = listaFormatadaOutrosEscalados.length;
 
                 if (listaFormatadaOutrosEscalados.length > 0) {
-                     corpoPrincipalHTML += `<div class="mt-4"> 
+                     corpoPrincipalHTML += `<div class="mt-4">  
                                         <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM ${dataAlvoFormatada}</p>
                                         <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
                                         <table id="outrosOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
-                                             <thead><tr class="text-left text-secondary-content">
-                                                 <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
-                                                 <th class="font-medium pb-1 pl-2 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
-                                             </tr></thead><tbody>`;
+                                            <thead><tr class="text-left text-secondary-content">
+                                                <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
+                                                <th class="font-medium pb-1 pl-2 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
+                                            </tr></thead><tbody>`;
                     for (let i = 0; i < listaFormatadaOutrosEscalados.length; i += 2) {
                         const operadorA = listaFormatadaOutrosEscalados[i];
                         const operadorB = (i + 1 < listaFormatadaOutrosEscalados.length) ? listaFormatadaOutrosEscalados[i + 1] : null;
                         const buscaKeyA = removerAcentos(operadorA.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                         let classeDestaqueA = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyA === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
-                        if (operadorA.isCancelado) classeDestaqueA += " evento-cancelado-nome"; 
+                        if (operadorA.isCancelado) classeDestaqueA += " evento-cancelado-nome";  
 
                         corpoPrincipalHTML += `<tr>
                                 <td class="py-1 pr-1 col-nome operador-cell-clickable ${classeDestaqueA}" data-operador-busca="${buscaKeyA}" data-operador-display-original="${operadorA.nomeOriginalCompleto}">${operadorA.nomeExibicaoTabela}</td>
@@ -1463,7 +1436,7 @@ td.highlight-main-user {
                         if (operadorB) {
                             const buscaKeyB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                             let classeDestaqueB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
-                            if (operadorB.isCancelado) classeDestaqueB += " evento-cancelado-nome"; 
+                            if (operadorB.isCancelado) classeDestaqueB += " evento-cancelado-nome";  
                             corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable ${classeDestaqueB}" data-operador-busca="${buscaKeyB}" data-operador-display-original="${operadorB.nomeOriginalCompleto}">${operadorB.nomeExibicaoTabela}</td>
                                                  <td class="py-1 col-qtd ${classeDestaqueB}">${operadorB.qtd}</td>`;
                         } else {
@@ -1472,14 +1445,14 @@ td.highlight-main-user {
                         corpoPrincipalHTML += `</tr>`;
                     }
                     corpoPrincipalHTML += `</tbody></table></div>`;
-                } else if (tipoDeVisualizacaoParam === 'outrosEventos' || !operadorDoFocoEstaEscalado) { 
+                } else if (tipoDeVisualizacaoParam === 'outrosEventos' || !operadorDoFocoEstaEscalado) {  
                      corpoPrincipalHTML += `<p class='text-sm text-center text-secondary-content py-2'>Nenhum outro operador escalado ${adverbioParaUi.toLowerCase()}.</p>`;
                 }
                 
                 let listaFormatadaDisponiveis = formatarNomesParaTabela(Array.from(operadoresDisponiveisMap.values())
-                    .filter(opDisp => { 
+                    .filter(opDisp => {  
                         const buscaKeyDisp = removerAcentos(opDisp.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-                        return !outrosOperadoresEscaladosContagem[buscaKeyDisp]; 
+                        return !outrosOperadoresEscaladosContagem[buscaKeyDisp];  
                     }));
                 listaFormatadaDisponiveis.sort((a,b) => a.nomeExibicaoTabela.localeCompare(b.nomeExibicaoTabela, undefined, { sensitivity: 'base' }));
                 
@@ -1487,13 +1460,13 @@ td.highlight-main-user {
                 const textoSingularPluralDisp = numDisponiveis === 1 ? "OPERADOR DISPONÍVEL" : "OPERADORES DISPONÍVEIS";
 
                 if (listaFormatadaDisponiveis.length > 0) {
-                    corpoPrincipalHTML += `<div class="mt-6"> 
+                    corpoPrincipalHTML += `<div class="mt-6">  
                                         <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numDisponiveis} ${textoSingularPluralDisp} ${adverbioParaUi}:</p>
                                         <table id="disponiveisOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
-                                             <thead><tr class="text-left text-secondary-content">
-                                                 <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-local-header">Local</th>
-                                                 <th class="font-medium pb-1 pl-2 col-nome-header">Operador</th><th class="font-medium pb-1 col-local-header">Local</th>
-                                             </tr></thead><tbody>`;
+                                            <thead><tr class="text-left text-secondary-content">
+                                                <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-local-header">Local</th>
+                                                <th class="font-medium pb-1 pl-2 col-nome-header">Operador</th><th class="font-medium pb-1 col-local-header">Local</th>
+                                            </tr></thead><tbody>`;
                     for (let i = 0; i < listaFormatadaDisponiveis.length; i += 2) {
                         const operadorA = listaFormatadaDisponiveis[i];
                         const operadorB = (i + 1 < listaFormatadaDisponiveis.length) ? listaFormatadaDisponiveis[i + 1] : null;
@@ -1512,10 +1485,10 @@ td.highlight-main-user {
                         corpoPrincipalHTML += `</tr>`;
                     }
                     corpoPrincipalHTML += `</tbody></table></div>`;
-                } 
+                }  
             }
             
-            const finalOutputHTML = (corpoPrincipalHTML.trim() === "") 
+            const finalOutputHTML = (corpoPrincipalHTML.trim() === "")  
                 ? `<p class='text-base text-center font-semibold text-secondary-content py-4'>Nenhuma atividade registrada para ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada}).</p>`
                 : corpoPrincipalHTML;
             
@@ -1523,10 +1496,10 @@ td.highlight-main-user {
             gerenciarBotoesVisiveis(modoExibicaoAtual, operadorDoFocoEstaEscalado, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
 
         } catch (error) {
-            fetchErrorObject = error; 
-            fetchSuccess = false; 
-            console.error(`Falha ao carregar dados da agenda. Erro:`, error.message); 
-            exibirStatusAtualizacao(false, fetchErrorObject); 
+            fetchErrorObject = error;  
+            fetchSuccess = false;  
+            console.error(`Falha ao carregar dados da agenda. Erro:`, error.message);  
+            exibirStatusAtualizacao(false, fetchErrorObject);  
             
             resultadoDiv.innerHTML = `
                 <div class="text-center p-3 sm:p-4">
@@ -1541,8 +1514,8 @@ td.highlight-main-user {
                         <li>Aguarde alguns minutos e <strong>tente atualizar novamente</strong> usando o botão "ATUALIZAR DADOS".</li>
                     </ul>
                 </div>`;
-            tocarSom(errorSound); 
-            gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco); 
+            tocarSom(errorSound);  
+            gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);  
         }
     }
 
@@ -1559,22 +1532,22 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         if (viewModoCorrente !== 'boasVindas' && viewModoCorrente !== 'configNome' && viewModoCorrente !== 'confirmacaoNome' &&
             !nomeSalvoPrincipalLS && !nomeDefinidoNestaSessao && appInitialized) {
         }
-        return; 
+        return;  
     }
     
     const estaVendoPropriaEscalaPrincipal = nomeBuscaOpFoco === primeiroSegundoNomeUsuarioParaBusca && nomeCompletoOriginalUsuario !== "";
 
-    if (viewModoCorrente === 'minhaEscala') { 
-        if (!estaVendoPropriaEscalaPrincipal && nomeCompletoOriginalUsuario) { 
+    if (viewModoCorrente === 'minhaEscala') {  
+        if (!estaVendoPropriaEscalaPrincipal && nomeCompletoOriginalUsuario) {  
             minhaEscalaBtn.classList.remove('hidden');
-            minhaEscalaBtn.classList.add('btn-custom-blue'); 
+            minhaEscalaBtn.classList.add('btn-custom-blue');  
         }
         outrosEventosBtn.classList.remove('hidden');
-        outrosEventosBtn.classList.add('btn-custom-green'); 
+        outrosEventosBtn.classList.add('btn-custom-green');  
     } else if (viewModoCorrente === 'outrosEventos') {
-        if (nomeCompletoOriginalUsuario) { 
+        if (nomeCompletoOriginalUsuario) {  
             minhaEscalaBtn.classList.remove('hidden');
-            minhaEscalaBtn.classList.add('btn-custom-blue'); 
+            minhaEscalaBtn.classList.add('btn-custom-blue');  
         }
     }
     
@@ -1583,9 +1556,9 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         atualizarListasBtn.classList.add('btn-custom-blue');
     } else if (minhaEscalaBtn.classList.contains('btn-custom-blue') && !minhaEscalaBtn.classList.contains('hidden')) {
         atualizarListasBtn.classList.add('btn-custom-green');
-    } else { 
-        atualizarListasBtn.classList.add('btn-custom-green'); 
-    } 
+    } else {  
+        atualizarListasBtn.classList.add('btn-custom-green');  
+    }  
 
     const botoesAcaoContainer = document.getElementById('botoesAcaoContainer');
     let visibleButtonCount = 0;
@@ -1600,39 +1573,39 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         visibleButtonCount++;
     }
 
-    if (botoesAcaoContainer) { 
+    if (botoesAcaoContainer) {  
         botoesAcaoContainer.classList.remove('button-count-1', 'button-count-2', 'button-count-3');
         if (visibleButtonCount > 0) {
             botoesAcaoContainer.classList.add('button-count-' + visibleButtonCount);
         }
     }
 
-} 
+}  
     
-    function dispararConfetti() { 
-        const confettiCount = 20; 
+    function dispararConfetti() {  
+        const confettiCount = 20;  
         const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a8', '#ffd700'];
-        const containerParaConfetti = glassCardContainer; 
+        const containerParaConfetti = glassCardContainer;  
         for (let i = 0; i < confettiCount; i++) {
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
             confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.top = (Math.random() * 20 - 20) + 'px'; 
+            confetti.style.top = (Math.random() * 20 - 20) + 'px';  
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDelay = Math.random() * 0.5 + 's'; 
-            confetti.style.width = (Math.random() * 4 + 4) + 'px'; 
-            confetti.style.height = (Math.random() * 8 + 8) + 'px'; 
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';  
+            confetti.style.width = (Math.random() * 4 + 4) + 'px';  
+            confetti.style.height = (Math.random() * 8 + 8) + 'px';  
             containerParaConfetti.appendChild(confetti);
             setTimeout(() => {
                 if (confetti.parentElement) {
                     confetti.remove();
                 }
-            }, 3500); 
+            }, 3500);  
         }
     }
 
-    async function appFlowController() { 
-        if (botaoPlanilhaOficialIcone) { 
+    async function appFlowController() {  
+        if (botaoPlanilhaOficialIcone) {  
             botaoPlanilhaOficialIcone.href = URL_PLANILHA_OFICIAL_ABRIR;
         }
 
@@ -1640,7 +1613,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             mostrarModal(initialDisclaimerModal);
             let countdown = 5;
             if (initialModalTimerSpan) initialModalTimerSpan.textContent = countdown;
-            if (initialDisclaimerOkBtn) initialDisclaimerOkBtn.disabled = true; 
+            if (initialDisclaimerOkBtn) initialDisclaimerOkBtn.disabled = true;  
 
             const timerInterval = setInterval(() => {
                 countdown--;
@@ -1648,8 +1621,8 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 if (countdown <= 0) {
                     clearInterval(timerInterval);
                     if (initialModalTimerSpan && initialModalTimerSpan.parentElement && initialModalTimerSpan.parentElement.tagName === 'BUTTON') {
-                         initialModalTimerSpan.parentElement.innerHTML = "OK"; 
-                    } else if (initialDisclaimerOkBtn) { 
+                         initialModalTimerSpan.parentElement.innerHTML = "OK";  
+                    } else if (initialDisclaimerOkBtn) {  
                          initialDisclaimerOkBtn.textContent = "OK";
                     }
                     if (initialDisclaimerOkBtn) initialDisclaimerOkBtn.disabled = false;
@@ -1658,10 +1631,10 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
             initialDisclaimerOkBtn.addEventListener('click', async () => {
                 esconderModal(initialDisclaimerModal);
-                appInitialized = true; 
-                await proceedWithAppInitialization(); 
+                appInitialized = true;  
+                await proceedWithAppInitialization();  
             }, { once: true });
-        } else { // App retomado (ex: aba ficou visível novamente)
+        } else { 
             console.log("App retomado. Tentando atualizar dados...");
             const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
             const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
@@ -1673,15 +1646,14 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                 if (localCsvData) {
                     await carregarListaOperadoresDefinitiva(localCsvData);
-                    // MODIFICADO: Tenta restaurar nome de exibição se operador principal estava definido
                     const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
                     const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo');
                     if (nomeSalvoLS) {
-                        nomeCompletoOriginalUsuario = nomeSalvoLS; // Restaura para definirOperadorPrincipalAtual
+                        nomeCompletoOriginalUsuario = nomeSalvoLS; 
                         if (nomeExibicaoSalvoLS) {
-                           nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS; // Restaura direto
+                           nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS; 
                         }
-                        definirOperadorPrincipalAtual(nomeSalvoLS, false); // Revalida e atualiza nomeExibicaoUsuarioPrincipal do mapa
+                        definirOperadorPrincipalAtual(nomeSalvoLS, false); 
                     }
                     await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
                 } else {
@@ -1691,7 +1663,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         }
     }
 
-    async function proceedWithAppInitialization() { 
+    async function proceedWithAppInitialization() {  
         console.log("Modal inicial dispensado. Prosseguindo com inicialização do App...");
         if (anoAtualFooterSpan) anoAtualFooterSpan.textContent = new Date().getFullYear();
         if(initialDisclaimerTitleH2) initialDisclaimerTitleH2.textContent = "⚠️ ATENÇÃO! ⚠️";
@@ -1700,8 +1672,8 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
 
         if (localCsvData) {
-            await carregarListaOperadoresDefinitiva(localCsvData); 
-            await buscarMensagemDaPlanilha(localCsvData); 
+            await carregarListaOperadoresDefinitiva(localCsvData);  
+            await buscarMensagemDaPlanilha(localCsvData);  
         } else {
             console.error("Falha crítica ao carregar dados locais de operadores_nomes_msg.csv. O aplicativo pode ter funcionalidades limitadas.");
             if (areaPrincipalAppDiv && !areaPrincipalAppDiv.classList.contains('hidden') && resultadoDiv) {
@@ -1709,39 +1681,38 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             }
         }
         
-        exibirDataAtualCabecalho(); 
-        const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
-        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO: Carrega nome de exibição salvo
+        exibirDataAtualCabecalho();  
+        const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');  
+        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); 
 
         if (nomeSalvoLS) {
             if (definitiveMasterOperatorMap.size > 0) {
-                nomeCompletoOriginalUsuario = nomeSalvoLS; // Restaura o nome de input (Primeiro Segundo)
-                if (nomeExibicaoSalvoLS) { // Restaura o nome de exibição se existir
+                nomeCompletoOriginalUsuario = nomeSalvoLS; 
+                if (nomeExibicaoSalvoLS) { 
                     nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
                 }
-                // definirOperadorPrincipalAtual vai usar nomeSalvoLS para buscar no mapa e atualizar nomeExibicaoUsuarioPrincipal
-                definirOperadorPrincipalAtual(nomeSalvoLS, false); 
+                definirOperadorPrincipalAtual(nomeSalvoLS, false);  
                 
                 modoExibicaoAtual = 'minhaEscala';
-                localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
-                exibirTela('principal'); 
+                localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario);  
+                exibirTela('principal');  
                 await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
             } else {
                  console.warn("Operador salvo encontrado, mas lista de operadores não pôde ser carregada. Exibindo tela de boas-vindas.");
-                 localStorage.removeItem('operadorNomeSalvo'); 
+                 localStorage.removeItem('operadorNomeSalvo');  
                  localStorage.removeItem('operadorNomeFocoVisualizacao');
-                 localStorage.removeItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO
-                 nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO
+                 localStorage.removeItem('operadorNomeExibicaoSalvo'); 
+                 nomeExibicaoUsuarioPrincipal = ""; 
                  exibirTela('boasVindas');
             }
         } else {
             exibirTela('boasVindas');
         }
-        startPeriodicChecks(); 
+        startPeriodicChecks();  
     }
 
-    function handleVisibilityChange() { 
-        if (document.visibilityState === 'visible' && appInitialized) { 
+    function handleVisibilityChange() {  
+        if (document.visibilityState === 'visible' && appInitialized) {  
             console.log("App tornou-se visível. Tentando atualizar dados...");
             const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
             const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
@@ -1750,7 +1721,6 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
             } else {
                  console.warn("App visível, mas mapa de operadores vazio. Tentando recarregar dados locais e escalas.");
-                 // Recarrega dados e tenta restaurar estado do operador
                  (async () => {
                     const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                     if (localCsvData) {
@@ -1760,9 +1730,8 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                         if (nomeSalvoLS) {
                             nomeCompletoOriginalUsuario = nomeSalvoLS;
                             if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
-                            definirOperadorPrincipalAtual(nomeSalvoLS, false); // Revalida com o mapa
+                            definirOperadorPrincipalAtual(nomeSalvoLS, false); 
                         }
-                        // A função buscarEscalas será chamada por definirOperadorPrincipalAtual se for o caso ou pela lógica de appFlowController
                         await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
                     }
                  })();
@@ -1771,63 +1740,63 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
     }
     
     function checkScheduledNotifications() {
-        if (!appInitialized) return; 
+        if (!appInitialized) return;  
 
         const agora = new Date();
         const horaAtualStr = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
-        const dataAtualStr = formatarData(agora); 
+        const dataAtualStr = formatarData(agora);  
 
         for (const scheduledTime of SCHEDULED_NOTIFICATION_TIMES) {
             if (horaAtualStr === scheduledTime) {
-                const storageKey = `notif_${scheduledTime.replace(":", "")}_${dataAtualStr}`; 
+                const storageKey = `notif_${scheduledTime.replace(":", "")}_${dataAtualStr}`;  
                 if (!sessionStorage.getItem(storageKey)) {
-                    if (initialDisclaimerModal.classList.contains('visible') || 
-                        (sheetMessageModal && sheetMessageModal.classList.contains('visible'))) { 
-                        continue; 
+                    if (initialDisclaimerModal.classList.contains('visible') ||  
+                        (sheetMessageModal && sheetMessageModal.classList.contains('visible'))) {  
+                        continue;  
                     }
                     
                     if (periodicNotificationModal) {
                         const pElement = periodicNotificationModal.querySelector('p');
-                        if (pElement) pElement.innerHTML = DISCLAIMER_TEXT_MODAL.replace(/App/g, '<strong>App</strong>'); 
-                        if (periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢"; 
+                        if (pElement) pElement.innerHTML = DISCLAIMER_TEXT_MODAL.replace(/App/g, '<strong>App</strong>');  
+                        if (periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢";  
                         mostrarModal(periodicNotificationModal);
                         tocarSom(notificationSound);
-                        sessionStorage.setItem(storageKey, 'true'); 
+                        sessionStorage.setItem(storageKey, 'true');  
                     }
-                    break; 
+                    break;  
                 }
             }
         }
     }
 
-    function startPeriodicChecks() { 
+    function startPeriodicChecks() {  
         if (periodicCheckIntervalId) {
             clearInterval(periodicCheckIntervalId);
         }
-        checkScheduledNotifications(); 
-        periodicCheckIntervalId = setInterval(checkScheduledNotifications, 60000); 
+        checkScheduledNotifications();  
+        periodicCheckIntervalId = setInterval(checkScheduledNotifications, 60000);  
     }
     
-    window.onload = () => { 
+    window.onload = () => {  
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js') 
+            navigator.serviceWorker.register('./sw.js')  
             .then(function(registration) { console.log('Service Worker registrado com sucesso.'); })
             .catch(function(error) { console.log('Falha ao registrar Service Worker:', error.message); });
         }
-        appFlowController(); 
+        appFlowController();  
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     
-    window.addEventListener('focus', async () => { 
-        if (appInitialized && document.visibilityState === 'visible') { 
+    window.addEventListener('focus', async () => {  
+        if (appInitialized && document.visibilityState === 'visible') {  
             console.log("App ganhou foco. Tentando atualizar dados...");
             const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
             const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
             
-            if (definitiveMasterOperatorMap.size > 0) { 
+            if (definitiveMasterOperatorMap.size > 0) {  
                 await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
-            } else { 
+            } else {  
                  console.warn("App ganhou foco, mas mapa de operadores vazio. Tentando recarregar dados locais e escalas.");
                  const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
                  if (localCsvData) {
@@ -1835,12 +1804,12 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                      const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
                      const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo');
                      if (nomeSalvoLS) {
-                        nomeCompletoOriginalUsuario = nomeSalvoLS;
-                        if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
-                        definirOperadorPrincipalAtual(nomeSalvoLS, false);
+                         nomeCompletoOriginalUsuario = nomeSalvoLS;
+                         if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
+                         definirOperadorPrincipalAtual(nomeSalvoLS, false);
                      }
-                     if (nomeCompletoOriginalUsuario || modoExibicaoAtual === 'outrosEventos') { 
-                        await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
+                     if (nomeCompletoOriginalUsuario || modoExibicaoAtual === 'outrosEventos') {  
+                         await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
                      }
                  } else {
                       resultadoDiv.innerHTML = `<p class='text-lg font-bold text-red-400 py-4'>FALHA AO RECARREGAR DADOS DE OPERADORES (FOCO). Não é possível exibir escalas.</p>`;
@@ -1856,20 +1825,18 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
     definirOperadorBtn.addEventListener('click', () => {
         const nomeInputOriginal = nomeOperadorInput.value.trim();
         const partesNome = nomeInputOriginal.split(/\s+/).filter(n => n.length > 0);
-        if (partesNome.length >= 2) { 
+        if (partesNome.length >= 2) {  
             erroNomeInputP.classList.add('hidden');
             const primeiroESegundoDoInputParaDefinir = capitalizarNomeCompleto(partesNome.slice(0,2).join(" "));
             
-            // MODIFICADO: Busca no mapa para mostrar o nome de exibição na confirmação, se disponível
-            const chaveBuscaConf = removerAcentos(primeiroESegundoDoInputParaDefinir.toLowerCase());
-            const opInfoConf = definitiveMasterOperatorMap.get(chaveBuscaConf);
-            const nomeExibicaoParaConfirmacao = (opInfoConf && opInfoConf.nomeExibicao && opInfoConf.nomeExibicao.trim() !== "") 
-                                              ? capitalizarNomeCompleto(opInfoConf.nomeExibicao) 
-                                              : gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir);
+            // MODIFICADO: A mensagem de confirmação sempre mostrará o "Primeiro SegundoNome".
+            // A lógica de buscar o nomeExibicao (Coluna B) no mapa e armazená-lo em nomeExibicaoUsuarioPrincipal
+            // para uso INTERNO e nas TABELAS é mantida em definirOperadorPrincipalAtual.
+            const nomeParaConfirmacao = gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir); 
             
             confirmacaoNomeDiv.innerHTML = `
                 <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
-                <p class="text-xs sm:text-sm text-secondary-content">O nome usado para exibição será <strong class="text-primary-content">"${nomeExibicaoParaConfirmacao}"</strong>.</p>
+                <p class="text-xs sm:text-sm text-secondary-content">O nome usado para exibição (fora das tabelas) será <strong class="text-primary-content">"${nomeParaConfirmacao}"</strong>.</p>
                 <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
                 <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
                     <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">
@@ -1891,23 +1858,15 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                     }
                 }
                 
-                // Passa o "Primeiro SegundoNome" do input para definirOperadorPrincipalAtual
-                definirOperadorPrincipalAtual(primeiroESegundoDoInputParaDefinir, false); 
+                definirOperadorPrincipalAtual(primeiroESegundoDoInputParaDefinir, false);  
                 
-                if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") { // nomeCompletoOriginalUsuario é o "Primeiro SegundoNome" do input
+                if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") { 
                     modoExibicaoAtual = 'minhaEscala';
-                    // O nome de foco para visualização deve ser o nome_completo original da planilha, se encontrado,
-                    // ou o input se não. A função definirOperadorPrincipalAtual já lida com o mapa.
-                    // Para buscarEscalas, usamos primeiroSegundoNomeUsuarioParaBusca (chave) e nomeCompletoOriginalUsuario (input).
-                    localStorage.setItem('operadorNomeFocoVisualizacao', primeiroSegundoNomeUsuarioParaBusca); // Ou o nome_completo da planilha? Para consistência...
-                                                                                                            // Melhor usar o que foi usado para busca no mapa, ou o nome original do mapa.
-                                                                                                            // Vamos usar o nomeCompletoOriginalUsuario (que é o input P S).
+                    localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
                     
-                    // A variável global nomeExibicaoUsuarioPrincipal já foi atualizada por definirOperadorPrincipalAtual.
-                    // atualizarDisplayOperadorCabecalho também já foi chamada lá.
                     exibirTela('principal');
                     await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
-                } else { 
+                } else {  
                     erroNomeInputP.textContent = "Erro ao definir nome. Tente novamente.";
                     erroNomeInputP.classList.remove('hidden');
                     exibirTela('configNome');
@@ -1924,32 +1883,30 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
     minhaEscalaBtn.addEventListener('click', async () => {
         const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
-        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO
+        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); 
         if (nomeSalvoLS) {
-            nomeCompletoOriginalUsuario = nomeSalvoLS; // Restaura
-            if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS; // Restaura
-            definirOperadorPrincipalAtual(nomeSalvoLS, false); // Revalida com mapa e atualiza nomeExibicaoUsuarioPrincipal
+            nomeCompletoOriginalUsuario = nomeSalvoLS; 
+            if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS; 
+            definirOperadorPrincipalAtual(nomeSalvoLS, false); 
             modoExibicaoAtual = 'minhaEscala';
-            localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
-            exibirTela('principal'); 
+            localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario);  
+            exibirTela('principal');  
             await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
-        } else { 
-            exibirTela('configNome'); 
+        } else {  
+            exibirTela('configNome');  
         }
     });
 
     outrosEventosBtn.addEventListener('click', async () => {
         modoExibicaoAtual = 'outrosEventos';
-        // Não limpa nomeExibicaoUsuarioPrincipal, pois ele pertence ao operador principal definido.
-        // Apenas o foco da visualização muda.
-        localStorage.removeItem('operadorNomeFocoVisualizacao'); 
-        exibirTela('principal'); 
-        await buscarEscalas("", "", 'outrosEventos'); // buscarEscalas usará o nomeExibicao apropriado para o header.
+        localStorage.removeItem('operadorNomeFocoVisualizacao');  
+        exibirTela('principal');  
+        await buscarEscalas("", "", 'outrosEventos'); 
     });
     
     atualizarListasBtn.addEventListener('click', async () => {
-        let nomeBuscaAtual = ""; 
-        let nomeCompletoFocoAtual = ""; 
+        let nomeBuscaAtual = "";  
+        let nomeCompletoFocoAtual = "";  
 
         if (modoExibicaoAtual === 'minhaEscala') {
             nomeCompletoFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
@@ -1961,57 +1918,51 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         const localCsvData = await fetchAndParseLocalCSV('operadores_nomes_msg.csv');
         if (localCsvData) {
             await carregarListaOperadoresDefinitiva(localCsvData);
-            await buscarMensagemDaPlanilha(localCsvData); 
-             const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); // NOVO CÓDIGO
-             const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO
-             if (nomeSalvoLS) { // Revalida o operador principal com o novo mapa
+            await buscarMensagemDaPlanilha(localCsvData);  
+             const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
+             const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); 
+             if (nomeSalvoLS) { 
                 nomeCompletoOriginalUsuario = nomeSalvoLS;
                 if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
-                definirOperadorPrincipalAtual(nomeSalvoLS, false); 
+                definirOperadorPrincipalAtual(nomeSalvoLS, false);  
              }
         } else {
             console.error("Falha ao recarregar dados locais ao clicar em ATUALIZAR DADOS.");
         }
-        await buscarEscalas(nomeBuscaAtual, nomeCompletoFocoAtual, modoExibicaoAtual); 
+        await buscarEscalas(nomeBuscaAtual, nomeCompletoFocoAtual, modoExibicaoAtual);  
     });
     
     resultadoDiv.addEventListener('click', async function(event) {
         const targetCell = event.target.closest('td.operador-cell-clickable');
         if (targetCell) {
-            const operadorBuscaKeyClicado = targetCell.dataset.operadorBusca; 
-            const operadorNomeCompletoOriginalClicado = targetCell.dataset.operadorDisplayOriginal; 
+            const operadorBuscaKeyClicado = targetCell.dataset.operadorBusca;  
+            const operadorNomeCompletoOriginalClicado = targetCell.dataset.operadorDisplayOriginal;  
             if (ultimaCelulaClicada && ultimaCelulaClicada !== targetCell) {
                 ultimaCelulaClicada.classList.remove('operador-cell-highlighted');
             }
             targetCell.classList.add('operador-cell-highlighted');
             ultimaCelulaClicada = targetCell;
 
-            // Ao clicar em um operador na tabela, buscamos seu nome de exibição no mapa
-            const opInfoClicado = definitiveMasterOperatorMap.get(operadorBuscaKeyClicado);
-            const nomeExibicaoParaFoco = (opInfoClicado && opInfoClicado.nomeExibicao) ? opInfoClicado.nomeExibicao : operadorNomeCompletoOriginalClicado;
-
             if (operadorBuscaKeyClicado && operadorNomeCompletoOriginalClicado) {
-                modoExibicaoAtual = 'minhaEscala'; 
-                // Guarda o nome_completo original da planilha (Coluna A) para foco
-                localStorage.setItem('operadorNomeFocoVisualizacao', operadorNomeCompletoOriginalClicado); 
-                exibirTela('principal'); 
-                // Passa a chave de busca e o nome_completo original para buscarEscalas
-                await buscarEscalas(operadorBuscaKeyClicado, operadorNomeCompletoOriginalClicado, 'minhaEscala', true); 
+                modoExibicaoAtual = 'minhaEscala';  
+                localStorage.setItem('operadorNomeFocoVisualizacao', operadorNomeCompletoOriginalClicado);  
+                exibirTela('principal');  
+                await buscarEscalas(operadorBuscaKeyClicado, operadorNomeCompletoOriginalClicado, 'minhaEscala', true);  
             }
         }
     });
 
     logoPrincipalApp.addEventListener('click', () => {
         localStorage.removeItem('operadorNomeSalvo');
-        localStorage.removeItem('operadorNomeFocoVisualizacao'); 
-        localStorage.removeItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO: Limpar nome de exibição salvo
+        localStorage.removeItem('operadorNomeFocoVisualizacao');  
+        localStorage.removeItem('operadorNomeExibicaoSalvo'); 
         primeiroSegundoNomeUsuarioParaBusca = "";
         nomeCompletoOriginalUsuario = "";
-        nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO: Limpar variável global
+        nomeExibicaoUsuarioPrincipal = ""; 
         nomeDefinidoNestaSessao = false;
-        modoExibicaoAtual = 'minhaEscala'; 
+        modoExibicaoAtual = 'minhaEscala';  
         exibirTela('boasVindas');
-        if(botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('hidden'); 
+        if(botaoPlanilhaOficialIcone) botaoPlanilhaOficialIcone.classList.add('hidden');  
     });
 
     sheetMessageOkBtn.addEventListener('click', () => esconderModal(sheetMessageModal));
@@ -2034,7 +1985,7 @@ setInterval(() => {
     const agora = new Date();
     const diffMinutos = (agora.getTime() - horaDados.getTime()) / 60000;
 
-    if (diffMinutos >= 1) { 
+    if (diffMinutos >= 1) {  
         statusSpan.classList.add('blinking-red-status');
         statusSpan.style.backgroundColor = '#ffffff';
         statusSpan.style.color = '#b91c1c';
@@ -2042,25 +1993,25 @@ setInterval(() => {
         statusSpan.style.borderRadius = '0.5rem';
         statusSpan.style.display = 'inline-block';
         statusSpan.style.fontWeight = 'bold';
-        statusSpan.setAttribute('data-original', textoOriginal); 
-        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS<br>CONSULTE A PLANILHA⚠️`; 
-        statusSpan.style.animation = 'blink 0.5s linear infinite alternate'; 
+        statusSpan.setAttribute('data-original', textoOriginal);  
+        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS<br>CONSULTE A PLANILHA⚠️`;  
+        statusSpan.style.animation = 'blink 0.5s linear infinite alternate';  
 
         const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
         if (botaoPlanilha) {
-            botaoPlanilha.classList.remove('pulsar-animacao'); 
+            botaoPlanilha.classList.remove('pulsar-animacao');  
             botaoPlanilha.classList.add('pulsar-animacao-forte');
         }
     } else {
         statusSpan.classList.remove('blinking-red-status');
-        statusSpan.style.backgroundColor = ''; 
-        statusSpan.style.color = ''; 
+        statusSpan.style.backgroundColor = '';  
+        statusSpan.style.color = '';  
         statusSpan.style.padding = '';
         statusSpan.style.borderRadius = '';
         statusSpan.style.display = '';
         statusSpan.style.fontWeight = '';
-        statusSpan.style.animation = ''; 
-        statusSpan.textContent = textoOriginal; 
+        statusSpan.style.animation = '';  
+        statusSpan.textContent = textoOriginal;  
 
         const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
         if (botaoPlanilha) {
@@ -2070,7 +2021,7 @@ setInterval(() => {
             }
         }
     }
-}, 60000); 
+}, 60000);  
 
 </script>
 </body>

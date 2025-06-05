@@ -512,7 +512,7 @@ td.highlight-main-user {
 
     let primeiroSegundoNomeUsuarioParaBusca = "";  
     let nomeCompletoOriginalUsuario = "";  
-    let nomeExibicaoUsuarioPrincipal = ""; // Para guardar o nome de exibição (Coluna B) do usuário principal, usado INTERNAMENTE e para TABELAS.
+    let nomeExibicaoUsuarioPrincipal = ""; 
     let modoExibicaoAtual = 'minhaEscala';  
     let definitiveMasterOperatorMap = new Map();
     let ultimaCelulaClicada = null;
@@ -581,7 +581,7 @@ td.highlight-main-user {
 
     function escaparRegExp(string) {
         if (typeof string !== 'string') return '';
-        return string.replace(/[.*+?^<span class="math-inline">\{\}\(\)\|\[\\\]\\\\\]/g, '\\\\</span>&');
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     function abreviarLocal(localOriginal) {
@@ -980,9 +980,9 @@ td.highlight-main-user {
         definitiveMasterOperatorMap.clear();
 
         const headersRaw = (linhasOperadores[0] || []);
-        const headers = headersRaw.map(h => (h || "").trim().toLowerCase()); // Normalizar para minúsculas aqui
+        const headers = headersRaw.map(h => (h || "").trim().toLowerCase()); 
 
-        // Adicionando logs de depuração para cabeçalhos
+        // LOGS DE DEPURAÇÃO CORRIGIDOS COM CRASES (BACKTICKS)
         console.log(`[CSV DEBUG] Cabeçalhos Brutos da Planilha de Operadores: ${JSON.stringify(headersRaw)}`);
         console.log(`[CSV DEBUG] Cabeçalhos Normalizados para Busca: ${JSON.stringify(headers)}`);
 
@@ -1012,12 +1012,14 @@ td.highlight-main-user {
         for (let i = 1; i < linhasOperadores.length; i++) {
             const linha = linhasOperadores[i];
             
+            // LOG CORRIGIDO COM CRASES (BACKTICKS)
             console.log(`[CSV DEBUG] Processando Linha ${i + 1} do CSV: Raw=["${linha.join('","')}"]`);
 
             if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
                 const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
                 let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
                 
+                // LOG CORRIGIDO COM CRASES (BACKTICKS)
                 console.log(`[CSV DEBUG] Linha ${i + 1}: Extraído NomeCompleto='${nomeCompletoOriginalDaPlanilha}', NomeExibicao='${nomeExibicaoParaMapa}'`);
 
                 if (nomeCompletoOriginalDaPlanilha === "") {
@@ -1026,6 +1028,7 @@ td.highlight-main-user {
                 }
 
                 const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0, 2).join(" ").toLowerCase());
+                // LOG CORRIGIDO COM CRASES (BACKTICKS)
                 console.log(`[CSV DEBUG] Linha ${i + 1}: ChaveGerada='${buscaKey}' para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'`);
 
                 if (buscaKey) {
@@ -1042,7 +1045,7 @@ td.highlight-main-user {
         }
         console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho final do mapa:", definitiveMasterOperatorMap.size);
         if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) {
-            console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo e formato das colunas 'nome_completo' e 'nome_exibicao'.");
+            console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV.");
         }
     }
     
@@ -1056,6 +1059,7 @@ td.highlight-main-user {
     const headersRaw = (linhas[0] || []);
     const headers = headersRaw.map(h => (h || "").trim());
 
+    // LOG CORRIGIDO COM CRASES (BACKTICKS)
     console.log(`[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem): ${JSON.stringify(headersRaw)}`);
     console.log(`[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem): ${JSON.stringify(headers)}`);
 
@@ -1069,6 +1073,7 @@ td.highlight-main-user {
     const tituloMsg = (linhas.length > 1 && linhas[1] && typeof linhas[1][idxMensagem] !== 'undefined') ? (linhas[1][idxMensagem] || "").trim() : "";
     const corpoMsg = (linhas.length > 2 && linhas[2] && typeof linhas[2][idxMensagem] !== 'undefined') ? (linhas[2][idxMensagem] || "").trim() : "";
 
+    // LOG CORRIGIDO COM CRASES (BACKTICKS)
     console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='${tituloMsg}', Corpo='${corpoMsg}' (da coluna índice ${idxMensagem})`);
 
     if (corpoMsg.trim() !== "") {  
@@ -1118,12 +1123,11 @@ td.highlight-main-user {
         const dataAlvoFormatada = formatarData(dataAlvoDaConsulta);
         let nomeExibicaoLoader = "todos os operadores";  
 
-        // MODIFICADO: Para usar "Primeiro SegundoNome" para o loader quando em 'minhaEscala'
         if(tipoDeVisualizacaoParam === 'minhaEscala'){
             if (nomeCompletoRealOperadorEmFoco) { 
                 nomeExibicaoLoader = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             } else { 
-                nomeExibicaoLoader = ""; // Ou uma string padrão como "operador selecionado"
+                nomeExibicaoLoader = ""; 
             }
         }  
         
@@ -1305,12 +1309,8 @@ td.highlight-main-user {
             let alertaProximidadeAtivadoEsteCiclo = false;  
             let operadorDoFocoEstaEscalado = atribuicoesOperadorPrincipal.length > 0;
             
-            // MODIFICADO: Usa gerarNomeParaDisplayPrincipal para nomeExibicaoDoFocoParaResultado
             let nomeExibicaoDoFocoParaResultado = "";
             if (nomeCompletoRealOperadorEmFoco) { 
-                // nomeCompletoRealOperadorEmFoco é "Primeiro SegundoNome" do input/localStorage 
-                // ou nome_completo_original da Col A do CSV para operadores clicados na tabela.
-                // gerarNomeParaDisplayPrincipal garante o formato "Primeiro SegundoNome" capitalizado.
                 nomeExibicaoDoFocoParaResultado = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             }
             nomeExibicaoDoFocoParaResultado = nomeExibicaoDoFocoParaResultado.toUpperCase();

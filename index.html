@@ -11,8 +11,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4b0082">
     <link rel="apple-touch-icon" href="icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes"> <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EscalaApp">
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -34,7 +34,7 @@
     overflow-x: hidden;
 }
 .glass-card-container {
-    background: rgba(130, 90, 230, 0.4); 
+    background: rgba(130, 90, 230, 0.4); /* Mantido do seu original, ajuste se o seu body tem (75,0,130)*/
     backdrop-filter: blur(10px) saturate(150%);
     -webkit-backdrop-filter: blur(10px) saturate(150%);
     border-radius: 1.5rem;
@@ -50,12 +50,12 @@
 .text-primary-content { color: #f0f0f0; }
 .text-secondary-content { color: #c0c0c0; }
 .status-operador-principal-texto {
-    color: #7d70ff !important; 
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); 
+    color: #7d70ff !important; /* Roxo mais escuro do original */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Sombra preta suave */
 }
 .btn-custom {
     border: 1px solid rgba(255, 255, 255, 0.2);
-    font-weight: normal; 
+    font-weight: normal; /* Alterado de bold para normal como no seu original */
     font-size: 0.85rem;
     line-height: 1.2;
     padding-top: 0.4rem; padding-bottom: 0.4rem;
@@ -75,7 +75,7 @@
 .btn-custom:active:not(:disabled) {
     transform: translateY(1px);
 }
-.btn-custom-blue { 
+.btn-custom-blue { /* Estilo dos botões de confirmação/definição */
     background-color: #ffffff;
     color: #111111;
     font-weight: normal;
@@ -88,25 +88,25 @@
 .btn-custom-blue:hover:not(:disabled) {
     background-color: #f3f4f6;
 }
-.btn-custom-red { 
+.btn-custom-red { /* Para botões de 'NÃO' ou cancelamento */
     background-color: rgba(220, 38, 38, 0.8);  
     color: white;  
 }
 .btn-custom-red:hover:not(:disabled) {  
     background-color: rgba(185, 28, 28, 0.9);  
 }
-.btn-custom-green { 
-    background-color: #ffffff;       
-    color: #111111;                  
+.btn-custom-green { /* Para botões de 'OK' ou ações positivas */
+    background-color: #ffffff;       /* fundo branco */
+    color: #111111;                  /* texto preto */
     font-weight: normal;
     border-radius: 0.5rem;
-    border: 1px solid #cccccc;       
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+    border: 1px solid #cccccc;       /* borda leve */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
     padding: 0.5rem 1rem;
     text-align: center;
 }
 .btn-custom-green:hover:not(:disabled) {
-    background-color: #f3f4f6;       
+    background-color: #f3f4f6;       /* leve cinza no hover */
 }
 #resultado {
     background-color: rgba(0, 0, 0, 0.25);
@@ -184,7 +184,7 @@ td.operador-cell-clickable {
 td.operador-cell-clickable:hover,
 td.operador-cell-clickable.highlight-main-user:hover {
     background-color: white !important;  
-    color: #4B0082 !important;  /* ROXO ESCURO NO HOVER */
+    color: #4B0082 !important;  /* ALTERADO PARA ROXO ESCURO */  
     font-weight: normal !important;
 }
 td.operador-cell-highlighted {  
@@ -203,18 +203,10 @@ td.highlight-main-user {
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
-
-/* REGRAS PARA CONTRASTE DE LINHAS DA TABELA */
 #outrosOperadoresTable tbody tr:nth-child(odd),
-#disponiveisOperadoresTable tbody tr:nth-child(odd) {
-    background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE - LINHAS ÍMPARES (MAIS CLARAS) */
+background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
+    background-color: rgba(5, 150, 105, 0.08);  
 }
-
-#outrosOperadoresTable tbody tr:nth-child(even),
-#disponiveisOperadoresTable tbody tr:nth-child(even) {
-    background-color: rgba(75, 0, 130, 0.25); /* ROXO TEMA COM 25% OPACIDADE - LINHAS PARES (MAIS ESCURAS PARA CONTRASTE) */
-}
-
 .confetti {
     position: absolute;
     width: 7px;
@@ -266,7 +258,7 @@ td.highlight-main-user {
 }
 .modal-overlay.visible .modal-content { transform: scale(1); }
 .modal-content h2 {  
-    color: #ffffff; font-size: 1.25rem; font-weight: normal; 
+    color: #ffffff; font-size: 1.25rem; font-weight: normal; /* Mantido 'normal' do seu CSS original */
     margin-bottom: 1rem; text-transform: uppercase;  
 }
 .modal-content p {
@@ -315,6 +307,7 @@ td.highlight-main-user {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.12); }
 }
+/* Regras que estavam em uma <style> aninhada no seu original, agora corrigidas e incorporadas */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -340,7 +333,7 @@ td.highlight-main-user {
 
 @keyframes pulsar-e-crescer {
     0% { transform: scale(1); }
-    50% { transform: scale(1.65); } 
+    50% { transform: scale(1.65); } /* Cresce para 18% a mais, aproximadamente 1/6 extra do tamanho original */
     100% { transform: scale(1); }
 }
 
@@ -348,14 +341,20 @@ td.highlight-main-user {
     animation: pulsar-e-crescer 1.5s ease-in-out infinite alternate;
 }
 
+/* NOVAS REGRAS PARA OS BOTÕES DE IMAGEM */
+/* ESTILOS FINAIS E CORRETOS PARA OS BOTÕES DE IMAGEM */
 .action-image-button {
     cursor: pointer;
-    flex-grow: 1;    
-    flex-shrink: 1;  
-    flex-basis: 0;   
-    width: 100%;     
-    height: auto;    
-    object-fit: contain; 
+    flex-grow: 1;    /* Permite que o elemento da imagem se estique para ocupar espaço */
+    flex-shrink: 1;  /* Permite que encolha se necessário */
+    flex-basis: 0;   /* Base para o cálculo do tamanho flexível, ajuda a dividir o espaço */
+
+    width: 100%;     /* Faz a imagem usar 100% da largura do 'slot' que o flexbox dá */
+    height: auto;    /* Altura se ajusta para manter proporção da imagem original */
+    /* A max-height será definida pelas regras específicas abaixo */
+    object-fit: contain; /* Garante que imagem inteira caiba e mantenha proporção */
+
+    /* Overrides para garantir aparência limpa */
     background-color: transparent !important;
     border: none !important;
     padding: 0 !important;
@@ -363,9 +362,10 @@ td.highlight-main-user {
 }
 
 .action-image-button:focus {
-    outline: none; 
+    outline: none; /* Remove contorno de foco */
 }
 
+/* Estilos específicos baseados na quantidade de botões visíveis */
 #botoesAcaoContainer.button-count-1 .action-image-button {
     max-height: 120px;  
 }
@@ -499,7 +499,7 @@ td.highlight-main-user {
     const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
 
     const proxyList = [
-        { name: "CodeTabs", prefix: 'https://api.codetabs.com/v1/proxy?quest=', needsEncode: false }, // VÍRGULA CORRIGIDA
+        { name: "CodeTabs", prefix: 'https://api.codetabs.com/v1/proxy?quest=', needsEncode: false },
         { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },
         { name: "ThingProxy", prefix: 'https://thingproxy.freeboard.io/fetch/', needsEncode: false },
         
@@ -512,7 +512,7 @@ td.highlight-main-user {
 
     let primeiroSegundoNomeUsuarioParaBusca = "";  
     let nomeCompletoOriginalUsuario = "";  
-    let nomeExibicaoUsuarioPrincipal = ""; 
+    let nomeExibicaoUsuarioPrincipal = ""; // Para guardar o nome de exibição (Coluna B) do usuário principal, usado INTERNAMENTE e para TABELAS.
     let modoExibicaoAtual = 'minhaEscala';  
     let definitiveMasterOperatorMap = new Map();
     let ultimaCelulaClicada = null;
@@ -970,84 +970,68 @@ td.highlight-main-user {
 }
 
     async function carregarListaOperadoresDefinitiva(parsedCsvData) {
-        if (!parsedCsvData || parsedCsvData.length < 1) {
-            console.error("[carregarListaOperadoresDefinitiva] FALHA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
-            definitiveMasterOperatorMap.clear();
-            return;
-        }
-
-        const linhasOperadores = parsedCsvData;
+    if (!parsedCsvData || parsedCsvData.length < 1) {  
+        console.error("[carregarListaOperadoresDefinitiva] FALHA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
         definitiveMasterOperatorMap.clear();
+        return;
+    }
 
-        const headersRaw = (linhasOperadores[0] || []);
-        const headers = headersRaw.map(h => (h || "").trim().toLowerCase()); 
+    const linhasOperadores = parsedCsvData;
+    definitiveMasterOperatorMap.clear();
 
-        // LOGS DE DEPURAÇÃO CORRIGIDOS COM CRASES (BACKTICKS)
-        console.log(`[CSV DEBUG] Cabeçalhos Brutos da Planilha de Operadores: ${JSON.stringify(headersRaw)}`);
-        console.log(`[CSV DEBUG] Cabeçalhos Normalizados para Busca: ${JSON.stringify(headers)}`);
+    const headersRaw = (linhasOperadores[0] || []);  
+    const headers = headersRaw.map(h => (h || "").trim());
 
-        const idxNomeCompleto = headers.indexOf("nome_completo");
-        const idxNomeExibicao = headers.indexOf("nome_exibicao");
+    console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos brutos lidos do CSV (esperados para operadores):", JSON.stringify(headersRaw));
+    console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos normalizados para busca (esperados para operadores):", JSON.stringify(headers));
 
-        let erroCabecalho = false;
-        if (idxNomeCompleto === -1) {
-            console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: Coluna 'nome_completo' NÃO encontrada. Verifique o arquivo operadores_nomes_msg.csv.");
-            erroCabecalho = true;
+    const idxNomeCompleto = headers.indexOf("nome_completo");
+    const idxNomeExibicao = headers.indexOf("nome_exibicao");
+
+    let erroCabecalho = false;
+    if (idxNomeCompleto === -1) {
+        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome_completo' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
+        erroCabecalho = true;
+    }
+    if (idxNomeExibicao === -1) {
+        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome_exibicao' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
+        erroCabecalho = true;
+    }
+
+    if (erroCabecalho) {
+        console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome_completo', 'nome_exibicao') não foram encontrados no CSV após normalização.");
+        if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {  
+             updateStatusContainer.classList.remove('hidden');
+             updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         }
-        if (idxNomeExibicao === -1) {
-            console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: Coluna 'nome_exibicao' NÃO encontrada. Verifique o arquivo operadores_nomes_msg.csv.");
-            erroCabecalho = true;
-        }
+        return;
+    }
 
-        if (erroCabecalho) {
-            console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome_completo', 'nome_exibicao') não foram encontrados no CSV após normalização.");
-            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {
-                updateStatusContainer.classList.remove('hidden');
-                updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+    for (let i = 1; i < linhasOperadores.length; i++) {
+        const linha = linhasOperadores[i];
+        if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
+            const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
+            let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
+
+            if (nomeCompletoOriginalDaPlanilha === "") {
+                continue;
             }
-            return;
-        }
-        console.log(`[CSV DEBUG] Índices encontrados: nome_completo=${idxNomeCompleto}, nome_exibicao=${idxNomeExibicao}`);
 
-        for (let i = 1; i < linhasOperadores.length; i++) {
-            const linha = linhasOperadores[i];
-            
-            // LOG CORRIGIDO COM CRASES (BACKTICKS)
-            console.log(`[CSV DEBUG] Processando Linha ${i + 1} do CSV: Raw=["${linha.join('","')}"]`);
-
-            if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
-                const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
-                let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
-                
-                // LOG CORRIGIDO COM CRASES (BACKTICKS)
-                console.log(`[CSV DEBUG] Linha ${i + 1}: Extraído NomeCompleto='${nomeCompletoOriginalDaPlanilha}', NomeExibicao='${nomeExibicaoParaMapa}'`);
-
-                if (nomeCompletoOriginalDaPlanilha === "") {
-                    console.warn(`[CSV DEBUG] Linha ${i + 1} pulada: nome_completo vazio.`);
-                    continue;
-                }
-
-                const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0, 2).join(" ").toLowerCase());
-                // LOG CORRIGIDO COM CRASES (BACKTICKS)
-                console.log(`[CSV DEBUG] Linha ${i + 1}: ChaveGerada='${buscaKey}' para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'`);
-
-                if (buscaKey) {
-                    definitiveMasterOperatorMap.set(buscaKey, {
-                        nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,
-                        nomeExibicao: nomeExibicaoParaMapa
-                    });
-                } else {
-                    console.warn(`[CSV DEBUG] Linha ${i + 1}: Chave gerada é VAZIA para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'. Operador não adicionado ao mapa.`);
-                }
-            } else if (linha && linha.join("").trim() !== "") {
-                console.warn(`[CSV DEBUG] Linha ${i + 1} do CSV local ignorada: estrutura inesperada ou colunas faltantes. Número de colunas: ${linha ? linha.length : 'undefined'}. Linha: ${JSON.stringify(linha)}`);
+            const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+            if (buscaKey) {
+                definitiveMasterOperatorMap.set(buscaKey, {
+                    nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,  
+                    nomeExibicao: nomeExibicaoParaMapa        
+                });
             }
-        }
-        console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho final do mapa:", definitiveMasterOperatorMap.size);
-        if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) {
-            console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV.");
+        } else if (linha && linha.join("").trim() !== "") {  
         }
     }
+    console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho do mapa:", definitiveMasterOperatorMap.size);
+    if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) {  
+         console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo e formato das colunas 'nome_completo' e 'nome_exibicao'.");
+    }
+}
     
     async function buscarMensagemDaPlanilha(parsedCsvData) {
     if (!parsedCsvData || parsedCsvData.length < 1) {  
@@ -1059,9 +1043,8 @@ td.highlight-main-user {
     const headersRaw = (linhas[0] || []);
     const headers = headersRaw.map(h => (h || "").trim());
 
-    // LOG CORRIGIDO COM CRASES (BACKTICKS)
-    console.log(`[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem): ${JSON.stringify(headersRaw)}`);
-    console.log(`[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem): ${JSON.stringify(headers)}`);
+    console.log("[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem):", JSON.stringify(headersRaw));
+    console.log("[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem):", JSON.stringify(headers));
 
     const idxMensagem = headers.indexOf("mensagem");
 
@@ -1073,7 +1056,6 @@ td.highlight-main-user {
     const tituloMsg = (linhas.length > 1 && linhas[1] && typeof linhas[1][idxMensagem] !== 'undefined') ? (linhas[1][idxMensagem] || "").trim() : "";
     const corpoMsg = (linhas.length > 2 && linhas[2] && typeof linhas[2][idxMensagem] !== 'undefined') ? (linhas[2][idxMensagem] || "").trim() : "";
 
-    // LOG CORRIGIDO COM CRASES (BACKTICKS)
     console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='${tituloMsg}', Corpo='${corpoMsg}' (da coluna índice ${idxMensagem})`);
 
     if (corpoMsg.trim() !== "") {  
@@ -1123,11 +1105,12 @@ td.highlight-main-user {
         const dataAlvoFormatada = formatarData(dataAlvoDaConsulta);
         let nomeExibicaoLoader = "todos os operadores";  
 
+        // MODIFICADO: Para usar "Primeiro SegundoNome" para o loader quando em 'minhaEscala'
         if(tipoDeVisualizacaoParam === 'minhaEscala'){
             if (nomeCompletoRealOperadorEmFoco) { 
                 nomeExibicaoLoader = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             } else { 
-                nomeExibicaoLoader = ""; 
+                nomeExibicaoLoader = ""; // Ou uma string padrão como "operador selecionado"
             }
         }  
         
@@ -1309,8 +1292,12 @@ td.highlight-main-user {
             let alertaProximidadeAtivadoEsteCiclo = false;  
             let operadorDoFocoEstaEscalado = atribuicoesOperadorPrincipal.length > 0;
             
+            // MODIFICADO: Usa gerarNomeParaDisplayPrincipal para nomeExibicaoDoFocoParaResultado
             let nomeExibicaoDoFocoParaResultado = "";
             if (nomeCompletoRealOperadorEmFoco) { 
+                // nomeCompletoRealOperadorEmFoco é "Primeiro SegundoNome" do input/localStorage 
+                // ou nome_completo_original da Col A do CSV para operadores clicados na tabela.
+                // gerarNomeParaDisplayPrincipal garante o formato "Primeiro SegundoNome" capitalizado.
                 nomeExibicaoDoFocoParaResultado = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             }
             nomeExibicaoDoFocoParaResultado = nomeExibicaoDoFocoParaResultado.toUpperCase();
@@ -1845,6 +1832,9 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             erroNomeInputP.classList.add('hidden');
             const primeiroESegundoDoInputParaDefinir = capitalizarNomeCompleto(partesNome.slice(0,2).join(" "));
             
+            // MODIFICADO: A mensagem de confirmação sempre mostrará o "Primeiro SegundoNome".
+            // A lógica de buscar o nomeExibicao (Coluna B) no mapa e armazená-lo em nomeExibicaoUsuarioPrincipal
+            // para uso INTERNO e nas TABELAS é mantida em definirOperadorPrincipalAtual.
             const nomeParaConfirmacao = gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir); 
             
             confirmacaoNomeDiv.innerHTML = `

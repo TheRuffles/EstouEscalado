@@ -11,8 +11,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4b0082">
     <link rel="apple-touch-icon" href="icon-192x192.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes"> <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EscalaApp">
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -184,7 +184,7 @@ td.operador-cell-clickable {
 td.operador-cell-clickable:hover,
 td.operador-cell-clickable.highlight-main-user:hover {
     background-color: white !important;  
-    color: #4B0082 !important;  /* ALTERADO PARA ROXO ESCURO */  
+    color: #4B0082 !important;  /* ALTERADO PARA ROXO ESCURO */
     font-weight: normal !important;
 }
 td.operador-cell-highlighted {  
@@ -203,10 +203,18 @@ td.highlight-main-user {
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
+
+/* CSS CORRIGIDO E COMPLETO PARA CONTRASTE DE LINHAS */
 #outrosOperadoresTable tbody tr:nth-child(odd),
-background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
-    background-color: rgba(5, 150, 105, 0.08);  
+#disponiveisOperadoresTable tbody tr:nth-child(odd) {
+    background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE - LINHAS ÍMPARES (MAIS CLARAS) */
 }
+
+#outrosOperadoresTable tbody tr:nth-child(even),
+#disponiveisOperadoresTable tbody tr:nth-child(even) {
+    background-color: rgba(75, 0, 130, 0.25); /* ROXO TEMA COM 25% OPACIDADE - LINHAS PARES (MAIS ESCURAS PARA CONTRASTE) */
+}
+
 .confetti {
     position: absolute;
     width: 7px;
@@ -499,7 +507,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
     const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
 
     const proxyList = [
-        { name: "CodeTabs", prefix: 'https://api.codetabs.com/v1/proxy?quest=', needsEncode: false },
+        { name: "CodeTabs", prefix: 'https://api.codetabs.com/v1/proxy?quest=', needsEncode: false }, // VÍRGULA CORRIGIDA
         { name: "AllOrigins", prefix: 'https://api.allorigins.win/raw?url=', needsEncode: true },
         { name: "ThingProxy", prefix: 'https://thingproxy.freeboard.io/fetch/', needsEncode: false },
         
@@ -603,7 +611,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
     function formatarTextoBotao(texto) {
         const palavras = texto.split(" ");
         if (palavras.length >= 2) {
-            return `${palavras[0]}<br>${palavras.slice(1).join(" ")}`;
+            return `<span class="math-inline">\{palavras\[0\]\}<br\></span>{palavras.slice(1).join(" ")}`;
         }
         return texto;
     }
@@ -644,13 +652,13 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
         const dia = String(dateObj.getDate()).padStart(2, '0');
         const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
         const ano = dateObj.getFullYear();
-        return `${dia}/${mes}/${ano}`;
+        return `<span class="math-inline">\{dia\}/</span>{mes}/${ano}`;
     }
      function formatarHora(dateObj) {  
         if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) { return "N/D"; }
         const hora = String(dateObj.getHours()).padStart(2, '0');
         const minuto = String(dateObj.getMinutes()).padStart(2, '0');
-        return `${hora}:${minuto}`;
+        return `<span class="math-inline">\{hora\}\:</span>{minuto}`;
     }
 
     function capitalizarNomeCompleto(nomeCompleto) {  
@@ -888,7 +896,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
             const currentProxy = proxies[currentProxyIndex];
             const urlToFetch = currentProxy.needsEncode ? currentProxy.prefix + encodeURIComponent(targetUrl) : currentProxy.prefix + targetUrl;
             
-            console.log(`Tentativa ${attempts + 1}/${MAX_TOTAL_ATTEMPTS}: Usando proxy ${currentProxy.name} para ${targetUrl.substring(0,60)}...`);
+            console.log(`Tentativa <span class="math-inline">\{attempts \+ 1\}/</span>{MAX_TOTAL_ATTEMPTS}: Usando proxy ${currentProxy.name} para ${targetUrl.substring(0,60)}...`);
             
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 12000);  
@@ -942,7 +950,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
     try {
         const response = await fetch(filePath);  
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status} (${response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
+            throw new Error(`HTTP error! status: <span class="math-inline">\{response\.status\} \(</span>{response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
         }
         let csvText = await response.text(); 
 
@@ -963,75 +971,89 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
         }
         if (updateStatusContainer) {
             updateStatusContainer.classList.remove('hidden');
-            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. ${error.message}</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. <span class="math-inline">\{error\.message\}</span\><span class\="disclaimer\-text"\></span>{DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         }
         return null;  
     }
 }
 
     async function carregarListaOperadoresDefinitiva(parsedCsvData) {
-    if (!parsedCsvData || parsedCsvData.length < 1) {  
-        console.error("[carregarListaOperadoresDefinitiva] FALHA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
+        if (!parsedCsvData || parsedCsvData.length < 1) {
+            console.error("[carregarListaOperadoresDefinitiva] FALHA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
+            definitiveMasterOperatorMap.clear();
+            return;
+        }
+
+        const linhasOperadores = parsedCsvData;
         definitiveMasterOperatorMap.clear();
-        return;
-    }
 
-    const linhasOperadores = parsedCsvData;
-    definitiveMasterOperatorMap.clear();
+        const headersRaw = (linhasOperadores[0] || []);
+        const headers = headersRaw.map(h => (h || "").trim().toLowerCase()); // Normalizar para minúsculas aqui
 
-    const headersRaw = (linhasOperadores[0] || []);  
-    const headers = headersRaw.map(h => (h || "").trim());
+        // Adicionando logs de depuração para cabeçalhos
+        console.log("[CSV DEBUG] Cabeçalhos Brutos da Planilha de Operadores:", JSON.stringify(headersRaw));
+        console.log("[CSV DEBUG] Cabeçalhos Normalizados para Busca:", JSON.stringify(headers));
 
-    console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos brutos lidos do CSV (esperados para operadores):", JSON.stringify(headersRaw));
-    console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos normalizados para busca (esperados para operadores):", JSON.stringify(headers));
+        const idxNomeCompleto = headers.indexOf("nome_completo");
+        const idxNomeExibicao = headers.indexOf("nome_exibicao");
 
-    const idxNomeCompleto = headers.indexOf("nome_completo");
-    const idxNomeExibicao = headers.indexOf("nome_exibicao");
-
-    let erroCabecalho = false;
-    if (idxNomeCompleto === -1) {
-        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome_completo' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
-        erroCabecalho = true;
-    }
-    if (idxNomeExibicao === -1) {
-        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome_exibicao' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
-        erroCabecalho = true;
-    }
-
-    if (erroCabecalho) {
-        console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome_completo', 'nome_exibicao') não foram encontrados no CSV após normalização.");
-        if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {  
-             updateStatusContainer.classList.remove('hidden');
-             updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+        let erroCabecalho = false;
+        if (idxNomeCompleto === -1) {
+            console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: Coluna 'nome_completo' NÃO encontrada. Verifique o arquivo operadores_nomes_msg.csv.");
+            erroCabecalho = true;
         }
-        return;
-    }
+        if (idxNomeExibicao === -1) {
+            console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: Coluna 'nome_exibicao' NÃO encontrada. Verifique o arquivo operadores_nomes_msg.csv.");
+            erroCabecalho = true;
+        }
 
-    for (let i = 1; i < linhasOperadores.length; i++) {
-        const linha = linhasOperadores[i];
-        if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
-            const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
-            let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
-
-            if (nomeCompletoOriginalDaPlanilha === "") {
-                continue;
+        if (erroCabecalho) {
+            console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome_completo', 'nome_exibicao') não foram encontrados no CSV após normalização.");
+            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {
+                updateStatusContainer.classList.remove('hidden');
+                updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
             }
+            return;
+        }
+        console.log(`[CSV DEBUG] Índices encontrados: nome_completo=<span class="math-inline">\{idxNomeCompleto\}, nome\_exibicao\=</span>{idxNomeExibicao}`);
 
-            const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-            if (buscaKey) {
-                definitiveMasterOperatorMap.set(buscaKey, {
-                    nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,  
-                    nomeExibicao: nomeExibicaoParaMapa        
-                });
+        for (let i = 1; i < linhasOperadores.length; i++) {
+            const linha = linhasOperadores[i];
+            // Log da linha inteira
+            console.log(`[CSV DEBUG] Processando Linha <span class="math-inline">\{i \+ 1\} do CSV\: Raw\=\["</span>{linha.join('","')}"]`);
+
+            if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
+                const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
+                let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
+                
+                console.log(`[CSV DEBUG] Linha <span class="math-inline">\{i \+ 1\}\: Extraído NomeCompleto\='</span>{nomeCompletoOriginalDaPlanilha}', NomeExibicao='${nomeExibicaoParaMapa}'`);
+
+                if (nomeCompletoOriginalDaPlanilha === "") {
+                    console.warn(`[CSV DEBUG] Linha ${i + 1} pulada: nome_completo vazio.`);
+                    continue;
+                }
+
+                const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0, 2).join(" ").toLowerCase());
+                console.log(`[CSV DEBUG] Linha <span class="math-inline">\{i \+ 1\}\: ChaveGerada\='</span>{buscaKey}' para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'`);
+
+                if (buscaKey) {
+                    definitiveMasterOperatorMap.set(buscaKey, {
+                        nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,
+                        nomeExibicao: nomeExibicaoParaMapa
+                    });
+                    // console.log(`[CSV DEBUG] Linha <span class="math-inline">\{i\+1\}\: Adicionado ao mapa com chave '</span>{buscaKey}'. Mapa size: ${definitiveMasterOperatorMap.size}`);
+                } else {
+                    console.warn(`[CSV DEBUG] Linha <span class="math-inline">\{i \+ 1\}\: Chave gerada é VAZIA para NomeCompleto\='</span>{nomeCompletoOriginalDaPlanilha}'. Operador não adicionado ao mapa.`);
+                }
+            } else if (linha && linha.join("").trim() !== "") {
+                console.warn(`[CSV DEBUG] Linha ${i + 1} do CSV local ignorada: estrutura inesperada ou colunas faltantes. Número de colunas: ${linha ? linha.length : 'undefined'}. Linha: ${JSON.stringify(linha)}`);
             }
-        } else if (linha && linha.join("").trim() !== "") {  
+        }
+        console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho final do mapa:", definitiveMasterOperatorMap.size);
+        if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) {
+            console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo e formato das colunas 'nome_completo' e 'nome_exibicao'.");
         }
     }
-    console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho do mapa:", definitiveMasterOperatorMap.size);
-    if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) {  
-         console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo e formato das colunas 'nome_completo' e 'nome_exibicao'.");
-    }
-}
     
     async function buscarMensagemDaPlanilha(parsedCsvData) {
     if (!parsedCsvData || parsedCsvData.length < 1) {  
@@ -1056,7 +1078,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
     const tituloMsg = (linhas.length > 1 && linhas[1] && typeof linhas[1][idxMensagem] !== 'undefined') ? (linhas[1][idxMensagem] || "").trim() : "";
     const corpoMsg = (linhas.length > 2 && linhas[2] && typeof linhas[2][idxMensagem] !== 'undefined') ? (linhas[2][idxMensagem] || "").trim() : "";
 
-    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='${tituloMsg}', Corpo='${corpoMsg}' (da coluna índice ${idxMensagem})`);
+    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='<span class="math-inline">\{tituloMsg\}', Corpo\='</span>{corpoMsg}' (da coluna índice ${idxMensagem})`);
 
     if (corpoMsg.trim() !== "") {  
         if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
@@ -1127,7 +1149,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
             resultadoDiv.innerHTML = `
                 <div class="flex flex-col items-center">
                     <div class="loader"></div>
-                    <p class="text-base text-secondary-content">Analisando agenda para ${nomeExibicaoLoader}${adverbioLoaderParaMensagem}...</p>
+                    <p class="text-base text-secondary-content">Analisando agenda para <span class="math-inline">\{nomeExibicaoLoader\}</span>{adverbioLoaderParaMensagem}...</p>
                 </div>`;
         }
         
@@ -1176,7 +1198,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
             
             const dadosEventosParaProcessar = todasLinhasDoCSV.slice(indiceInicioEventos);
             if (dadosEventosParaProcessar.length === 0 ) {  
-                resultadoDiv.innerHTML = `<p class='text-base text-center font-bold text-green-400 py-4'>NENHUM EVENTO NA AGENDA PARA ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada})</p>`;
+                resultadoDiv.innerHTML = `<p class='text-base text-center font-bold text-green-400 py-4'>NENHUM EVENTO NA AGENDA PARA <span class="math-inline">\{adverbioOriginalParaDataAlvo\.toUpperCase\(\)\} \(</span>{dataAlvoFormatada})</p>`;
                 if (fetchSuccess) tocarSom(naoEscaladoSound);
                 gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
                 return;
@@ -1355,13 +1377,13 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
                     if (index > 0) { corpoPrincipalHTML += `<hr class="my-3 border-opacity-20 border-white">`; }
                     corpoPrincipalHTML += `
                         <div class="${cardEventoClasses}">  
-                            ${canceladoTagHtml}
-                            <p><strong class="font-medium text-secondary-content">📍 Local:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.local || ""}</span></p>
+                            <span class="math-inline">\{canceladoTagHtml\}
+<p\><strong class\="font\-medium text\-secondary\-content"\>📍 Local\:</strong\> <span class\="font\-bold italic text\-primary\-content"\></span>{eventoDetalhado.local || ""}</span></p>
                             <p><strong class="font-medium text-secondary-content">📝 Evento:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.evento || ""}</span></p>
                             ${secretariaInfoHtml}
                             ${eventoDetalhado.tipo && eventoDetalhado.tipo.toUpperCase() !== 'OUTROS' ? `<p><strong class="font-medium text-secondary-content">🏷️ Tipo:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.tipo}</span></p>` : ''}
-                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.dataOriginalParaAlerta || "N/D"}</span></p>  
-                            <p><strong class="font-medium text-secondary-content">⏰ Hora:</strong> <span class="${horaClassesCompletas}">${horaDoEventoStr || "N/A"}</span>${alertaEmojis}</p>
+                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content"><span class="math-inline">\{eventoDetalhado\.dataOriginalParaAlerta \|\| "N/D"\}</span\></p\>  
+<p\><strong class\="font\-medium text\-secondary\-content"\>⏰ Hora\:</strong\> <span class\="</span>{horaClassesCompletas}"><span class="math-inline">\{horaDoEventoStr \|\| "N/A"\}</span\></span>{alertaEmojis}</p>
                             <p><strong class="font-medium text-secondary-content">🛠️ Serviço:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.servico || ""}</span></p>
                             ${eventoDetalhado.obs && eventoDetalhado.obs.trim() !== "" ? `<p><strong class="font-medium text-secondary-content">✨ Obs:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.obs}</span></p>` : ''}
                         </div>`;
@@ -1419,8 +1441,8 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
 
                 if (listaFormatadaOutrosEscalados.length > 0) {
                      corpoPrincipalHTML += `<div class="mt-4">  
-                                        <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM ${dataAlvoFormatada}</p>
-                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
+                                        <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM <span class="math-inline">\{dataAlvoFormatada\}</p\>
+<p class\='text\-sm sm\:text\-base font\-semibold text\-center text\-primary\-light my\-2 uppercase'\></span>{numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
                                         <table id="outrosOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
                                             <thead><tr class="text-left text-secondary-content">
                                                 <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
@@ -1434,14 +1456,14 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
                         if (operadorA.isCancelado) classeDestaqueA += " evento-cancelado-nome";  
 
                         corpoPrincipalHTML += `<tr>
-                                <td class="py-1 pr-1 col-nome operador-cell-clickable ${classeDestaqueA}" data-operador-busca="${buscaKeyA}" data-operador-display-original="${operadorA.nomeOriginalCompleto}">${operadorA.nomeExibicaoTabela}</td>
-                                <td class="py-1 col-qtd ${classeDestaqueA}">${operadorA.qtd}</td>`;
+                                <td class="py-1 pr-1 col-nome operador-cell-clickable <span class="math-inline">\{classeDestaqueA\}" data\-operador\-busca\="</span>{buscaKeyA}" data-operador-display-original="<span class="math-inline">\{operadorA\.nomeOriginalCompleto\}"\></span>{operadorA.nomeExibicaoTabela}</td>
+                                <td class="py-1 col-qtd <span class="math-inline">\{classeDestaqueA\}"\></span>{operadorA.qtd}</td>`;
                         if (operadorB) {
                             const buscaKeyB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                             let classeDestaqueB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
                             if (operadorB.isCancelado) classeDestaqueB += " evento-cancelado-nome";  
-                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable ${classeDestaqueB}" data-operador-busca="${buscaKeyB}" data-operador-display-original="${operadorB.nomeOriginalCompleto}">${operadorB.nomeExibicaoTabela}</td>
-                                                 <td class="py-1 col-qtd ${classeDestaqueB}">${operadorB.qtd}</td>`;
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable <span class="math-inline">\{classeDestaqueB\}" data\-operador\-busca\="</span>{buscaKeyB}" data-operador-display-original="<span class="math-inline">\{operadorB\.nomeOriginalCompleto\}"\></span>{operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="py-1 col-qtd <span class="math-inline">\{classeDestaqueB\}"\></span>{operadorB.qtd}</td>`;
                         } else {
                             corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-qtd"></td>`;
                         }
@@ -1476,12 +1498,12 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
                          const buscaKeyDispA = removerAcentos(operadorA.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                          const classeDestaqueDispA = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyDispA === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
                         corpoPrincipalHTML += `<tr>
-                                <td class="py-1 pr-1 col-nome ${classeDestaqueDispA}">${operadorA.nomeExibicaoTabela}</td><td class="py-1 col-local ${classeDestaqueDispA}">${abreviarLocal(operadorA.local)}</td>`;
+                                <td class="py-1 pr-1 col-nome <span class="math-inline">\{classeDestaqueDispA\}"\></span>{operadorA.nomeExibicaoTabela}</td><td class="py-1 col-local <span class="math-inline">\{classeDestaqueDispA\}"\></span>{abreviarLocal(operadorA.local)}</td>`;
                         if (operadorB) {
                             const buscaKeyDispB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                             const classeDestaqueDispB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyDispB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
-                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome ${classeDestaqueDispB}">${operadorB.nomeExibicaoTabela}</td>
-                                                 <td class="py-1 col-local ${classeDestaqueDispB}">${abreviarLocal(operadorB.local)}</td>`;
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome <span class="math-inline">\{classeDestaqueDispB\}"\></span>{operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="py-1 col-local <span class="math-inline">\{classeDestaqueDispB\}"\></span>{abreviarLocal(operadorB.local)}</td>`;
                         } else {
                             corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-local"></td>`;
                         }
@@ -1492,7 +1514,7 @@ background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE */
             }
             
             const finalOutputHTML = (corpoPrincipalHTML.trim() === "")  
-                ? `<p class='text-base text-center font-semibold text-secondary-content py-4'>Nenhuma atividade registrada para ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada}).</p>`
+                ? `<p class='text-base text-center font-semibold text-secondary-content py-4'>Nenhuma atividade registrada para <span class="math-inline">\{adverbioOriginalParaDataAlvo\.toUpperCase\(\)\} \(</span>{dataAlvoFormatada}).</p>`
                 : corpoPrincipalHTML;
             
             resultadoDiv.innerHTML = finalOutputHTML;
@@ -1746,7 +1768,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         if (!appInitialized) return;  
 
         const agora = new Date();
-        const horaAtualStr = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
+        const horaAtualStr = `<span class="math-inline">\{String\(agora\.getHours\(\)\)\.padStart\(2, '0'\)\}\:</span>{String(agora.getMinutes()).padStart(2, '0')}`;
         const dataAtualStr = formatarData(agora);  
 
         for (const scheduledTime of SCHEDULED_NOTIFICATION_TIMES) {
@@ -1838,8 +1860,8 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             const nomeParaConfirmacao = gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir); 
             
             confirmacaoNomeDiv.innerHTML = `
-                <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
-                <p class="text-xs sm:text-sm text-secondary-content">O nome usado para exibição (fora das tabelas) será <strong class="text-primary-content">"${nomeParaConfirmacao}"</strong>.</p>
+                <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content"><span class="math-inline">\{capitalizarNomeCompleto\(nomeInputOriginal\)\}</strong\></p\>
+<p class\="text\-xs sm\:text\-sm text\-secondary\-content"\>O nome usado para exibição \(fora das tabelas\) será <strong class\="text\-primary\-content"\>"</span>{nomeParaConfirmacao}"</strong>.</p>
                 <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
                 <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
                     <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">

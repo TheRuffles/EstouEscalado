@@ -411,7 +411,8 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
     flex-grow: 1;    
     flex-shrink: 1;  
     flex-basis: 0;   
-    width: 100%;     
+    /* width: 100%; */ /* CORRIGIDO: Linha comentada para permitir o autoajuste */
+    min-width: 0;    /* ADICIONADO: Permite que o item encolha adequadamente */
     height: auto;    
     object-fit: contain; 
     background-color: transparent !important;

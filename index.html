@@ -193,13 +193,45 @@ td.operador-cell-highlighted {
     color: #005a43 !important;  
     font-weight: normal !important;
 }
-/* ESTILO PARA O OPERADOR PRINCIPAL DEFINIDO NA TABELA */
+/* ===== INÍCIO DOS ESTILOS CORRIGIDOS PARA OPERADOR PRINCIPAL E HOVER ===== */
+
+/* 1. Estilo para TODAS AS CÉLULAS (Nome e Qtd) da linha do operador principal definido */
+/* Define fundo branco, texto VERMELHO e animação. */
 td.highlight-main-user {  
     background-color: white !important; 
-    color: #DC2626 !important; /* VERMELHO */
+    color: #DC2626 !important; /* VERMELHO para Nome e Qtd do operador principal */
     font-weight: normal !important; 
     animation: pulse-text 1.5s infinite alternate; 
 }
+
+/* 2. HOVER para células de NOME de operadores NORMAIS (que NÃO são o principal definido) */
+/* O nome fica ROXO, fundo branco. A Qtd deles não é afetada por esta regra. */
+td.col-nome.operador-cell-clickable:not(.highlight-main-user):hover {
+    background-color: white !important;  
+    color: #4B0082 !important; /* Texto ROXO ESCURO no hover para outros operadores */
+    /* font-weight é herdado ou definido por .operador-cell-clickable se houver */
+}
+
+/* 3. HOVER especificamente sobre o NOME do operador principal definido */
+/* Esta regra é para garantir que NADA MUDE na cor do texto do NOME ou da QTD do operador principal */
+/* quando o mouse está sobre o NOME dele. Ambos já estão vermelhos pela Regra 1. */
+td.col-nome.operador-cell-clickable.highlight-main-user:hover {
+    /* O background já é branco pela Regra 1, mas podemos reforçar se necessário */
+    /* A cor do texto (tanto do nome quanto da Qtd na mesma linha) já é vermelha pela Regra 1 */
+    /* e não deve ser alterada aqui para roxo. */
+    /* Se alguma cor roxa estiver aparecendo, é por causa de uma regra mais genérica de hover */
+    /* que não foi corretamente evitada. */
+}
+
+/* 4. (Opcional mas recomendado) Garantir que o hover genérico não afete o principal */
+/* Esta regra pega o hover de qualquer célula clicável e aplica o roxo, */
+/* MAS a Regra 1 + !important no .highlight-main-user deve manter o vermelho para o principal. */
+/* Se o nome do principal ainda fica roxo, esta regra abaixo pode estar faltando ou mal posicionada */
+/* em relação à que torna o nome do operador principal vermelho. */
+/* No entanto, com a Regra 1 definindo a cor vermelha com !important para .highlight-main-user, */
+/* ela DEVERIA ter prioridade sobre um hover genérico roxo para a célula do nome do operador principal. */
+
+/* ===== FIM DOS ESTILOS CORRIGIDOS ===== */
 @keyframes pulse-text {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }

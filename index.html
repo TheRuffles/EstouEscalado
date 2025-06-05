@@ -1517,7 +1517,7 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
 
                         // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (INÍCIO) - OPERADOR A
                         let aplicarAlertaProximidadeA = false;
-                        if (dataAlvoFormatada === formatarData(agora) && !operadorA.isCancelado) {
+                        if (dataAlvoFormatada === formatarData(agora)) {
                             const eventosOperadorA = todasAtribuicoes.filter(evt =>
                                 removerAcentos(evt.operatorOriginalFullNameFromSheet.split(/\s+/).slice(0,2).join(" ").toLowerCase()) === buscaKeyA &&
                                 evt.dataOriginalParaAlerta === dataAlvoFormatada &&
@@ -1566,7 +1566,7 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
 
                             // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (INÍCIO) - OPERADOR B
                             let aplicarAlertaProximidadeB = false;
-                            if (dataAlvoFormatada === formatarData(agora) && !operadorB.isCancelado) {
+                            if (dataAlvoFormatada === formatarData(agora)) {
                                 const eventosOperadorB = todasAtribuicoes.filter(evt =>
                                     removerAcentos(evt.operatorOriginalFullNameFromSheet.split(/\s+/).slice(0,2).join(" ").toLowerCase()) === buscaKeyB &&
                                     evt.dataOriginalParaAlerta === dataAlvoFormatada &&

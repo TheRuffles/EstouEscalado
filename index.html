@@ -250,6 +250,29 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
     background-color: rgba(0, 0, 0, 0.12); /* PRETO com 12% de opacidade - LINHAS PARES */
 }
 
+/* NOVO CSS PARA ALERTA DE PROXIMIDADE DE EVENTO DE OUTROS OPERADORES */
+.nome-operador-alerta-proximidade {
+    animation: pulse-bg-alerta-nome 1.2s infinite alternate;
+    border: 1px solid #ef4444; /* tailwind red-500 */
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 0.1rem 0.2rem !important; /* !important para garantir sobreposição se necessário */
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.6); /* tailwind red-500 com opacidade */
+    color: #e8e8e8 !important; /* Garante legibilidade do texto */
+    /* position: relative; /* Para garantir que o shadow não seja cortado, se necessário */
+}
+
+@keyframes pulse-bg-alerta-nome {
+    0% {
+        background-color: rgba(239, 68, 68, 0.15); /* red-500 com baixa opacidade */
+        box-shadow: 0 0 6px 1px rgba(239, 68, 68, 0.5);
+    }
+    100% {
+        background-color: rgba(239, 68, 68, 0.30); /* red-500 com opacidade um pouco maior */
+        box-shadow: 0 0 10px 2px rgba(239, 68, 68, 0.75);
+    }
+}
+/* FIM DO NOVO CSS */
+
 .confetti {
     position: absolute;
     width: 7px;
@@ -1478,19 +1501,102 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
                     for (let i = 0; i < listaFormatadaOutrosEscalados.length; i += 2) {
                         const operadorA = listaFormatadaOutrosEscalados[i];
                         const operadorB = (i + 1 < listaFormatadaOutrosEscalados.length) ? listaFormatadaOutrosEscalados[i + 1] : null;
+                        
                         const buscaKeyA = removerAcentos(operadorA.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-                        let classeDestaqueA = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyA === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
-                        if (operadorA.isCancelado) classeDestaqueA += " evento-cancelado-nome";  
+                        let classesNomeA = "py-1 pr-1 col-nome operador-cell-clickable";
+                        let classesQtdA = "py-1 col-qtd";
+                        const isOperadorPrincipalA = primeiroSegundoNomeUsuarioParaBusca && buscaKeyA === primeiroSegundoNomeUsuarioParaBusca;
 
+                        if (isOperadorPrincipalA) {
+                            classesNomeA += " highlight-main-user";
+                            classesQtdA += " highlight-main-user";
+                        }
+                        if (operadorA.isCancelado) {
+                            classesNomeA += " evento-cancelado-nome";
+                        }
+
+                        // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (INÍCIO) - OPERADOR A
+                        let aplicarAlertaProximidadeA = false;
+                        if (dataAlvoFormatada === formatarData(agora) && !operadorA.isCancelado) {
+                            const eventosOperadorA = todasAtribuicoes.filter(evt =>
+                                removerAcentos(evt.operatorOriginalFullNameFromSheet.split(/\s+/).slice(0,2).join(" ").toLowerCase()) === buscaKeyA &&
+                                evt.dataOriginalParaAlerta === dataAlvoFormatada &&
+                                !evt.isCancelado &&
+                                evt.isTotalmenteEscalado
+                            );
+                            for (const eventoOpA of eventosOperadorA) {
+                                const horaDoEventoStr = eventoOpA.hora;
+                                if (horaDoEventoStr && horaDoEventoStr.includes(':')) {
+                                    const [diaOriginal, mesOriginalNum, anoOriginal] = eventoOpA.dataOriginalParaAlerta.split('/').map(Number);
+                                    const [horaEventoNum, minutoEventoNum] = horaDoEventoStr.split(':').map(Number);
+                                    if (!isNaN(diaOriginal) && !isNaN(mesOriginalNum) && !isNaN(anoOriginal) && !isNaN(horaEventoNum) && !isNaN(minutoEventoNum)) {
+                                        const dataHoraRealDoEvento = new Date(anoOriginal, mesOriginalNum - 1, diaOriginal, horaEventoNum, minutoEventoNum);
+                                        const diffMillis = dataHoraRealDoEvento.getTime() - agora.getTime();
+                                        const diffMinutes = Math.floor(diffMillis / 60000);
+                                        if (diffMinutes > 0 && diffMinutes < 90) {
+                                            aplicarAlertaProximidadeA = true;
+                                            break; 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (aplicarAlertaProximidadeA) {
+                            classesNomeA += " nome-operador-alerta-proximidade";
+                        }
+                        // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (FIM) - OPERADOR A
+                        
                         corpoPrincipalHTML += `<tr>
-                                <td class="py-1 pr-1 col-nome operador-cell-clickable ${classeDestaqueA}" data-operador-busca="${buscaKeyA}" data-operador-display-original="${operadorA.nomeOriginalCompleto}">${operadorA.nomeExibicaoTabela}</td>
-                                <td class="py-1 col-qtd ${classeDestaqueA}">${operadorA.qtd}</td>`;
+                                <td class="${classesNomeA}" data-operador-busca="${buscaKeyA}" data-operador-display-original="${operadorA.nomeOriginalCompleto}">${operadorA.nomeExibicaoTabela}</td>
+                                <td class="${classesQtdA}">${operadorA.qtd}</td>`;
+
                         if (operadorB) {
                             const buscaKeyB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-                            let classeDestaqueB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
-                            if (operadorB.isCancelado) classeDestaqueB += " evento-cancelado-nome";  
-                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable ${classeDestaqueB}" data-operador-busca="${buscaKeyB}" data-operador-display-original="${operadorB.nomeOriginalCompleto}">${operadorB.nomeExibicaoTabela}</td>
-                                                 <td class="py-1 col-qtd ${classeDestaqueB}">${operadorB.qtd}</td>`;
+                            let classesNomeB = "py-1 pl-2 pr-1 col-nome operador-cell-clickable";
+                            let classesQtdB = "py-1 col-qtd";
+                            const isOperadorPrincipalB = primeiroSegundoNomeUsuarioParaBusca && buscaKeyB === primeiroSegundoNomeUsuarioParaBusca;
+
+                            if (isOperadorPrincipalB) {
+                                classesNomeB += " highlight-main-user";
+                                classesQtdB += " highlight-main-user";
+                            }
+                            if (operadorB.isCancelado) {
+                                classesNomeB += " evento-cancelado-nome";
+                            }
+
+                            // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (INÍCIO) - OPERADOR B
+                            let aplicarAlertaProximidadeB = false;
+                            if (dataAlvoFormatada === formatarData(agora) && !operadorB.isCancelado) {
+                                const eventosOperadorB = todasAtribuicoes.filter(evt =>
+                                    removerAcentos(evt.operatorOriginalFullNameFromSheet.split(/\s+/).slice(0,2).join(" ").toLowerCase()) === buscaKeyB &&
+                                    evt.dataOriginalParaAlerta === dataAlvoFormatada &&
+                                    !evt.isCancelado &&
+                                    evt.isTotalmenteEscalado
+                                );
+                                for (const eventoOpB of eventosOperadorB) {
+                                    const horaDoEventoStr = eventoOpB.hora;
+                                    if (horaDoEventoStr && horaDoEventoStr.includes(':')) {
+                                        const [diaOriginal, mesOriginalNum, anoOriginal] = eventoOpB.dataOriginalParaAlerta.split('/').map(Number);
+                                        const [horaEventoNum, minutoEventoNum] = horaDoEventoStr.split(':').map(Number);
+                                        if (!isNaN(diaOriginal) && !isNaN(mesOriginalNum) && !isNaN(anoOriginal) && !isNaN(horaEventoNum) && !isNaN(minutoEventoNum)) {
+                                            const dataHoraRealDoEvento = new Date(anoOriginal, mesOriginalNum - 1, diaOriginal, horaEventoNum, minutoEventoNum);
+                                            const diffMillis = dataHoraRealDoEvento.getTime() - agora.getTime();
+                                            const diffMinutes = Math.floor(diffMillis / 60000);
+                                            if (diffMinutes > 0 && diffMinutes < 90) {
+                                                aplicarAlertaProximidadeB = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (aplicarAlertaProximidadeB) {
+                                classesNomeB += " nome-operador-alerta-proximidade";
+                            }
+                            // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (FIM) - OPERADOR B
+
+                            corpoPrincipalHTML += `<td class="${classesNomeB}" data-operador-busca="${buscaKeyB}" data-operador-display-original="${operadorB.nomeOriginalCompleto}">${operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="${classesQtdB}">${operadorB.qtd}</td>`;
                         } else {
                             corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-qtd"></td>`;
                         }

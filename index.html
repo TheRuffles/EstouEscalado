@@ -204,12 +204,13 @@ td.highlight-main-user {
     animation: pulse-text 1.5s infinite alternate; 
 }
 
-/* 2. HOVER para células de NOME de operadores NORMAIS (que NÃO são o principal definido) */
-/* O nome fica ROXO, fundo branco. A Qtd deles não é afetada por esta regra. */
-td.col-nome.operador-cell-clickable:not(.highlight-main-user):hover {
+/* HOVER para células de NOME de operadores NORMAIS (que NÃO são o principal definido) */
+/* Garantindo que esta regra seja bem específica para o nome e o estado de hover */
+table#outrosOperadoresTable td.col-nome.operador-cell-clickable:not(.highlight-main-user):hover,
+table#disponiveisOperadoresTable td.col-nome.operador-cell-clickable:not(.highlight-main-user):hover {
     background-color: white !important;  
     color: #4B0082 !important; /* Texto ROXO ESCURO no hover para outros operadores */
-    /* font-weight é herdado ou definido por .operador-cell-clickable se houver */
+    font-weight: normal !important;
 }
 
 /* 3. HOVER especificamente sobre o NOME do operador principal definido */

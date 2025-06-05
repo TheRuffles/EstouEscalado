@@ -950,115 +950,147 @@ td.highlight-main-user {
     }
 
     async function fetchAndParseLocalCSV(filePath) {
-        try {
-            const response = await fetch(filePath); 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status} ao buscar ${filePath}`);
-            }
-            const csvText = await response.text();
-            if (!csvText || csvText.trim() === "") {
-                throw new Error(`Arquivo CSV local (${filePath}) está vazio ou não pôde ser lido.`);
-            }
-            return parseCSV(csvText); 
-        } catch (error) {
-            console.error(`Erro ao buscar ou parsear CSV local (${filePath}):`, error.message);
-            if (resultadoDiv) {
-                resultadoDiv.innerHTML = `<p class='text-base text-center font-semibold text-red-400 py-2'>FALHA CRÍTICA: Não foi possível carregar o arquivo de dados base ('${filePath}'). O aplicativo pode não funcionar corretamente. Verifique se o arquivo está na pasta correta e não está vazio.</p>`;
-            }
-            if (updateStatusContainer) {
-                updateStatusContainer.classList.remove('hidden');
-                updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
-            }
-            return null; 
+    try {
+        const response = await fetch(filePath); 
+        if (!response.ok) {
+            // Log mais detalhado do erro HTTP
+            throw new Error(`HTTP error! status: <span class="math-inline">\{response\.status\} \(</span>{response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
         }
+        let csvText = await response.text(); // Alterado para let para poder modificar
+
+        // NOVO CÓDIGO: Verifica e remove BOM (Byte Order Mark) se presente
+        if (csvText && csvText.charCodeAt(0) === 0xFEFF) { 
+            csvText = csvText.substring(1); 
+            console.log("INFO: BOM (Byte Order Mark) detectado e removido do arquivo CSV:", filePath);
+        }
+
+        if (!csvText || csvText.trim() === "") {
+            throw new Error(`Arquivo CSV local (${filePath}) está vazio ou não pôde ser lido após verificação de BOM.`);
+        }
+        console.log(`INFO: CSV local (${filePath}) lido com sucesso, tamanho: ${csvText.length} caracteres.`);
+        return parseCSV(csvText); 
+    } catch (error) {
+        console.error(`ERRO CRÍTICO ao buscar ou parsear CSV local (${filePath}):`, error.message, error); // Loga o objeto de erro completo
+        if (resultadoDiv) {
+            resultadoDiv.innerHTML = `<p class='text-base text-center font-semibold text-red-400 py-2'>FALHA CRÍTICA: Não foi possível carregar o arquivo de dados base ('${filePath}'). Detalhe: ${error.message}. Verifique se o arquivo está na pasta correta, não está vazio e se o servidor web tem permissão para acessá-lo.</p>`;
+        }
+        if (updateStatusContainer) {
+            updateStatusContainer.classList.remove('hidden');
+            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. <span class="math-inline">\{error\.message\}</span\><span class\="disclaimer\-text"\></span>{DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+        }
+        return null; 
     }
+}
 
     async function carregarListaOperadoresDefinitiva(parsedCsvData) {
-        if (!parsedCsvData || parsedCsvData.length < 1) { 
-            console.error("FALHA CRÍTICA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
-            definitiveMasterOperatorMap.clear();
-            return;
-        }
-
-        const linhasOperadores = parsedCsvData;
+    if (!parsedCsvData || parsedCsvData.length < 1) { 
+        console.error("[carregarListaOperadoresDefinitiva] FALHA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
         definitiveMasterOperatorMap.clear();
+        return;
+    }
 
-        const headers = (linhasOperadores[0] || []).map(h => removerAcentos((h || "").toLowerCase().trim()));
-        const idxNomeCompleto = headers.indexOf("nome completo");
-        const idxNomeExibicao = headers.indexOf("nome de exibicao");
+    const linhasOperadores = parsedCsvData;
+    definitiveMasterOperatorMap.clear();
 
-        if (idxNomeCompleto === -1 || idxNomeExibicao === -1) {
-            console.error("Cabeçalhos 'nome_completo' ou 'nome_exibicao' não encontrados no arquivo operadores_nomes_msg.csv.");
-            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { 
-                 updateStatusContainer.classList.remove('hidden');
-                 updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
-            }
-            return;
+    const headersRaw = (linhasOperadores[0] || []); 
+    const headers = headersRaw.map(h => removerAcentos((h || "").toLowerCase().trim()));
+
+    // Logs para depuração dos cabeçalhos dos operadores
+    console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos brutos lidos do CSV (esperados para operadores):", JSON.stringify(headersRaw));
+    console.log("[carregarListaOperadoresDefinitiva] Cabeçalhos normalizados para busca (esperados para operadores):", JSON.stringify(headers));
+
+    const idxNomeCompleto = headers.indexOf("nome completo");
+    const idxNomeExibicao = headers.indexOf("nome de exibicao");
+
+    let erroCabecalho = false;
+    if (idxNomeCompleto === -1) {
+        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome completo' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
+        erroCabecalho = true;
+    }
+    if (idxNomeExibicao === -1) {
+        console.error("[carregarListaOperadoresDefinitiva] ERRO CABEÇALHO: 'nome de exibicao' (normalizado) NÃO encontrado. Verifique o arquivo operadores_nomes_msg.csv.");
+        erroCabecalho = true;
+    }
+
+    if (erroCabecalho) {
+        console.error("[carregarListaOperadoresDefinitiva] Um ou mais cabeçalhos essenciais ('nome completo', 'nome de exibicao') não foram encontrados no CSV após normalização.");
+        if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { 
+             updateStatusContainer.classList.remove('hidden');
+             updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos 'nome_completo' ou 'nome_exibicao' em operadores_nomes_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         }
+        return;
+    }
 
-        for (let i = 1; i < linhasOperadores.length; i++) {
-            const linha = linhasOperadores[i];
-            if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
-                const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
-                let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
+    for (let i = 1; i < linhasOperadores.length; i++) {
+        const linha = linhasOperadores[i];
+        if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
+            const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
+            let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
 
-                if (nomeCompletoOriginalDaPlanilha === "") {
-                    console.warn(`Linha ${i+1} do CSV local pulada: nome_completo vazio.`);
-                    continue;
-                }
-                // Se nome de exibição estiver vazio NO CSV, ele será uma string vazia aqui.
-                // A função `definirOperadorPrincipalAtual` e `atualizarDisplayOperadorCabecalho`
-                // farão o fallback para gerarNomeParaDisplayPrincipal se nomeExibicaoUsuarioPrincipal for vazio.
-                // Para o mapa, guardamos o que veio do CSV (mesmo que seja vazio para nomeExibicao).
-                
-                const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
-                if (buscaKey) {
-                    definitiveMasterOperatorMap.set(buscaKey, {
-                        nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha, // Coluna A
-                        nomeExibicao: nomeExibicaoParaMapa       // Coluna B
-                    });
-                }
-            } else if (linha && linha.join("").trim() !== "") { 
-                 console.warn(`Linha ${i+1} do CSV local ignorada: número de colunas insuficiente ou dados ausentes para nome_completo/nome_exibicao.`);
+            if (nomeCompletoOriginalDaPlanilha === "") {
+                // console.warn(`[carregarListaOperadoresDefinitiva] Linha ${i+1} do CSV local pulada: nome_completo vazio.`); // Opcional, pode gerar muito log
+                continue;
             }
-        }
-        console.log("Lista de operadores definitiva carregada do CSV local. Tamanho do mapa:", definitiveMasterOperatorMap.size);
-        if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) { 
-             console.warn("Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo das colunas 'nome_completo' e 'nome_exibicao'.");
+
+            const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
+            if (buscaKey) {
+                definitiveMasterOperatorMap.set(buscaKey, {
+                    nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha, 
+                    nomeExibicao: nomeExibicaoParaMapa       
+                });
+            }
+        } else if (linha && linha.join("").trim() !== "") { 
+             // console.warn(`[carregarListaOperadoresDefinitiva] Linha ${i+1} do CSV local ignorada: estrutura inesperada.`); // Opcional
         }
     }
+    console.log("[carregarListaOperadoresDefinitiva] Lista de operadores carregada do CSV local. Tamanho do mapa:", definitiveMasterOperatorMap.size);
+    if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) { 
+         console.warn("[carregarListaOperadoresDefinitiva] ATENÇÃO: Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo e formato das colunas 'nome_completo' e 'nome_exibicao'.");
+    }
+}
     
     async function buscarMensagemDaPlanilha(parsedCsvData) {
-        if (!parsedCsvData || parsedCsvData.length < 1) { 
-            console.warn("Não foi possível buscar mensagem: dados do CSV local (operadores_nomes_msg.csv) estão vazios ou inválidos.");
-            return;
-        }
-
-        const linhas = parsedCsvData;
-        const headers = (linhas[0] || []).map(h => removerAcentos((h || "").toLowerCase().trim()));
-        const idxMensagem = headers.indexOf("mensagem");
-
-        if (idxMensagem === -1) {
-            console.warn("Cabeçalho 'mensagem' não encontrado no arquivo operadores_nomes_msg.csv. Nenhuma mensagem de aviso será exibida.");
-            return;
-        }
-
-        const tituloMsg = (linhas.length > 1 && linhas[1] && linhas[1].length > idxMensagem) ? (linhas[1][idxMensagem] || "").trim() : "";
-        const corpoMsg = (linhas.length > 2 && linhas[2] && linhas[2].length > idxMensagem) ? (linhas[2][idxMensagem] || "").trim() : "";
-
-        if (corpoMsg.trim() !== "") { 
-            if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
-                esconderModal(periodicNotificationModal); 
-            }
-            const tituloFinalModal = tituloMsg.trim() !== "" ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨"; 
-            if (sheetMessageTitleH2) sheetMessageTitleH2.textContent = tituloFinalModal;
-            if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>'); 
-            mostrarModal(sheetMessageModal);
-            tocarSom(notificationSound);
-        } else if (tituloMsg.trim() !== "") {
-            console.log("Título da mensagem encontrado no CSV local ('operadores_nomes_msg.csv'), mas o corpo da mensagem está vazio. Modal de aviso não será exibido.");
-        }
+    if (!parsedCsvData || parsedCsvData.length < 1) { 
+        console.warn("[buscarMensagemDaPlanilha] FALHA: Dados do CSV local (operadores_nomes_msg.csv) estão vazios ou inválidos para buscar mensagem.");
+        return;
     }
+
+    const linhas = parsedCsvData;
+    const headersRaw = (linhas[0] || []);
+    const headers = headersRaw.map(h => removerAcentos((h || "").toLowerCase().trim()));
+
+    console.log("[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem):", JSON.stringify(headersRaw));
+    console.log("[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem):", JSON.stringify(headers));
+
+    const idxMensagem = headers.indexOf("mensagem");
+
+    if (idxMensagem === -1) {
+        console.warn("[buscarMensagemDaPlanilha] ERRO CABEÇALHO: 'mensagem' (normalizado) NÃO encontrado no arquivo operadores_nomes_msg.csv. Nenhuma mensagem de aviso será exibida.");
+        return;
+    }
+
+    // Título: Linha 2 do CSV (índice 1 do array 'linhas'), coluna "mensagem"
+    const tituloMsg = (linhas.length > 1 && linhas[1] && typeof linhas[1][idxMensagem] !== 'undefined') ? (linhas[1][idxMensagem] || "").trim() : "";
+    // Corpo: Linha 3 do CSV (índice 2 do array 'linhas'), coluna "mensagem"
+    const corpoMsg = (linhas.length > 2 && linhas[2] && typeof linhas[2][idxMensagem] !== 'undefined') ? (linhas[2][idxMensagem] || "").trim() : "";
+
+    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='<span class="math-inline">\{tituloMsg\}', Corpo\='</span>{corpoMsg}' (da coluna índice ${idxMensagem})`);
+
+    if (corpoMsg.trim() !== "") { 
+        if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
+            esconderModal(periodicNotificationModal); 
+        }
+        const tituloFinalModal = tituloMsg.trim() !== "" ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨"; 
+        if (sheetMessageTitleH2) sheetMessageTitleH2.textContent = tituloFinalModal;
+        if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>'); 
+        mostrarModal(sheetMessageModal);
+        tocarSom(notificationSound);
+    } else if (tituloMsg.trim() !== "") {
+        console.log("[buscarMensagemDaPlanilha] Título da mensagem encontrado no CSV local, mas o corpo da mensagem está vazio. Modal de aviso não será exibido.");
+    } else {
+        console.log("[buscarMensagemDaPlanilha] Nem título nem corpo da mensagem encontrados ou são vazios nas células esperadas do CSV.");
+    }
+}
     
     async function buscarEscalas(nomeParaBuscaFocoOperadorParam, nomeCompletoOriginalDoFocoParam, tipoDeVisualizacaoParam = 'minhaEscala', buscaPorCliqueTabela = false) {
         atualizarDisplayOperadorCabecalho(); 

@@ -488,7 +488,6 @@ td.highlight-main-user {
             const mes = hoje.toLocaleDateString('pt-BR', { month: 'long' });
             const ano = hoje.getFullYear();
 
-            // Formata a data e capitaliza o dia da semana e o mês
             const dataFormatada = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)}, ${dia} de ${mes.charAt(0).toUpperCase() + mes.slice(1)} de ${ano}`;
             elementoData.textContent = dataFormatada;
         }
@@ -496,9 +495,7 @@ td.highlight-main-user {
     // Fim da função exibirDataAtualCabecalho reintroduzida
 
     const googleSheetDataUrl = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/export?format=csv&gid=1519973381';
-    // const googleSheetDefinitiveListUrl = `${googleSheetBaseUrlForNamedTabs}?gid=615696807&single=true&output=csv`; // COMENTADO - Não mais usado
-    // const googleSheetMessageUrl = `${googleSheetBaseUrlForNamedTabs}?gid=1636658248&single=true&output=csv`; // COMENTADO - Não mais usado
-    const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub'; // Ainda pode ser usado para outras coisas ou referências futuras
+    const googleSheetBaseUrlForNamedTabs = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdiKqsNG_S3ulzPQTtA5EJ8VyG2QJH5wz2asN1L_GKlUX0S_WYi5ZC6IDB9HU0pRPqEjphsM4x82Vd/pub'; 
     const URL_PLANILHA_OFICIAL_ABRIR = 'https://docs.google.com/spreadsheets/d/1Dvw-YcQ703WLmSyJjYsmNcMQuxx5CrFToiefMOxAwrk/edit#gid=1519973381&range=A1';
 
     const proxyList = [
@@ -512,6 +509,7 @@ td.highlight-main-user {
 
     let primeiroSegundoNomeUsuarioParaBusca = ""; 
     let nomeCompletoOriginalUsuario = ""; 
+    let nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO: Para guardar o nome de exibição do usuário principal
     let modoExibicaoAtual = 'minhaEscala'; 
     let definitiveMasterOperatorMap = new Map();
     let ultimaCelulaClicada = null;
@@ -678,10 +676,17 @@ td.highlight-main-user {
     function formatarNomesParaTabela(listaOperadores) {
         return listaOperadores.map(op => {
             let nomeFinalParaTabela;
+            // Prioriza nomeExibicaoDefinitivo (que vem da Coluna B do CSV via o mapa)
             if (op.nomeExibicaoDefinitivo && op.nomeExibicaoDefinitivo.trim() !== "") {
                 nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeExibicaoDefinitivo);
-            } else if (op.nomeOriginalCompleto) {
-                nomeFinalParaTabela = gerarNomeParaDisplayPrincipal(op.nomeOriginalCompleto);
+            } else if (op.nomeOriginalCompleto) { 
+                // Fallback: Se nomeExibicaoDefinitivo estiver vazio, usa o nome completo original (Coluna A)
+                // Em vez de gerarNomeParaDisplayPrincipal, usamos o nome completo capitalizado
+                // ou mantemos gerarNomeParaDisplayPrincipal se essa for a preferência de fallback.
+                // Para esta alteração, se nome_exibicao (Col B) está vazio, mostramos nome_completo (Col A)
+                nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeOriginalCompleto);
+                // Se o desejado fosse ainda os "dois primeiros nomes" como fallback:
+                // nomeFinalParaTabela = gerarNomeParaDisplayPrincipal(op.nomeOriginalCompleto);
             } else {
                 nomeFinalParaTabela = "N/D"; 
             }
@@ -738,7 +743,7 @@ td.highlight-main-user {
                     erroInfo.message.toLowerCase().includes("timeout") ||
                     erroInfo.message.toLowerCase().includes("corpo inválido/vazio")) { 
                     motivoFalha = " (Falha de conexão/dados)";
-                } else if (erroInfo.message.toLowerCase().includes("http error")) { // NOVO CÓDIGO: Trata erro de fetch local
+                } else if (erroInfo.message.toLowerCase().includes("http error")) { 
                     motivoFalha = " (Falha ao carregar CSV local)";
                 } else { 
                     motivoFalha = " (Erro ao buscar dados)";
@@ -769,14 +774,7 @@ td.highlight-main-user {
             resultadoDiv.innerHTML = ''; 
         }
         
-        let nomeParaCabecalhoPrincipal = ""; 
-        if (nomeCompletoOriginalUsuario) { 
-            nomeParaCabecalhoPrincipal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario);
-        } else if (nomeTela === 'principal' && modoExibicaoAtual === 'outrosEventos') {
-            nomeParaCabecalhoPrincipal = "VISÃO GERAL";
-        } 
-        
-        atualizarDisplayOperadorCabecalho(); 
+        atualizarDisplayOperadorCabecalho(); // Chamada movida para depois de limpar nomeExibicaoUsuarioPrincipal se necessário
 
 
         if (nomeTela === 'boasVindas') {
@@ -818,8 +816,6 @@ td.highlight-main-user {
         gerenciarBotoesVisiveis(nomeTela, false, "", ""); 
     }
         
-        
-
     function mostrarModal(modalElement) { 
         if (modalElement) modalElement.classList.add('visible');
     }
@@ -827,34 +823,64 @@ td.highlight-main-user {
         if (modalElement) modalElement.classList.remove('visible');
     }
     
-    function definirOperadorPrincipalAtual(nomeInputFormatado, ehBuscaDeTerceiro = false) {
-        if (!nomeInputFormatado || typeof nomeInputFormatado !== 'string') return null;
+    // MODIFICADO: Para lidar com nomeExibicaoUsuarioPrincipal
+    function definirOperadorPrincipalAtual(nomeInputPrimeiroSegundo, ehBuscaDeTerceiro = false) {
+        // nomeInputPrimeiroSegundo é esperado ser "Primeiro SegundoNome" do input do usuário
+        if (!nomeInputPrimeiroSegundo || typeof nomeInputPrimeiroSegundo !== 'string') {
+            if (!ehBuscaDeTerceiro) {
+                nomeExibicaoUsuarioPrincipal = ""; // Limpa se o input for inválido
+                nomeCompletoOriginalUsuario = "";
+                primeiroSegundoNomeUsuarioParaBusca = "";
+                localStorage.removeItem('operadorNomeExibicaoSalvo');
+            }
+            return null;
+        }
 
-        const chaveBuscaNormalizada = removerAcentos(nomeInputFormatado.toLowerCase());
+        const chaveBuscaNormalizada = removerAcentos(nomeInputPrimeiroSegundo.toLowerCase());
         const opInfoMaster = definitiveMasterOperatorMap.get(chaveBuscaNormalizada);
         
-        const nomeBaseParaCabecalho = (opInfoMaster && opInfoMaster.nomeCompletoOriginal) ? opInfoMaster.nomeCompletoOriginal : nomeInputFormatado;
-
         if (!ehBuscaDeTerceiro) { 
-            nomeCompletoOriginalUsuario = nomeInputFormatado; 
+            // nomeCompletoOriginalUsuario armazena o que o usuário digitou (Primeiro Segundo Nome)
+            // para consistência com a chave de busca e o que é salvo.
+            nomeCompletoOriginalUsuario = nomeInputPrimeiroSegundo; 
             primeiroSegundoNomeUsuarioParaBusca = chaveBuscaNormalizada; 
             localStorage.setItem('operadorNomeSalvo', nomeCompletoOriginalUsuario);
             nomeDefinidoNestaSessao = true;
+
+            if (opInfoMaster && opInfoMaster.nomeExibicao && opInfoMaster.nomeExibicao.trim() !== "") {
+                nomeExibicaoUsuarioPrincipal = opInfoMaster.nomeExibicao.trim(); // Pega da Coluna B do CSV
+                localStorage.setItem('operadorNomeExibicaoSalvo', nomeExibicaoUsuarioPrincipal);
+            } else {
+                // Se não há nome de exibição no CSV (Coluna B vazia), limpamos.
+                // A função atualizarDisplayOperadorCabecalho usará o fallback (Primeiro Segundo Nome).
+                nomeExibicaoUsuarioPrincipal = ""; 
+                localStorage.removeItem('operadorNomeExibicaoSalvo');
+            }
             atualizarDisplayOperadorCabecalho(); 
         }
+        
+        // Para retorno, mantenha a lógica de fornecer informações baseadas no que foi encontrado no mapa
+        const nomeCompletoPlanilha = opInfoMaster ? opInfoMaster.nomeCompletoOriginal : nomeInputPrimeiroSegundo;
+        const nomeExibicaoPlanilha = opInfoMaster ? opInfoMaster.nomeExibicao : null;
+
         return {
             busca: chaveBuscaNormalizada, 
-            abreviado: gerarNomeParaDisplayPrincipal(nomeBaseParaCabecalho), 
-            completoOriginalDaPlanilha: opInfoMaster ? opInfoMaster.nomeCompletoOriginal : nomeInputFormatado, 
-            nomeExibicaoPuroDoMapa: opInfoMaster ? opInfoMaster.nomeExibicao : null 
+            abreviado: gerarNomeParaDisplayPrincipal(nomeCompletoPlanilha), // Pode ser usado como fallback se necessário
+            completoOriginalDaPlanilha: nomeCompletoPlanilha, 
+            nomeExibicaoPuroDoMapa: nomeExibicaoPlanilha
         };
     }
 
+    // MODIFICADO: Para usar nomeExibicaoUsuarioPrincipal quando disponível
     function atualizarDisplayOperadorCabecalho() { 
         if (!displayOperadorCabecalhoP) return;
         let textoFinal = ""; 
 
-        if (nomeCompletoOriginalUsuario) { 
+        if (nomeExibicaoUsuarioPrincipal && nomeExibicaoUsuarioPrincipal.trim() !== "") {
+            // Prioriza o nome de exibição da Coluna B do CSV
+            textoFinal = capitalizarNomeCompleto(nomeExibicaoUsuarioPrincipal);
+        } else if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") { 
+            // Fallback para os dois primeiros nomes (do input, que é Primeiro Segundo Nome)
             textoFinal = gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario); 
         } else if (modoExibicaoAtual === 'outrosEventos' && !areaPrincipalAppDiv.classList.contains('hidden') && appInitialized) {
             textoFinal = "VISÃO GERAL";
@@ -923,20 +949,17 @@ td.highlight-main-user {
         throw lastError || new Error(`Falha ao buscar ${targetUrl.substring(0,60)}... após ${MAX_TOTAL_ATTEMPTS} tentativas.`);
     }
 
-    // NOVO CÓDIGO: Função para buscar e parsear o CSV local de operadores e mensagens
     async function fetchAndParseLocalCSV(filePath) {
         try {
-            const response = await fetch(filePath); // Busca o arquivo local
+            const response = await fetch(filePath); 
             if (!response.ok) {
-                // Se o arquivo não for encontrado (404) ou houver outro erro HTTP
                 throw new Error(`HTTP error! status: ${response.status} ao buscar ${filePath}`);
             }
             const csvText = await response.text();
             if (!csvText || csvText.trim() === "") {
-                // Se o arquivo estiver vazio
                 throw new Error(`Arquivo CSV local (${filePath}) está vazio ou não pôde ser lido.`);
             }
-            return parseCSV(csvText); // Usa a função parseCSV existente
+            return parseCSV(csvText); 
         } catch (error) {
             console.error(`Erro ao buscar ou parsear CSV local (${filePath}):`, error.message);
             if (resultadoDiv) {
@@ -946,84 +969,72 @@ td.highlight-main-user {
                 updateStatusContainer.classList.remove('hidden');
                 updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
             }
-            return null; // Retorna null para indicar falha
+            return null; 
         }
     }
 
-    // MODIFICADO: Agora usa dados do CSV local (passado como parâmetro)
     async function carregarListaOperadoresDefinitiva(parsedCsvData) {
-        if (!parsedCsvData || parsedCsvData.length < 1) { // Precisa de pelo menos a linha de cabeçalho
+        if (!parsedCsvData || parsedCsvData.length < 1) { 
             console.error("FALHA CRÍTICA: Dados do CSV de operadores (local) estão vazios ou inválidos.");
             definitiveMasterOperatorMap.clear();
-            // A mensagem de erro já é mostrada por fetchAndParseLocalCSV ou na inicialização.
-            // Podemos adicionar uma específica se quisermos, mas evitar redundância.
-            // Exemplo: if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { ... }
             return;
         }
 
         const linhasOperadores = parsedCsvData;
         definitiveMasterOperatorMap.clear();
 
-        // Normaliza os cabeçalhos para busca (minúsculas, sem acentos, trim)
         const headers = (linhasOperadores[0] || []).map(h => removerAcentos((h || "").toLowerCase().trim()));
         const idxNomeCompleto = headers.indexOf("nome completo");
         const idxNomeExibicao = headers.indexOf("nome de exibicao");
 
         if (idxNomeCompleto === -1 || idxNomeExibicao === -1) {
             console.error("Cabeçalhos 'nome_completo' ou 'nome_exibicao' não encontrados no arquivo operadores_msg.csv.");
-            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { // Evita sobrescrever erro mais crítico
+            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) { 
                  updateStatusContainer.classList.remove('hidden');
                  updateStatusContainer.innerHTML = `<span class="status-message text-red-300">ERRO: Verifique cabeçalhos em operadores_msg.csv.</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
             }
             return;
         }
 
-        // Itera a partir da segunda linha (índice 1), pois a primeira (índice 0) é de cabeçalhos
         for (let i = 1; i < linhasOperadores.length; i++) {
             const linha = linhasOperadores[i];
-            // Verifica se a linha existe e tem células suficientes para os índices encontrados
             if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
                 const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
                 let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
 
                 if (nomeCompletoOriginalDaPlanilha === "") {
-                    // Pula a linha se o nome completo estiver vazio para evitar entradas fantasmas
                     console.warn(`Linha ${i+1} do CSV local pulada: nome_completo vazio.`);
                     continue;
                 }
-
-                // Se nome de exibição estiver vazio, usa o nome completo como fallback
-                if (nomeExibicaoParaMapa === "") {
-                    nomeExibicaoParaMapa = nomeCompletoOriginalDaPlanilha;
-                }
+                // Se nome de exibição estiver vazio NO CSV, ele será uma string vazia aqui.
+                // A função `definirOperadorPrincipalAtual` e `atualizarDisplayOperadorCabecalho`
+                // farão o fallback para gerarNomeParaDisplayPrincipal se nomeExibicaoUsuarioPrincipal for vazio.
+                // Para o mapa, guardamos o que veio do CSV (mesmo que seja vazio para nomeExibicao).
                 
-                // Cria a chave de busca a partir dos dois primeiros nomes do nome completo
                 const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                 if (buscaKey) {
                     definitiveMasterOperatorMap.set(buscaKey, {
-                        nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,
-                        nomeExibicao: nomeExibicaoParaMapa
+                        nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha, // Coluna A
+                        nomeExibicao: nomeExibicaoParaMapa       // Coluna B
                     });
                 }
-            } else if (linha && linha.join("").trim() !== "") { // Se a linha não está vazia mas não tem colunas suficientes
+            } else if (linha && linha.join("").trim() !== "") { 
                  console.warn(`Linha ${i+1} do CSV local ignorada: número de colunas insuficiente ou dados ausentes para nome_completo/nome_exibicao.`);
             }
         }
         console.log("Lista de operadores definitiva carregada do CSV local. Tamanho do mapa:", definitiveMasterOperatorMap.size);
-        if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) { // Se havia dados mas o mapa ficou vazio
+        if (definitiveMasterOperatorMap.size === 0 && linhasOperadores.length > 1) { 
              console.warn("Mapa de operadores ficou vazio apesar de haver linhas de dados no CSV. Verifique o conteúdo das colunas 'nome_completo' e 'nome_exibicao'.");
         }
     }
     
-    // MODIFICADO: Agora usa dados do CSV local (passado como parâmetro)
     async function buscarMensagemDaPlanilha(parsedCsvData) {
-        if (!parsedCsvData || parsedCsvData.length < 1) { // Precisa de pelo menos a linha de cabeçalho
+        if (!parsedCsvData || parsedCsvData.length < 1) { 
             console.warn("Não foi possível buscar mensagem: dados do CSV local (operadores_msg.csv) estão vazios ou inválidos.");
             return;
         }
 
         const linhas = parsedCsvData;
-        // Normaliza os cabeçalhos para busca
         const headers = (linhas[0] || []).map(h => removerAcentos((h || "").toLowerCase().trim()));
         const idxMensagem = headers.indexOf("mensagem");
 
@@ -1032,23 +1043,19 @@ td.highlight-main-user {
             return;
         }
 
-        // Título: Linha 2 do CSV (índice 1 do array 'linhas'), coluna "mensagem"
-        // Corpo: Linha 3 do CSV (índice 2 do array 'linhas'), coluna "mensagem"
-        // É preciso verificar se essas linhas e a coluna existem.
         const tituloMsg = (linhas.length > 1 && linhas[1] && linhas[1].length > idxMensagem) ? (linhas[1][idxMensagem] || "").trim() : "";
         const corpoMsg = (linhas.length > 2 && linhas[2] && linhas[2].length > idxMensagem) ? (linhas[2][idxMensagem] || "").trim() : "";
 
-        if (corpoMsg.trim() !== "") { // Exibe modal apenas se o corpo da mensagem não estiver vazio
+        if (corpoMsg.trim() !== "") { 
             if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
-                esconderModal(periodicNotificationModal); // Esconde notificação periódica se estiver visível
+                esconderModal(periodicNotificationModal); 
             }
-            const tituloFinalModal = tituloMsg.trim() !== "" ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨"; // Usa título padrão se o do CSV estiver vazio mas corpo não
+            const tituloFinalModal = tituloMsg.trim() !== "" ? `✨ ${tituloMsg.toUpperCase()} ✨` : "✨ AVISO ✨"; 
             if (sheetMessageTitleH2) sheetMessageTitleH2.textContent = tituloFinalModal;
-            if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>'); // Permite quebras de linha na mensagem
+            if (sheetMessageTextP) sheetMessageTextP.innerHTML = corpoMsg.replace(/\n/g, '<br>'); 
             mostrarModal(sheetMessageModal);
             tocarSom(notificationSound);
         } else if (tituloMsg.trim() !== "") {
-            // Se só o título existir, apenas loga, não mostra modal.
             console.log("Título da mensagem encontrado no CSV local ('operadores_msg.csv'), mas o corpo da mensagem está vazio. Modal de aviso não será exibido.");
         }
     }
@@ -1085,10 +1092,13 @@ td.highlight-main-user {
         let nomeExibicaoLoader = "todos os operadores"; 
 
         if(tipoDeVisualizacaoParam === 'minhaEscala'){
-            if (nomeCompletoRealOperadorEmFoco) { 
+            // MODIFICADO: Usa nomeExibicaoUsuarioPrincipal para o loader se disponível para o operador em foco
+            if (nomeCompletoRealOperadorEmFoco === nomeCompletoOriginalUsuario && nomeExibicaoUsuarioPrincipal) {
+                nomeExibicaoLoader = capitalizarNomeCompleto(nomeExibicaoUsuarioPrincipal);
+            } else if (nomeCompletoRealOperadorEmFoco) { 
                  nomeExibicaoLoader = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
             } else { 
-                 nomeExibicaoLoader = nomeCompletoOriginalUsuario ? gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario) : ""; 
+                 nomeExibicaoLoader = (nomeExibicaoUsuarioPrincipal || (nomeCompletoOriginalUsuario ? gerarNomeParaDisplayPrincipal(nomeCompletoOriginalUsuario) : ""));
             }
         } 
         
@@ -1119,7 +1129,6 @@ td.highlight-main-user {
         let fetchErrorObject = null; 
 
         try {
-            // Esta busca de escalas continua usando proxy, pois é para a planilha de agenda principal.
             const response = await fetchWithProxyRetries(googleSheetDataUrl, proxyList, true); 
             const csvText = await response.text();
             fetchSuccess = true; 
@@ -1270,12 +1279,26 @@ td.highlight-main-user {
             let corpoPrincipalHTML = "";
             let alertaProximidadeAtivadoEsteCiclo = false; 
             let operadorDoFocoEstaEscalado = atribuicoesOperadorPrincipal.length > 0;
-            const nomeExibicaoResultadoDoFoco = (nomeCompletoRealOperadorEmFoco ? gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco) : "").toUpperCase();
+            
+            // MODIFICADO: Usa nomeExibicaoUsuarioPrincipal ou o nome de exibição do operador em foco
+            let nomeExibicaoDoFocoParaResultado = "";
+            if (nomeParaBuscaFocoOperador === primeiroSegundoNomeUsuarioParaBusca && nomeExibicaoUsuarioPrincipal) { // Se é o usuário principal e tem nome de exibição
+                nomeExibicaoDoFocoParaResultado = capitalizarNomeCompleto(nomeExibicaoUsuarioPrincipal);
+            } else if (nomeCompletoRealOperadorEmFoco) { // Se é outro operador em foco ou usuário principal sem nome de exibição específico
+                 const opInfoFoco = definitiveMasterOperatorMap.get(nomeParaBuscaFocoOperador);
+                 if (opInfoFoco && opInfoFoco.nomeExibicao) {
+                     nomeExibicaoDoFocoParaResultado = capitalizarNomeCompleto(opInfoFoco.nomeExibicao);
+                 } else {
+                    nomeExibicaoDoFocoParaResultado = gerarNomeParaDisplayPrincipal(nomeCompletoRealOperadorEmFoco);
+                 }
+            }
+            nomeExibicaoDoFocoParaResultado = nomeExibicaoDoFocoParaResultado.toUpperCase();
+
 
             if (tipoDeVisualizacaoParam === 'minhaEscala' && operadorDoFocoEstaEscalado) {
                 const numEventos = atribuicoesOperadorPrincipal.length;
                 const textoSingularPluralEvento = numEventos === 1 ? 'EVENTO' : 'EVENTOS';
-                const mensagemEscalado = `${nomeExibicaoResultadoDoFoco} ESTÁ ESCALADO PARA ${numEventos} ${textoSingularPluralEvento} ${adverbioOriginalParaDataAlvo.toUpperCase()}!`;
+                const mensagemEscalado = `${nomeExibicaoDoFocoParaResultado} ESTÁ ESCALADO PARA ${numEventos} ${textoSingularPluralEvento} ${adverbioOriginalParaDataAlvo.toUpperCase()}!`;
                 corpoPrincipalHTML += `<p class="text-base font-semibold text-center text-primary-light mb-4 uppercase">${mensagemEscalado}</p>`;
                 
                 atribuicoesOperadorPrincipal.forEach((eventoDetalhado, index) => {
@@ -1352,7 +1375,7 @@ td.highlight-main-user {
                     if (fetchSuccess) tocarSom(naoEscaladoSound); 
                     corpoPrincipalHTML += `
                         <div class="text-center mb-6">
-                            <p class='text-lg status-operador-principal-texto uppercase mb-1'>${nomeExibicaoResultadoDoFoco} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
+                            <p class='text-lg status-operador-principal-texto uppercase mb-1'>${nomeExibicaoDoFocoParaResultado} NÃO ESTÁ ESCALADO ${adverbioOriginalParaDataAlvo.toUpperCase()}</p>
                             <p class='text-xl mt-1 emoji-bounce'><span>🎉</span><span>🥳</span><span>🎊</span><span>🎉</span><span>🥳</span><span>🎊</span></p>
                         </div>`;
                 }
@@ -1606,51 +1629,49 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                 appInitialized = true; 
                 await proceedWithAppInitialization(); 
             }, { once: true });
-        } else {
+        } else { // App retomado (ex: aba ficou visível novamente)
             console.log("App retomado. Tentando atualizar dados...");
             const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
             const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
-            // MODIFICADO: Verifica se o mapa de operadores está populado antes de buscar escalas
+            
             if (definitiveMasterOperatorMap.size > 0) {
                 await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
             } else {
-                // Se o mapa está vazio, tenta recarregar os dados locais e então as escalas.
-                console.warn("Mapa de operadores vazio na retomada. Tentando recarregar dados locais.");
+                console.warn("Mapa de operadores vazio na retomada (appFlowController). Tentando recarregar dados locais.");
                 const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
                 if (localCsvData) {
                     await carregarListaOperadoresDefinitiva(localCsvData);
-                    // Se o nome do operador principal já estava definido, precisa ser reconfirmado no mapa
-                    if (nomeCompletoOriginalUsuario) {
-                         definirOperadorPrincipalAtual(nomeCompletoOriginalUsuario, false); // Re-processa para garantir que a chave de busca está correta com o mapa atualizado
+                    // MODIFICADO: Tenta restaurar nome de exibição se operador principal estava definido
+                    const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
+                    const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo');
+                    if (nomeSalvoLS) {
+                        nomeCompletoOriginalUsuario = nomeSalvoLS; // Restaura para definirOperadorPrincipalAtual
+                        if (nomeExibicaoSalvoLS) {
+                           nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS; // Restaura direto
+                        }
+                        definirOperadorPrincipalAtual(nomeSalvoLS, false); // Revalida e atualiza nomeExibicaoUsuarioPrincipal do mapa
                     }
                     await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
                 } else {
-                     resultadoDiv.innerHTML = `<p class='text-lg font-bold text-red-400 py-4'>FALHA AO RECARREGAR DADOS DE OPERADORES. Não é possível exibir escalas.</p>`;
+                     resultadoDiv.innerHTML = `<p class='text-lg font-bold text-red-400 py-4'>FALHA AO RECARREGAR DADOS DE OPERADORES (RETOMADA). Não é possível exibir escalas.</p>`;
                 }
             }
         }
     }
 
-    // MODIFICADO: para usar dados do CSV local
     async function proceedWithAppInitialization() { 
         console.log("Modal inicial dispensado. Prosseguindo com inicialização do App...");
         if (anoAtualFooterSpan) anoAtualFooterSpan.textContent = new Date().getFullYear();
         if(initialDisclaimerTitleH2) initialDisclaimerTitleH2.textContent = "⚠️ ATENÇÃO! ⚠️";
         if(periodicNotificationTitleH2) periodicNotificationTitleH2.textContent = "📢 LEMBRETE IMPORTANTE 📢";
 
-        // NOVO CÓDIGO: Carrega dados do CSV local primeiro
         const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
 
         if (localCsvData) {
-            // Se o CSV local foi carregado com sucesso, usa seus dados
             await carregarListaOperadoresDefinitiva(localCsvData); 
             await buscarMensagemDaPlanilha(localCsvData); 
         } else {
-            // Se falhou ao carregar CSV local, o app pode não funcionar corretamente.
-            // As funções carregarListaOperadoresDefinitiva e buscarMensagemDaPlanilha já logaram erros.
-            // Poderia haver um fallback para buscar da rede aqui, se desejado, mas o pedido foi substituir.
             console.error("Falha crítica ao carregar dados locais de operadores_msg.csv. O aplicativo pode ter funcionalidades limitadas.");
-            // Exibe uma mensagem mais proeminente se o resultadoDiv estiver visível na tela principal
             if (areaPrincipalAppDiv && !areaPrincipalAppDiv.classList.contains('hidden') && resultadoDiv) {
                  resultadoDiv.innerHTML = `<p class='text-base text-center font-semibold text-red-400 py-4'>ERRO GRAVE: Não foi possível carregar dados essenciais de 'operadores_msg.csv'.</p>`;
             }
@@ -1658,21 +1679,27 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         
         exibirDataAtualCabecalho(); 
         const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); 
+        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO: Carrega nome de exibição salvo
+
         if (nomeSalvoLS) {
-            // É crucial que carregarListaOperadoresDefinitiva tenha sido chamado antes e populado o mapa.
-            // Se localCsvData foi null, o mapa estará vazio.
             if (definitiveMasterOperatorMap.size > 0) {
+                nomeCompletoOriginalUsuario = nomeSalvoLS; // Restaura o nome de input (Primeiro Segundo)
+                if (nomeExibicaoSalvoLS) { // Restaura o nome de exibição se existir
+                    nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
+                }
+                // definirOperadorPrincipalAtual vai usar nomeSalvoLS para buscar no mapa e atualizar nomeExibicaoUsuarioPrincipal
                 definirOperadorPrincipalAtual(nomeSalvoLS, false); 
+                
                 modoExibicaoAtual = 'minhaEscala';
                 localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
                 exibirTela('principal'); 
                 await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
             } else {
-                 // Se o mapa está vazio, o usuário foi salvo mas não podemos validá-lo.
-                 // Poderia exibir a tela de boas vindas ou uma mensagem de erro específica.
                  console.warn("Operador salvo encontrado, mas lista de operadores não pôde ser carregada. Exibindo tela de boas-vindas.");
-                 localStorage.removeItem('operadorNomeSalvo'); // Limpa para evitar loop de erro
+                 localStorage.removeItem('operadorNomeSalvo'); 
                  localStorage.removeItem('operadorNomeFocoVisualizacao');
+                 localStorage.removeItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO
+                 nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO
                  exibirTela('boasVindas');
             }
         } else {
@@ -1687,13 +1714,26 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
             const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
             
-            // MODIFICADO: Verifica se o mapa está populado antes de buscar.
             if (definitiveMasterOperatorMap.size > 0) {
                 buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
             } else {
                  console.warn("App visível, mas mapa de operadores vazio. Tentando recarregar dados locais e escalas.");
-                 // Tenta recarregar tudo se o mapa estiver vazio
-                 proceedWithAppInitialization(); // Isso vai tentar recarregar o CSV e depois as escalas.
+                 // Recarrega dados e tenta restaurar estado do operador
+                 (async () => {
+                    const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
+                    if (localCsvData) {
+                        await carregarListaOperadoresDefinitiva(localCsvData);
+                        const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
+                        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo');
+                        if (nomeSalvoLS) {
+                            nomeCompletoOriginalUsuario = nomeSalvoLS;
+                            if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
+                            definirOperadorPrincipalAtual(nomeSalvoLS, false); // Revalida com o mapa
+                        }
+                        // A função buscarEscalas será chamada por definirOperadorPrincipalAtual se for o caso ou pela lógica de appFlowController
+                        await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
+                    }
+                 })();
             }
         }
     }
@@ -1747,30 +1787,31 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     
-    // MODIFICADO: Lógica de 'focus' similar à 'visibilitychange'
     window.addEventListener('focus', async () => { 
         if (appInitialized && document.visibilityState === 'visible') { 
             console.log("App ganhou foco. Tentando atualizar dados...");
             const nomeFocoAtual = localStorage.getItem('operadorNomeFocoVisualizacao') || nomeCompletoOriginalUsuario || "";
             const chaveBuscaFocoAtual = nomeFocoAtual ? removerAcentos(nomeFocoAtual.split(/\s+/).slice(0,2).join(" ").toLowerCase()) : primeiroSegundoNomeUsuarioParaBusca;
             
-            if (definitiveMasterOperatorMap.size > 0) { // Se o mapa já está carregado
+            if (definitiveMasterOperatorMap.size > 0) { 
                 await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
-            } else { // Se o mapa está vazio (ex: falha no carregamento inicial ou PWA reaberto sem dados)
+            } else { 
                  console.warn("App ganhou foco, mas mapa de operadores vazio. Tentando recarregar dados locais e escalas.");
-                 // Tenta recarregar o CSV local e, se bem-sucedido, busca as escalas.
                  const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
                  if (localCsvData) {
                      await carregarListaOperadoresDefinitiva(localCsvData);
-                     // Se o nome do operador principal já estava definido, precisa ser reconfirmado no mapa
-                     if (nomeCompletoOriginalUsuario) {
-                         definirOperadorPrincipalAtual(nomeCompletoOriginalUsuario, false); 
+                     const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
+                     const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo');
+                     if (nomeSalvoLS) {
+                        nomeCompletoOriginalUsuario = nomeSalvoLS;
+                        if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
+                        definirOperadorPrincipalAtual(nomeSalvoLS, false);
                      }
-                     if (nomeCompletoOriginalUsuario || modoExibicaoAtual === 'outrosEventos') { // Procede se houver um operador definido ou se for visão geral
+                     if (nomeCompletoOriginalUsuario || modoExibicaoAtual === 'outrosEventos') { 
                         await buscarEscalas(chaveBuscaFocoAtual, nomeFocoAtual, modoExibicaoAtual);
                      }
                  } else {
-                      resultadoDiv.innerHTML = `<p class='text-lg font-bold text-red-400 py-4'>FALHA AO RECARREGAR DADOS DE OPERADORES (AO GANHAR FOCO). Não é possível exibir escalas.</p>`;
+                      resultadoDiv.innerHTML = `<p class='text-lg font-bold text-red-400 py-4'>FALHA AO RECARREGAR DADOS DE OPERADORES (FOCO). Não é possível exibir escalas.</p>`;
                  }
             }
         }
@@ -1786,19 +1827,25 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         if (partesNome.length >= 2) { 
             erroNomeInputP.classList.add('hidden');
             const primeiroESegundoDoInputParaDefinir = capitalizarNomeCompleto(partesNome.slice(0,2).join(" "));
-            const nomeExibicaoParaConfirmacao = gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir); 
+            
+            // MODIFICADO: Busca no mapa para mostrar o nome de exibição na confirmação, se disponível
+            const chaveBuscaConf = removerAcentos(primeiroESegundoDoInputParaDefinir.toLowerCase());
+            const opInfoConf = definitiveMasterOperatorMap.get(chaveBuscaConf);
+            const nomeExibicaoParaConfirmacao = (opInfoConf && opInfoConf.nomeExibicao && opInfoConf.nomeExibicao.trim() !== "") 
+                                              ? capitalizarNomeCompleto(opInfoConf.nomeExibicao) 
+                                              : gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir);
             
             confirmacaoNomeDiv.innerHTML = `
                 <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
-                <p class="text-xs sm:text-sm text-secondary-content">O nome usado será <strong class="text-primary-content">"${nomeExibicaoParaConfirmacao}"</strong>.</p>
+                <p class="text-xs sm:text-sm text-secondary-content">O nome usado para exibição será <strong class="text-primary-content">"${nomeExibicaoParaConfirmacao}"</strong>.</p>
                 <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
                 <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
                     <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">
                     <img src="nao.png" alt="Não" id="confirmarNomeNaoBtnInterno" style="cursor: pointer; width: 70px;" title="Não">
                 </div>`;
             exibirTela('confirmacaoNome');
+
             document.getElementById('confirmarNomeSimBtnInterno').addEventListener('click', async () => {
-                // MODIFICADO: Verifica se o mapa de operadores está populado antes de definir e buscar.
                 if (definitiveMasterOperatorMap.size === 0) {
                     console.warn("Tentando definir operador, mas a lista de operadores (mapa) está vazia. Tentando recarregar CSV...");
                     const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
@@ -1812,10 +1859,20 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                     }
                 }
                 
+                // Passa o "Primeiro SegundoNome" do input para definirOperadorPrincipalAtual
                 definirOperadorPrincipalAtual(primeiroESegundoDoInputParaDefinir, false); 
-                if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") {
+                
+                if (nomeCompletoOriginalUsuario && nomeCompletoOriginalUsuario.trim() !== "") { // nomeCompletoOriginalUsuario é o "Primeiro SegundoNome" do input
                     modoExibicaoAtual = 'minhaEscala';
-                    localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
+                    // O nome de foco para visualização deve ser o nome completo original da planilha, se encontrado,
+                    // ou o input se não. A função definirOperadorPrincipalAtual já lida com o mapa.
+                    // Para buscarEscalas, usamos primeiroSegundoNomeUsuarioParaBusca (chave) e nomeCompletoOriginalUsuario (input).
+                    localStorage.setItem('operadorNomeFocoVisualizacao', primeiroSegundoNomeUsuarioParaBusca); // Ou o nome completo da planilha? Para consistência...
+                                                                                                            // Melhor usar o que foi usado para busca no mapa, ou o nome original do mapa.
+                                                                                                            // Vamos usar o nomeCompletoOriginalUsuario (que é o input P S).
+                    
+                    // A variável global nomeExibicaoUsuarioPrincipal já foi atualizada por definirOperadorPrincipalAtual.
+                    // atualizarDisplayOperadorCabecalho também já foi chamada lá.
                     exibirTela('principal');
                     await buscarEscalas(primeiroSegundoNomeUsuarioParaBusca, nomeCompletoOriginalUsuario, 'minhaEscala');
                 } else { 
@@ -1835,8 +1892,11 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
     minhaEscalaBtn.addEventListener('click', async () => {
         const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo');
+        const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO
         if (nomeSalvoLS) {
-            definirOperadorPrincipalAtual(nomeSalvoLS, false); 
+            nomeCompletoOriginalUsuario = nomeSalvoLS; // Restaura
+            if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS; // Restaura
+            definirOperadorPrincipalAtual(nomeSalvoLS, false); // Revalida com mapa e atualiza nomeExibicaoUsuarioPrincipal
             modoExibicaoAtual = 'minhaEscala';
             localStorage.setItem('operadorNomeFocoVisualizacao', nomeCompletoOriginalUsuario); 
             exibirTela('principal'); 
@@ -1848,9 +1908,11 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
 
     outrosEventosBtn.addEventListener('click', async () => {
         modoExibicaoAtual = 'outrosEventos';
+        // Não limpa nomeExibicaoUsuarioPrincipal, pois ele pertence ao operador principal definido.
+        // Apenas o foco da visualização muda.
         localStorage.removeItem('operadorNomeFocoVisualizacao'); 
         exibirTela('principal'); 
-        await buscarEscalas("", "", 'outrosEventos'); 
+        await buscarEscalas("", "", 'outrosEventos'); // buscarEscalas usará o nomeExibicao apropriado para o header.
     });
     
     atualizarListasBtn.addEventListener('click', async () => {
@@ -1864,20 +1926,21 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                  nomeBuscaAtual = removerAcentos(partesNomeFoco.toLowerCase());
             }
         }
-        // Ao atualizar, também força recarga dos dados locais de operadores e mensagem.
         const localCsvData = await fetchAndParseLocalCSV('operadores_msg.csv');
         if (localCsvData) {
             await carregarListaOperadoresDefinitiva(localCsvData);
-            await buscarMensagemDaPlanilha(localCsvData); // Recarrega a mensagem também
-             // Se o nome do operador principal já estava definido, precisa ser reconfirmado no mapa
-             if (nomeCompletoOriginalUsuario) {
-                definirOperadorPrincipalAtual(nomeCompletoOriginalUsuario, false); 
+            await buscarMensagemDaPlanilha(localCsvData); 
+             const nomeSalvoLS = localStorage.getItem('operadorNomeSalvo'); // NOVO CÓDIGO
+             const nomeExibicaoSalvoLS = localStorage.getItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO
+             if (nomeSalvoLS) { // Revalida o operador principal com o novo mapa
+                nomeCompletoOriginalUsuario = nomeSalvoLS;
+                if (nomeExibicaoSalvoLS) nomeExibicaoUsuarioPrincipal = nomeExibicaoSalvoLS;
+                definirOperadorPrincipalAtual(nomeSalvoLS, false); 
              }
         } else {
             console.error("Falha ao recarregar dados locais ao clicar em ATUALIZAR DADOS.");
-            // A função fetchAndParseLocalCSV já deve ter mostrado um erro na UI.
         }
-        await buscarEscalas(nomeBuscaAtual, nomeCompletoFocoAtual, modoExibicaoAtual); // Continua para buscar escalas da agenda (online)
+        await buscarEscalas(nomeBuscaAtual, nomeCompletoFocoAtual, modoExibicaoAtual); 
     });
     
     resultadoDiv.addEventListener('click', async function(event) {
@@ -1890,10 +1953,17 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             }
             targetCell.classList.add('operador-cell-highlighted');
             ultimaCelulaClicada = targetCell;
+
+            // Ao clicar em um operador na tabela, buscamos seu nome de exibição no mapa
+            const opInfoClicado = definitiveMasterOperatorMap.get(operadorBuscaKeyClicado);
+            const nomeExibicaoParaFoco = (opInfoClicado && opInfoClicado.nomeExibicao) ? opInfoClicado.nomeExibicao : operadorNomeCompletoOriginalClicado;
+
             if (operadorBuscaKeyClicado && operadorNomeCompletoOriginalClicado) {
                 modoExibicaoAtual = 'minhaEscala'; 
+                // Guarda o nome completo original da planilha (Coluna A) para foco
                 localStorage.setItem('operadorNomeFocoVisualizacao', operadorNomeCompletoOriginalClicado); 
                 exibirTela('principal'); 
+                // Passa a chave de busca e o nome completo original para buscarEscalas
                 await buscarEscalas(operadorBuscaKeyClicado, operadorNomeCompletoOriginalClicado, 'minhaEscala', true); 
             }
         }
@@ -1902,8 +1972,10 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
     logoPrincipalApp.addEventListener('click', () => {
         localStorage.removeItem('operadorNomeSalvo');
         localStorage.removeItem('operadorNomeFocoVisualizacao'); 
+        localStorage.removeItem('operadorNomeExibicaoSalvo'); // NOVO CÓDIGO: Limpar nome de exibição salvo
         primeiroSegundoNomeUsuarioParaBusca = "";
         nomeCompletoOriginalUsuario = "";
+        nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO: Limpar variável global
         nomeDefinidoNestaSessao = false;
         modoExibicaoAtual = 'minhaEscala'; 
         exibirTela('boasVindas');

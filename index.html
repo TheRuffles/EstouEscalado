@@ -193,10 +193,10 @@ td.operador-cell-highlighted {
     font-weight: normal !important;
 }
 td.highlight-main-user {  
-    background-color: white;  
-    color: #005a43;  
-    font-weight: normal;
-    animation: pulse-text 1.5s infinite alternate;
+    background-color: white !important; /* Garantir que o fundo permaneça branco */
+    color: #DC2626 !important; /* VERMELHO para o operador principal definido */
+    font-weight: normal !important; /* Mantido para consistência com hover */
+    animation: pulse-text 1.5s infinite alternate; /* Mantém a animação de pulsar */
 }
 @keyframes pulse-text {
     0% { transform: scale(1); }

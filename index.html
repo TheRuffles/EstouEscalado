@@ -509,8 +509,8 @@ td.highlight-main-user {
 
     let primeiroSegundoNomeUsuarioParaBusca = ""; 
     let nomeCompletoOriginalUsuario = ""; 
-    let nomeUsuarioPrincipal = ""; // NOVO CÓDIGO: Para guardar o nome de exibição do usuário principal
-    let modoAtual = 'minhaEscala'; 
+    let nomeExibicaoUsuarioPrincipal = ""; // NOVO CÓDIGO: Para guardar o nome de exibição do usuário principal
+    let modoExibicaoAtual = 'minhaEscala'; 
     let definitiveMasterOperatorMap = new Map();
     let ultimaCelulaClicada = null;
     let nomeDefinidoNestaSessao = false;
@@ -676,14 +676,14 @@ td.highlight-main-user {
     function formatarNomesParaTabela(listaOperadores) {
         return listaOperadores.map(op => {
             let nomeFinalParaTabela;
-            // Prioriza nomeDefinitivo (que vem da Coluna B do CSV via o mapa)
-            if (op.nomeDefinitivo && op.nomeDefinitivo.trim() !== "") {
-                nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeDefinitivo);
+            // Prioriza nomeExibicaoDefinitivo (que vem da Coluna B do CSV via o mapa)
+            if (op.nomeExibicaoDefinitivo && op.nomeExibicaoDefinitivo.trim() !== "") {
+                nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeExibicaoDefinitivo);
             } else if (op.nomeOriginalCompleto) { 
-                // Fallback: Se nomeDefinitivo estiver vazio, usa o nome_completo original (Coluna A)
+                // Fallback: Se nomeExibicaoDefinitivo estiver vazio, usa o nome_completo original (Coluna A)
                 // Em vez de gerarNomeParaDisplayPrincipal, usamos o nome_completo capitalizado
                 // ou mantemos gerarNomeParaDisplayPrincipal se essa for a preferência de fallback.
-                // Para esta alteração, se nome_ (Col B) está vazio, mostramos nome_completo (Col A)
+                // Para esta alteração, se nome_exibicao (Col B) está vazio, mostramos nome_completo (Col A)
                 nomeFinalParaTabela = capitalizarNomeCompleto(op.nomeOriginalCompleto);
                 // Se o desejado fosse ainda os "dois primeiros nomes" como fallback:
                 // nomeFinalParaTabela = gerarNomeParaDisplayPrincipal(op.nomeOriginalCompleto);
@@ -692,7 +692,7 @@ td.highlight-main-user {
             }
             return { 
                 ...op, 
-                nomeTabela: nomeFinalParaTabela,
+                nomeExibicaoTabela: nomeFinalParaTabela,
                 isCancelado: op.isCancelado || false 
             };
         });
@@ -774,7 +774,7 @@ td.highlight-main-user {
             resultadoDiv.innerHTML = ''; 
         }
         
-        atualizarDisplayOperadorCabecalho(); // Chamada movida para depois de limpar nomeUsuarioPrincipal se necessário
+        atualizarDisplayOperadorCabecalho(); // Chamada movida para depois de limpar nomeExibicaoUsuarioPrincipal se necessário
 
 
         if (nomeTela === 'boasVindas') {
@@ -823,15 +823,15 @@ td.highlight-main-user {
         if (modalElement) modalElement.classList.remove('visible');
     }
     
-    // MODIFICADO: Para lidar com nomeUsuarioPrincipal
+    // MODIFICADO: Para lidar com nomeExibicaoUsuarioPrincipal
     function definirOperadorPrincipalAtual(nomeInputPrimeiroSegundo, ehBuscaDeTerceiro = false) {
         // nomeInputPrimeiroSegundo é esperado ser "Primeiro SegundoNome" do input do usuário
         if (!nomeInputPrimeiroSegundo || typeof nomeInputPrimeiroSegundo !== 'string') {
             if (!ehBuscaDeTerceiro) {
-                nomeUsuarioPrincipal = ""; // Limpa se o input for inválido
+                nomeExibicaoUsuarioPrincipal = ""; // Limpa se o input for inválido
                 nomeCompletoOriginalUsuario = "";
                 primeiroSegundoNomeUsuarioParaBusca = "";
-                localStorage.removeItem('operadorNomeSalvo');
+                localStorage.removeItem('operadorNomeExibicaoSalvo');
             }
             return null;
         }
@@ -847,31 +847,31 @@ td.highlight-main-user {
             localStorage.setItem('operadorNomeSalvo', nomeCompletoOriginalUsuario);
             nomeDefinidoNestaSessao = true;
 
-            if (opInfoMaster && opInfoMaster.nome && opInfoMaster.nome.trim() !== "") {
-                nomeUsuarioPrincipal = opInfoMaster.nome.trim(); // Pega da Coluna B do CSV
-                localStorage.setItem('operadorNomeSalvo', nomeUsuarioPrincipal);
+            if (opInfoMaster && opInfoMaster.nomeExibicao && opInfoMaster.nomeExibicao.trim() !== "") {
+                nomeExibicaoUsuarioPrincipal = opInfoMaster.nomeExibicao.trim(); // Pega da Coluna B do CSV
+                localStorage.setItem('operadorNomeExibicaoSalvo', nomeExibicaoUsuarioPrincipal);
             } else {
                 // Se não há nome de exibição no CSV (Coluna B vazia), limpamos.
                 // A função atualizarDisplayOperadorCabecalho usará o fallback (Primeiro Segundo Nome).
-                nomeUsuarioPrincipal = ""; 
-                localStorage.removeItem('operadorNomeSalvo');
+                nomeExibicaoUsuarioPrincipal = ""; 
+                localStorage.removeItem('operadorNomeExibicaoSalvo');
             }
             atualizarDisplayOperadorCabecalho(); 
         }
         
         // Para retorno, mantenha a lógica de fornecer informações baseadas no que foi encontrado no mapa
         const nomeCompletoPlanilha = opInfoMaster ? opInfoMaster.nomeCompletoOriginal : nomeInputPrimeiroSegundo;
-        const nomePlanilha = opInfoMaster ? opInfoMaster.nome : null;
+        const nomeExibicaoPlanilha = opInfoMaster ? opInfoMaster.nomeExibicao : null;
 
         return {
             busca: chaveBuscaNormalizada, 
             abreviado: gerarNomeParaDisplayPrincipal(nomeCompletoPlanilha), // Pode ser usado como fallback se necessário
             completoOriginalDaPlanilha: nomeCompletoPlanilha, 
-            nomePuroDoMapa: nomePlanilha
+            nomeExibicaoPuroDoMapa: nomeExibicaoPlanilha
         };
     }
 
-    // MODIFICADO: Para usar nomeUsuarioPrincipal quando disponível
+    // MODIFICADO: Para usar nomeExibicaoUsuarioPrincipal quando disponível
     function atualizarDisplayOperadorCabecalho() { 
         if (!displayOperadorCabecalhoP) return;
         let textoFinal = ""; 

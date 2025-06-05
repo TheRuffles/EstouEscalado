@@ -1517,6 +1517,8 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
 
                         // NOVA LÓGICA PARA ALERTA DE PROXIMIDADE DE OUTROS OPERADORES (INÍCIO) - OPERADOR A
                         let aplicarAlertaProximidadeA = false;
+                        console.log(`[DEPURAÇÃO_ALERTA] Processando Operador A: ${operadorA.nomeExibicaoTabela} (Chave: ${buscaKeyA})`);
+                    console.log(`[DEPURAÇÃO_ALERTA] Data Alvo da Escala: ${dataAlvoFormatada}, Data Atual Real: ${formatarData(agora)}, Match de Data para Alerta: ${dataAlvoFormatada === formatarData(agora)}`);
                         if (dataAlvoFormatada === formatarData(agora)) {
                             const eventosOperadorA = todasAtribuicoes.filter(evt =>
                                 removerAcentos(evt.operatorOriginalFullNameFromSheet.split(/\s+/).slice(0,2).join(" ").toLowerCase()) === buscaKeyA &&

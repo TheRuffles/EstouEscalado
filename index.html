@@ -34,7 +34,7 @@
     overflow-x: hidden;
 }
 .glass-card-container {
-    background: rgba(130, 90, 230, 0.4); /* Mantido do seu original, ajuste se o seu body tem (75,0,130)*/
+    background: rgba(130, 90, 230, 0.4); 
     backdrop-filter: blur(10px) saturate(150%);
     -webkit-backdrop-filter: blur(10px) saturate(150%);
     border-radius: 1.5rem;
@@ -50,12 +50,12 @@
 .text-primary-content { color: #f0f0f0; }
 .text-secondary-content { color: #c0c0c0; }
 .status-operador-principal-texto {
-    color: #7d70ff !important; /* Roxo mais escuro do original */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Sombra preta suave */
+    color: #7d70ff !important; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); 
 }
 .btn-custom {
     border: 1px solid rgba(255, 255, 255, 0.2);
-    font-weight: normal; /* Alterado de bold para normal como no seu original */
+    font-weight: normal; 
     font-size: 0.85rem;
     line-height: 1.2;
     padding-top: 0.4rem; padding-bottom: 0.4rem;
@@ -75,7 +75,7 @@
 .btn-custom:active:not(:disabled) {
     transform: translateY(1px);
 }
-.btn-custom-blue { /* Estilo dos botões de confirmação/definição */
+.btn-custom-blue { 
     background-color: #ffffff;
     color: #111111;
     font-weight: normal;
@@ -88,25 +88,25 @@
 .btn-custom-blue:hover:not(:disabled) {
     background-color: #f3f4f6;
 }
-.btn-custom-red { /* Para botões de 'NÃO' ou cancelamento */
+.btn-custom-red { 
     background-color: rgba(220, 38, 38, 0.8);  
     color: white;  
 }
 .btn-custom-red:hover:not(:disabled) {  
     background-color: rgba(185, 28, 28, 0.9);  
 }
-.btn-custom-green { /* Para botões de 'OK' ou ações positivas */
-    background-color: #ffffff;       /* fundo branco */
-    color: #111111;                  /* texto preto */
+.btn-custom-green { 
+    background-color: #ffffff;       
+    color: #111111;                  
     font-weight: normal;
     border-radius: 0.5rem;
-    border: 1px solid #cccccc;       /* borda leve */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* sombra sutil */
+    border: 1px solid #cccccc;       
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
     padding: 0.5rem 1rem;
     text-align: center;
 }
 .btn-custom-green:hover:not(:disabled) {
-    background-color: #f3f4f6;       /* leve cinza no hover */
+    background-color: #f3f4f6;       
 }
 #resultado {
     background-color: rgba(0, 0, 0, 0.25);
@@ -184,7 +184,7 @@ td.operador-cell-clickable {
 td.operador-cell-clickable:hover,
 td.operador-cell-clickable.highlight-main-user:hover {
     background-color: white !important;  
-    color: #4B0082 !important;  /* ALTERADO PARA ROXO ESCURO */
+    color: #4B0082 !important;  /* ROXO ESCURO NO HOVER */
     font-weight: normal !important;
 }
 td.operador-cell-highlighted {  
@@ -204,7 +204,7 @@ td.highlight-main-user {
     100% { transform: scale(1); }
 }
 
-/* CSS CORRIGIDO E COMPLETO PARA CONTRASTE DE LINHAS */
+/* REGRAS PARA CONTRASTE DE LINHAS DA TABELA */
 #outrosOperadoresTable tbody tr:nth-child(odd),
 #disponiveisOperadoresTable tbody tr:nth-child(odd) {
     background-color: rgba(75, 0, 130, 0.1); /* ROXO TEMA COM 10% OPACIDADE - LINHAS ÍMPARES (MAIS CLARAS) */
@@ -266,7 +266,7 @@ td.highlight-main-user {
 }
 .modal-overlay.visible .modal-content { transform: scale(1); }
 .modal-content h2 {  
-    color: #ffffff; font-size: 1.25rem; font-weight: normal; /* Mantido 'normal' do seu CSS original */
+    color: #ffffff; font-size: 1.25rem; font-weight: normal; 
     margin-bottom: 1rem; text-transform: uppercase;  
 }
 .modal-content p {
@@ -315,7 +315,6 @@ td.highlight-main-user {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.12); }
 }
-/* Regras que estavam em uma <style> aninhada no seu original, agora corrigidas e incorporadas */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -341,7 +340,7 @@ td.highlight-main-user {
 
 @keyframes pulsar-e-crescer {
     0% { transform: scale(1); }
-    50% { transform: scale(1.65); } /* Cresce para 18% a mais, aproximadamente 1/6 extra do tamanho original */
+    50% { transform: scale(1.65); } 
     100% { transform: scale(1); }
 }
 
@@ -349,20 +348,14 @@ td.highlight-main-user {
     animation: pulsar-e-crescer 1.5s ease-in-out infinite alternate;
 }
 
-/* NOVAS REGRAS PARA OS BOTÕES DE IMAGEM */
-/* ESTILOS FINAIS E CORRETOS PARA OS BOTÕES DE IMAGEM */
 .action-image-button {
     cursor: pointer;
-    flex-grow: 1;    /* Permite que o elemento da imagem se estique para ocupar espaço */
-    flex-shrink: 1;  /* Permite que encolha se necessário */
-    flex-basis: 0;   /* Base para o cálculo do tamanho flexível, ajuda a dividir o espaço */
-
-    width: 100%;     /* Faz a imagem usar 100% da largura do 'slot' que o flexbox dá */
-    height: auto;    /* Altura se ajusta para manter proporção da imagem original */
-    /* A max-height será definida pelas regras específicas abaixo */
-    object-fit: contain; /* Garante que imagem inteira caiba e mantenha proporção */
-
-    /* Overrides para garantir aparência limpa */
+    flex-grow: 1;    
+    flex-shrink: 1;  
+    flex-basis: 0;   
+    width: 100%;     
+    height: auto;    
+    object-fit: contain; 
     background-color: transparent !important;
     border: none !important;
     padding: 0 !important;
@@ -370,10 +363,9 @@ td.highlight-main-user {
 }
 
 .action-image-button:focus {
-    outline: none; /* Remove contorno de foco */
+    outline: none; 
 }
 
-/* Estilos específicos baseados na quantidade de botões visíveis */
 #botoesAcaoContainer.button-count-1 .action-image-button {
     max-height: 120px;  
 }
@@ -589,7 +581,7 @@ td.highlight-main-user {
 
     function escaparRegExp(string) {
         if (typeof string !== 'string') return '';
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return string.replace(/[.*+?^<span class="math-inline">\{\}\(\)\|\[\\\]\\\\\]/g, '\\\\</span>&');
     }
 
     function abreviarLocal(localOriginal) {
@@ -611,7 +603,7 @@ td.highlight-main-user {
     function formatarTextoBotao(texto) {
         const palavras = texto.split(" ");
         if (palavras.length >= 2) {
-            return `<span class="math-inline">\{palavras\[0\]\}<br\></span>{palavras.slice(1).join(" ")}`;
+            return `${palavras[0]}<br>${palavras.slice(1).join(" ")}`;
         }
         return texto;
     }
@@ -652,13 +644,13 @@ td.highlight-main-user {
         const dia = String(dateObj.getDate()).padStart(2, '0');
         const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
         const ano = dateObj.getFullYear();
-        return `<span class="math-inline">\{dia\}/</span>{mes}/${ano}`;
+        return `${dia}/${mes}/${ano}`;
     }
      function formatarHora(dateObj) {  
         if (!dateObj || !(dateObj instanceof Date) || isNaN(dateObj.getTime())) { return "N/D"; }
         const hora = String(dateObj.getHours()).padStart(2, '0');
         const minuto = String(dateObj.getMinutes()).padStart(2, '0');
-        return `<span class="math-inline">\{hora\}\:</span>{minuto}`;
+        return `${hora}:${minuto}`;
     }
 
     function capitalizarNomeCompleto(nomeCompleto) {  
@@ -896,7 +888,7 @@ td.highlight-main-user {
             const currentProxy = proxies[currentProxyIndex];
             const urlToFetch = currentProxy.needsEncode ? currentProxy.prefix + encodeURIComponent(targetUrl) : currentProxy.prefix + targetUrl;
             
-            console.log(`Tentativa <span class="math-inline">\{attempts \+ 1\}/</span>{MAX_TOTAL_ATTEMPTS}: Usando proxy ${currentProxy.name} para ${targetUrl.substring(0,60)}...`);
+            console.log(`Tentativa ${attempts + 1}/${MAX_TOTAL_ATTEMPTS}: Usando proxy ${currentProxy.name} para ${targetUrl.substring(0,60)}...`);
             
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 12000);  
@@ -950,7 +942,7 @@ td.highlight-main-user {
     try {
         const response = await fetch(filePath);  
         if (!response.ok) {
-            throw new Error(`HTTP error! status: <span class="math-inline">\{response\.status\} \(</span>{response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
+            throw new Error(`HTTP error! status: ${response.status} (${response.statusText || 'Status Desconhecido'}) ao buscar ${filePath}`);
         }
         let csvText = await response.text(); 
 
@@ -971,7 +963,7 @@ td.highlight-main-user {
         }
         if (updateStatusContainer) {
             updateStatusContainer.classList.remove('hidden');
-            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. <span class="math-inline">\{error\.message\}</span\><span class\="disclaimer\-text"\></span>{DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
+            updateStatusContainer.innerHTML = `<span class="status-message blinking-red-status">ERRO: Falha ao carregar ${filePath}. ${error.message}</span><span class="disclaimer-text">${DISCLAIMER_TEXT_UPDATE_STATUS.replace(/App/g, '<strong>App</strong>')}</span>`;
         }
         return null;  
     }
@@ -991,8 +983,8 @@ td.highlight-main-user {
         const headers = headersRaw.map(h => (h || "").trim().toLowerCase()); // Normalizar para minúsculas aqui
 
         // Adicionando logs de depuração para cabeçalhos
-        console.log("[CSV DEBUG] Cabeçalhos Brutos da Planilha de Operadores:", JSON.stringify(headersRaw));
-        console.log("[CSV DEBUG] Cabeçalhos Normalizados para Busca:", JSON.stringify(headers));
+        console.log(`[CSV DEBUG] Cabeçalhos Brutos da Planilha de Operadores: ${JSON.stringify(headersRaw)}`);
+        console.log(`[CSV DEBUG] Cabeçalhos Normalizados para Busca: ${JSON.stringify(headers)}`);
 
         const idxNomeCompleto = headers.indexOf("nome_completo");
         const idxNomeExibicao = headers.indexOf("nome_exibicao");
@@ -1015,18 +1007,18 @@ td.highlight-main-user {
             }
             return;
         }
-        console.log(`[CSV DEBUG] Índices encontrados: nome_completo=<span class="math-inline">\{idxNomeCompleto\}, nome\_exibicao\=</span>{idxNomeExibicao}`);
+        console.log(`[CSV DEBUG] Índices encontrados: nome_completo=${idxNomeCompleto}, nome_exibicao=${idxNomeExibicao}`);
 
         for (let i = 1; i < linhasOperadores.length; i++) {
             const linha = linhasOperadores[i];
-            // Log da linha inteira
-            console.log(`[CSV DEBUG] Processando Linha <span class="math-inline">\{i \+ 1\} do CSV\: Raw\=\["</span>{linha.join('","')}"]`);
+            
+            console.log(`[CSV DEBUG] Processando Linha ${i + 1} do CSV: Raw=["${linha.join('","')}"]`);
 
             if (linha && linha.length > Math.max(idxNomeCompleto, idxNomeExibicao)) {
                 const nomeCompletoOriginalDaPlanilha = (linha[idxNomeCompleto] || "").trim();
                 let nomeExibicaoParaMapa = (linha[idxNomeExibicao] || "").trim();
                 
-                console.log(`[CSV DEBUG] Linha <span class="math-inline">\{i \+ 1\}\: Extraído NomeCompleto\='</span>{nomeCompletoOriginalDaPlanilha}', NomeExibicao='${nomeExibicaoParaMapa}'`);
+                console.log(`[CSV DEBUG] Linha ${i + 1}: Extraído NomeCompleto='${nomeCompletoOriginalDaPlanilha}', NomeExibicao='${nomeExibicaoParaMapa}'`);
 
                 if (nomeCompletoOriginalDaPlanilha === "") {
                     console.warn(`[CSV DEBUG] Linha ${i + 1} pulada: nome_completo vazio.`);
@@ -1034,16 +1026,15 @@ td.highlight-main-user {
                 }
 
                 const buscaKey = removerAcentos(nomeCompletoOriginalDaPlanilha.split(/\s+/).slice(0, 2).join(" ").toLowerCase());
-                console.log(`[CSV DEBUG] Linha <span class="math-inline">\{i \+ 1\}\: ChaveGerada\='</span>{buscaKey}' para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'`);
+                console.log(`[CSV DEBUG] Linha ${i + 1}: ChaveGerada='${buscaKey}' para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'`);
 
                 if (buscaKey) {
                     definitiveMasterOperatorMap.set(buscaKey, {
                         nomeCompletoOriginal: nomeCompletoOriginalDaPlanilha,
                         nomeExibicao: nomeExibicaoParaMapa
                     });
-                    // console.log(`[CSV DEBUG] Linha <span class="math-inline">\{i\+1\}\: Adicionado ao mapa com chave '</span>{buscaKey}'. Mapa size: ${definitiveMasterOperatorMap.size}`);
                 } else {
-                    console.warn(`[CSV DEBUG] Linha <span class="math-inline">\{i \+ 1\}\: Chave gerada é VAZIA para NomeCompleto\='</span>{nomeCompletoOriginalDaPlanilha}'. Operador não adicionado ao mapa.`);
+                    console.warn(`[CSV DEBUG] Linha ${i + 1}: Chave gerada é VAZIA para NomeCompleto='${nomeCompletoOriginalDaPlanilha}'. Operador não adicionado ao mapa.`);
                 }
             } else if (linha && linha.join("").trim() !== "") {
                 console.warn(`[CSV DEBUG] Linha ${i + 1} do CSV local ignorada: estrutura inesperada ou colunas faltantes. Número de colunas: ${linha ? linha.length : 'undefined'}. Linha: ${JSON.stringify(linha)}`);
@@ -1065,8 +1056,8 @@ td.highlight-main-user {
     const headersRaw = (linhas[0] || []);
     const headers = headersRaw.map(h => (h || "").trim());
 
-    console.log("[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem):", JSON.stringify(headersRaw));
-    console.log("[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem):", JSON.stringify(headers));
+    console.log(`[buscarMensagemDaPlanilha] Cabeçalhos brutos lidos do CSV (esperado para mensagem): ${JSON.stringify(headersRaw)}`);
+    console.log(`[buscarMensagemDaPlanilha] Cabeçalhos normalizados para busca (esperado para mensagem): ${JSON.stringify(headers)}`);
 
     const idxMensagem = headers.indexOf("mensagem");
 
@@ -1078,7 +1069,7 @@ td.highlight-main-user {
     const tituloMsg = (linhas.length > 1 && linhas[1] && typeof linhas[1][idxMensagem] !== 'undefined') ? (linhas[1][idxMensagem] || "").trim() : "";
     const corpoMsg = (linhas.length > 2 && linhas[2] && typeof linhas[2][idxMensagem] !== 'undefined') ? (linhas[2][idxMensagem] || "").trim() : "";
 
-    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='<span class="math-inline">\{tituloMsg\}', Corpo\='</span>{corpoMsg}' (da coluna índice ${idxMensagem})`);
+    console.log(`[buscarMensagemDaPlanilha] Tentando extrair mensagem: Título='${tituloMsg}', Corpo='${corpoMsg}' (da coluna índice ${idxMensagem})`);
 
     if (corpoMsg.trim() !== "") {  
         if (periodicNotificationModal && periodicNotificationModal.classList.contains('visible')) {
@@ -1149,7 +1140,7 @@ td.highlight-main-user {
             resultadoDiv.innerHTML = `
                 <div class="flex flex-col items-center">
                     <div class="loader"></div>
-                    <p class="text-base text-secondary-content">Analisando agenda para <span class="math-inline">\{nomeExibicaoLoader\}</span>{adverbioLoaderParaMensagem}...</p>
+                    <p class="text-base text-secondary-content">Analisando agenda para ${nomeExibicaoLoader}${adverbioLoaderParaMensagem}...</p>
                 </div>`;
         }
         
@@ -1198,7 +1189,7 @@ td.highlight-main-user {
             
             const dadosEventosParaProcessar = todasLinhasDoCSV.slice(indiceInicioEventos);
             if (dadosEventosParaProcessar.length === 0 ) {  
-                resultadoDiv.innerHTML = `<p class='text-base text-center font-bold text-green-400 py-4'>NENHUM EVENTO NA AGENDA PARA <span class="math-inline">\{adverbioOriginalParaDataAlvo\.toUpperCase\(\)\} \(</span>{dataAlvoFormatada})</p>`;
+                resultadoDiv.innerHTML = `<p class='text-base text-center font-bold text-green-400 py-4'>NENHUM EVENTO NA AGENDA PARA ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada})</p>`;
                 if (fetchSuccess) tocarSom(naoEscaladoSound);
                 gerenciarBotoesVisiveis(tipoDeVisualizacaoParam, false, nomeParaBuscaFocoOperador, nomeCompletoRealOperadorEmFoco);
                 return;
@@ -1377,13 +1368,13 @@ td.highlight-main-user {
                     if (index > 0) { corpoPrincipalHTML += `<hr class="my-3 border-opacity-20 border-white">`; }
                     corpoPrincipalHTML += `
                         <div class="${cardEventoClasses}">  
-                            <span class="math-inline">\{canceladoTagHtml\}
-<p\><strong class\="font\-medium text\-secondary\-content"\>📍 Local\:</strong\> <span class\="font\-bold italic text\-primary\-content"\></span>{eventoDetalhado.local || ""}</span></p>
+                            ${canceladoTagHtml}
+                            <p><strong class="font-medium text-secondary-content">📍 Local:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.local || ""}</span></p>
                             <p><strong class="font-medium text-secondary-content">📝 Evento:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.evento || ""}</span></p>
                             ${secretariaInfoHtml}
                             ${eventoDetalhado.tipo && eventoDetalhado.tipo.toUpperCase() !== 'OUTROS' ? `<p><strong class="font-medium text-secondary-content">🏷️ Tipo:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.tipo}</span></p>` : ''}
-                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content"><span class="math-inline">\{eventoDetalhado\.dataOriginalParaAlerta \|\| "N/D"\}</span\></p\>  
-<p\><strong class\="font\-medium text\-secondary\-content"\>⏰ Hora\:</strong\> <span class\="</span>{horaClassesCompletas}"><span class="math-inline">\{horaDoEventoStr \|\| "N/A"\}</span\></span>{alertaEmojis}</p>
+                            <p><strong class="font-medium text-secondary-content">📅 Data:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.dataOriginalParaAlerta || "N/D"}</span></p>  
+                            <p><strong class="font-medium text-secondary-content">⏰ Hora:</strong> <span class="${horaClassesCompletas}">${horaDoEventoStr || "N/A"}</span>${alertaEmojis}</p>
                             <p><strong class="font-medium text-secondary-content">🛠️ Serviço:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.servico || ""}</span></p>
                             ${eventoDetalhado.obs && eventoDetalhado.obs.trim() !== "" ? `<p><strong class="font-medium text-secondary-content">✨ Obs:</strong> <span class="font-bold italic text-primary-content">${eventoDetalhado.obs}</span></p>` : ''}
                         </div>`;
@@ -1441,8 +1432,8 @@ td.highlight-main-user {
 
                 if (listaFormatadaOutrosEscalados.length > 0) {
                      corpoPrincipalHTML += `<div class="mt-4">  
-                                        <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM <span class="math-inline">\{dataAlvoFormatada\}</p\>
-<p class\='text\-sm sm\:text\-base font\-semibold text\-center text\-primary\-light my\-2 uppercase'\></span>{numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
+                                        <p class='text-sm sm:text-base font-bold text-center text-primary-light my-1 uppercase'>${totalEventosDistribuidosUnicos} EVENTOS EM ${dataAlvoFormatada}</p>
+                                        <p class='text-sm sm:text-base font-semibold text-center text-primary-light my-2 uppercase'>${numOperadoresEscaladosUnicos} OPERADORES ESCALADOS:</p>
                                         <table id="outrosOperadoresTable" class='w-full mx-auto text-xs sm:text-sm text-primary-content'>
                                             <thead><tr class="text-left text-secondary-content">
                                                 <th class="font-medium pb-1 col-nome-header">Operador</th><th class="font-medium pb-1 col-qtd-header">Qtd</th>
@@ -1456,14 +1447,14 @@ td.highlight-main-user {
                         if (operadorA.isCancelado) classeDestaqueA += " evento-cancelado-nome";  
 
                         corpoPrincipalHTML += `<tr>
-                                <td class="py-1 pr-1 col-nome operador-cell-clickable <span class="math-inline">\{classeDestaqueA\}" data\-operador\-busca\="</span>{buscaKeyA}" data-operador-display-original="<span class="math-inline">\{operadorA\.nomeOriginalCompleto\}"\></span>{operadorA.nomeExibicaoTabela}</td>
-                                <td class="py-1 col-qtd <span class="math-inline">\{classeDestaqueA\}"\></span>{operadorA.qtd}</td>`;
+                                <td class="py-1 pr-1 col-nome operador-cell-clickable ${classeDestaqueA}" data-operador-busca="${buscaKeyA}" data-operador-display-original="${operadorA.nomeOriginalCompleto}">${operadorA.nomeExibicaoTabela}</td>
+                                <td class="py-1 col-qtd ${classeDestaqueA}">${operadorA.qtd}</td>`;
                         if (operadorB) {
                             const buscaKeyB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                             let classeDestaqueB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
                             if (operadorB.isCancelado) classeDestaqueB += " evento-cancelado-nome";  
-                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable <span class="math-inline">\{classeDestaqueB\}" data\-operador\-busca\="</span>{buscaKeyB}" data-operador-display-original="<span class="math-inline">\{operadorB\.nomeOriginalCompleto\}"\></span>{operadorB.nomeExibicaoTabela}</td>
-                                                 <td class="py-1 col-qtd <span class="math-inline">\{classeDestaqueB\}"\></span>{operadorB.qtd}</td>`;
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome operador-cell-clickable ${classeDestaqueB}" data-operador-busca="${buscaKeyB}" data-operador-display-original="${operadorB.nomeOriginalCompleto}">${operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="py-1 col-qtd ${classeDestaqueB}">${operadorB.qtd}</td>`;
                         } else {
                             corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-qtd"></td>`;
                         }
@@ -1498,12 +1489,12 @@ td.highlight-main-user {
                          const buscaKeyDispA = removerAcentos(operadorA.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                          const classeDestaqueDispA = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyDispA === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
                         corpoPrincipalHTML += `<tr>
-                                <td class="py-1 pr-1 col-nome <span class="math-inline">\{classeDestaqueDispA\}"\></span>{operadorA.nomeExibicaoTabela}</td><td class="py-1 col-local <span class="math-inline">\{classeDestaqueDispA\}"\></span>{abreviarLocal(operadorA.local)}</td>`;
+                                <td class="py-1 pr-1 col-nome ${classeDestaqueDispA}">${operadorA.nomeExibicaoTabela}</td><td class="py-1 col-local ${classeDestaqueDispA}">${abreviarLocal(operadorA.local)}</td>`;
                         if (operadorB) {
                             const buscaKeyDispB = removerAcentos(operadorB.nomeOriginalCompleto.split(/\s+/).slice(0,2).join(" ").toLowerCase());
                             const classeDestaqueDispB = (primeiroSegundoNomeUsuarioParaBusca && buscaKeyDispB === primeiroSegundoNomeUsuarioParaBusca) ? "highlight-main-user" : "";
-                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome <span class="math-inline">\{classeDestaqueDispB\}"\></span>{operadorB.nomeExibicaoTabela}</td>
-                                                 <td class="py-1 col-local <span class="math-inline">\{classeDestaqueDispB\}"\></span>{abreviarLocal(operadorB.local)}</td>`;
+                            corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome ${classeDestaqueDispB}">${operadorB.nomeExibicaoTabela}</td>
+                                                 <td class="py-1 col-local ${classeDestaqueDispB}">${abreviarLocal(operadorB.local)}</td>`;
                         } else {
                             corpoPrincipalHTML += `<td class="py-1 pl-2 pr-1 col-nome"></td><td class="py-1 col-local"></td>`;
                         }
@@ -1514,7 +1505,7 @@ td.highlight-main-user {
             }
             
             const finalOutputHTML = (corpoPrincipalHTML.trim() === "")  
-                ? `<p class='text-base text-center font-semibold text-secondary-content py-4'>Nenhuma atividade registrada para <span class="math-inline">\{adverbioOriginalParaDataAlvo\.toUpperCase\(\)\} \(</span>{dataAlvoFormatada}).</p>`
+                ? `<p class='text-base text-center font-semibold text-secondary-content py-4'>Nenhuma atividade registrada para ${adverbioOriginalParaDataAlvo.toUpperCase()} (${dataAlvoFormatada}).</p>`
                 : corpoPrincipalHTML;
             
             resultadoDiv.innerHTML = finalOutputHTML;
@@ -1768,7 +1759,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
         if (!appInitialized) return;  
 
         const agora = new Date();
-        const horaAtualStr = `<span class="math-inline">\{String\(agora\.getHours\(\)\)\.padStart\(2, '0'\)\}\:</span>{String(agora.getMinutes()).padStart(2, '0')}`;
+        const horaAtualStr = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
         const dataAtualStr = formatarData(agora);  
 
         for (const scheduledTime of SCHEDULED_NOTIFICATION_TIMES) {
@@ -1854,14 +1845,11 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
             erroNomeInputP.classList.add('hidden');
             const primeiroESegundoDoInputParaDefinir = capitalizarNomeCompleto(partesNome.slice(0,2).join(" "));
             
-            // MODIFICADO: A mensagem de confirmação sempre mostrará o "Primeiro SegundoNome".
-            // A lógica de buscar o nomeExibicao (Coluna B) no mapa e armazená-lo em nomeExibicaoUsuarioPrincipal
-            // para uso INTERNO e nas TABELAS é mantida em definirOperadorPrincipalAtual.
             const nomeParaConfirmacao = gerarNomeParaDisplayPrincipal(primeiroESegundoDoInputParaDefinir); 
             
             confirmacaoNomeDiv.innerHTML = `
-                <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content"><span class="math-inline">\{capitalizarNomeCompleto\(nomeInputOriginal\)\}</strong\></p\>
-<p class\="text\-xs sm\:text\-sm text\-secondary\-content"\>O nome usado para exibição \(fora das tabelas\) será <strong class\="text\-primary\-content"\>"</span>{nomeParaConfirmacao}"</strong>.</p>
+                <p class="text-xs sm:text-sm text-secondary-content">Você digitou: <strong class="text-primary-content">${capitalizarNomeCompleto(nomeInputOriginal)}</strong></p>
+                <p class="text-xs sm:text-sm text-secondary-content">O nome usado para exibição (fora das tabelas) será <strong class="text-primary-content">"${nomeParaConfirmacao}"</strong>.</p>
                 <p class="text-xs sm:text-sm text-secondary-content mt-2">Está correto?</p>
                 <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
                     <img src="sim.png" alt="Sim" id="confirmarNomeSimBtnInterno" style="cursor: pointer; width: 70px;" title="Sim">

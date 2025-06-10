@@ -1,87 +1,101 @@
-// Service Worker - sw.js
+// Service Worker - v2 - Prioridade de Rede para Dados
+// Rootless Byteghost
 
-const CACHE_NAME = 'estou-escalado-cache-v1';
-// Adicione aqui os arquivos que compõem a "casca" do seu app
-// O '.' se refere ao index.html na raiz.
-// Adicione os caminhos para seus ícones e outros assets estáticos importantes.
-const urlsToCache = [
-    '.', 
-    'index.html', // Redundante se '.' estiver, mas bom para clareza
+const CACHE_NAME = 'estou-escalado-cache-v2'; // Versão do cache atualizada para forçar a atualização
+const DATA_URLS = [
+    'https://script.google.com/macros/s/AKfycbzQ1YcE4-1y2b_O0yA1dbPEHBM_gY2Y2D4n1c-1iRjpqN2S4No_BBL-AnmYASf6jCg/exec',
+    'operadores_nomes_msg.csv'
+];
+
+// Arquivos que compõem a "casca" do app. Carregam rápido e raramente mudam.
+const APP_SHELL_URLS = [
+    '/',
+    'index.html',
+    'manifest.json',
     'favicon.png',
     'icon-192x192.png',
     'icon-512x512.png',
-    'https://i.imgur.com/5aGcTPI.png', // Imagem do logo no cabeçalho
-    // Não adicione aqui os arquivos de áudio se você quer que eles sempre tentem ser buscados da rede
-    // ou se eles mudam. Se forem estáticos, pode adicionar.
-    // Não adicione a URL da planilha aqui, pois ela é dinâmica e usa proxy.
-    // CSS e JS externos (Tailwind, Google Fonts) são cacheados pelo navegador,
-    // mas para um PWA mais robusto offline, poderiam ser cacheados aqui também,
-    // embora aumente a complexidade do service worker.
+    'wallpaper.jpg',
+    'https://i.imgur.com/5aGcTPI.png', // Logo
+    'https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap', // Fonte
+    'https://cdn.tailwindcss.com' // Estilos
 ];
 
-// Evento de Instalação: Cacheia os arquivos da "casca" do app
+// Evento de Instalação: Ocorre quando o novo Service Worker é instalado.
 self.addEventListener('install', event => {
+    console.log('Service Worker: Instalando nova versão...');
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('Service Worker: Cache aberto e arquivos da casca sendo cacheados.');
-                return cache.addAll(urlsToCache);
-            })
-            .catch(error => {
-                console.error('Service Worker: Falha ao cachear arquivos da casca:', error);
-            })
+        caches.open(CACHE_NAME).then(cache => {
+            console.log('Service Worker: Cacheando a "casca" da aplicação.');
+            // Cacheia todos os arquivos da casca da aplicação.
+            // Se um falhar, a instalação inteira falha.
+            return cache.addAll(APP_SHELL_URLS);
+        })
     );
+    // Força o novo Service Worker a se tornar ativo imediatamente.
+    self.skipWaiting();
 });
 
-// Evento Fetch: Serve arquivos do cache primeiro, com fallback para a rede
-self.addEventListener('fetch', event => {
-    // Não interceptar requisições para o proxy CORS ou para a planilha diretamente
-    if (event.request.url.includes('allorigins.win') || event.request.url.includes('docs.google.com')) {
-        event.respondWith(fetch(event.request));
-        return;
-    }
-
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                // Se o recurso estiver no cache, retorna ele
-                if (response) {
-                    return response;
-                }
-                // Caso contrário, busca na rede
-                return fetch(event.request).then(
-                    networkResponse => {
-                        // Se a busca na rede for bem-sucedida, clona a resposta
-                        // e armazena no cache para uso futuro.
-                        if (networkResponse && networkResponse.status === 200) {
-                            let responseToCache = networkResponse.clone();
-                            caches.open(CACHE_NAME)
-                                .then(cache => {
-                                    cache.put(event.request, responseToCache);
-                                });
-                        }
-                        return networkResponse;
-                    }
-                ).catch(error => {
-                    console.error("Service Worker: Erro ao buscar da rede:", error);
-                    // Você pode retornar uma página offline customizada aqui se quiser
-                });
-            })
-    );
-});
-
-// Evento Activate: Limpa caches antigos
+// Evento de Ativação: Ocorre após a instalação. Limpa caches antigos.
 self.addEventListener('activate', event => {
-    const cacheWhitelist = [CACHE_NAME];
+    console.log('Service Worker: Ativando nova versão e limpando caches antigos.');
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cacheName => {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    // Se o nome do cache não for o atual, ele é deletado.
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('Service Worker: Deletando cache obsoleto:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
             );
+        }).then(() => {
+            // Garante que o Service Worker ativado controle a página imediatamente.
+            return self.clients.claim();
         })
     );
+});
+
+// Evento Fetch: Intercepta todas as requisições da página.
+self.addEventListener('fetch', event => {
+    const url = event.request.url;
+
+    // Verifica se a URL da requisição é uma das URLs de dados.
+    const isDataUrl = DATA_URLS.some(dataUrl => url.includes(dataUrl));
+
+    if (isDataUrl) {
+        // Estratégia: REDE PRIMEIRO, para dados críticos.
+        // Tenta buscar na rede. Se falhar, a requisição falha. Não usa cache.
+        event.respondWith(
+            fetch(event.request)
+            .then(networkResponse => {
+                // Se a rede responder, clona a resposta para poder guardá-la no cache
+                // e ao mesmo tempo retorná-la para a página.
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then(cache => {
+                    cache.put(event.request, responseToCache);
+                });
+                return networkResponse;
+            })
+            .catch(error => {
+                console.error('Service Worker: Falha ao buscar dados críticos da rede. A operação não usará cache.', url);
+                // Lança o erro para que a aplicação saiba que a busca falhou.
+                throw error;
+            })
+        );
+    } else {
+        // Estratégia: CACHE PRIMEIRO, para a "casca" da aplicação.
+        // Responde rápido com o cache, e se não encontrar, busca na rede.
+        event.respondWith(
+            caches.match(event.request).then(cachedResponse => {
+                // Se houver uma resposta no cache, retorna ela.
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
+                // Se não, busca na rede.
+                return fetch(event.request);
+            })
+        );
+    }
 });

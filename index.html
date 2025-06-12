@@ -1286,14 +1286,15 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
                 let isTotalmenteEscaladoEsteEvento = (local !== "" && horaOriginalStr !== "" && (evento !== "" || tipo !== "" || servico !== "")) ||  
                                                      localNormalizadoParaUlysses.includes("plenário ulysses") || localNormalizadoParaUlysses.includes("plenario ulysses");
                 const isDisponivelEsteEvento = local !== "" && !isTotalmenteEscaladoEsteEvento && !localNormalizadoParaUlysses.includes("plenário ulysses") && !localNormalizadoParaUlysses.includes("plenario ulysses");
-                const detalhesComunsSlot = {  
-                    dataOriginalParaAlerta: dataEfetivaDoEvento,  
-                    dataParaExibicao: dataAlvoFormatada,  
-                    local, hora: horaOriginalStr, tipo, evento, servico, obs: valorColunaH,  
-                    isTotalmenteEscalado: isTotalmenteEscaladoEsteEvento,  
-                    isDisponivel: isDisponivelEsteEvento,
-                    isCancelado: isCancelado  
-                };
+                const detalhesComunsSlot = {
+                    identificadorUnicoDaLinha: idx, // <-- ESTA É A NOVA LINHA. GARANTE UNICIDADE TOTAL.
+                    dataOriginalParaAlerta: dataEfetivaDoEvento,  
+                    dataParaExibicao: dataAlvoFormatada,  
+                    local, hora: horaOriginalStr, tipo, evento, servico, obs: valorColunaH,  
+                    isTotalmenteEscalado: isTotalmenteEscaladoEsteEvento,  
+                    isDisponivel: isDisponivelEsteEvento,
+                    isCancelado: isCancelado  
+                };
                 let algumOperadorAtribuidoParaContagemGeral = false;
                 const operadoresJaProcessadosParaEstaLinha = new Set();
                 if (operadorGOriginalBruto && operadorGOriginalBruto.match(/[a-zA-Z]/)) {

@@ -17,6 +17,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
 <style>
+
+    /* ANIMAÇÃO PARA O BOTÃO DE ACEITE */
+@keyframes pulse-vermelho-branco {
+    0%, 100% {
+        background-color: #FFFFFF;
+        color: #DC2626; /* Vermelho forte */
+        border-color: #DC2626;
+    }
+    50% {
+        background-color: #DC2626;
+        color: #FFFFFF;
+        border-color: #FFFFFF;
+    }
+}
+
+.btn-pulsante-vermelho {
+    animation: pulse-vermelho-branco 1.5s infinite ease-in-out;
+}
+
     body {
     font-family: 'Cal Sans', sans-serif; 
     font-weight: 400;
@@ -453,7 +472,7 @@ td.col-nome.operador-cell-clickable.highlight-main-user:hover {
             <h2 id="initialDisclaimerTitle">⚠️ ATENÇÃO! ⚠️</h2>
             <p class="text-sm">Esta é uma ferramenta de consulta <strong>não oficial</strong>, criada por um colega para auxílio e conveniência. Os dados aqui exibidos são um espelho da planilha, mas podem conter atrasos ou falhas.</p>
 <p class="text-sm mt-3 font-semibold">A verificação na Planilha Oficial antes de qualquer tomada de decisão é <strong class="text-yellow-300">de sua integral responsabilidade</strong>.</p>
-            <button id="initialDisclaimerOkBtn" class="btn-custom btn-custom-green" disabled>ACEITO E ASSUMO<br>A RESPONSABILIDADE (<span id="initialModalTimer">5</span>s)</button>
+            <button id="initialDisclaimerOkBtn" class="btn-custom" disabled>ACEITO E ASSUMO<br>A RESPONSABILIDADE (<span id="initialModalTimer">5</span>s)</button>
         </div>
     </div>
 
@@ -1785,6 +1804,7 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
                     clearInterval(timerInterval);
                    if (initialDisclaimerOkBtn) {
                          initialDisclaimerOkBtn.innerHTML = "ACEITO E ASSUMO<br>A RESPONSABILIDADE";
+                         initialDisclaimerOkBtn.classList.add('btn-pulsante-vermelho'); // Adiciona a animação
                     }
                     if (initialDisclaimerOkBtn) initialDisclaimerOkBtn.disabled = false;
                 }

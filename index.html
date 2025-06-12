@@ -2127,60 +2127,60 @@ function gerenciarBotoesVisiveis(viewModoCorrente, opFocoEstaEscalado, nomeBusca
     sheetMessageOkBtn.addEventListener('click', () => esconderModal(sheetMessageModal));
     periodicNotificationOkBtn.addEventListener('click', () => esconderModal(periodicNotificationModal));
 
-setInterval(() => {
-    const container = document.getElementById('updateStatusContainer');
-    const statusSpan = container ? container.querySelector('.status-message') : null;
-    if (!statusSpan) return;
+    setInterval(() => {
+    const container = document.getElementById('updateStatusContainer');
+    const statusSpan = container ? container.querySelector('.status-message') : null;
+    if (!statusSpan) return;
 
-    const textoOriginal = statusSpan.getAttribute('data-original') || statusSpan.textContent;
-    const texto = textoOriginal.toUpperCase();
-    const matchHora = texto.match(/\d{2}:\d{2}/);
-    if (!matchHora) return;
+    const textoOriginal = statusSpan.getAttribute('data-original') || statusSpan.textContent;
+    const texto = textoOriginal.toUpperCase();
+    const matchHora = texto.match(/\d{2}:\d{2}/);
+    if (!matchHora) return;
 
-    const partes = matchHora[0].split(":");
-    const horaDados = new Date();
-    horaDados.setHours(parseInt(partes[0]), parseInt(partes[1]), 0, 0);
+    const partes = matchHora[0].split(":");
+    const horaDados = new Date();
+    horaDados.setHours(parseInt(partes[0]), parseInt(partes[1]), 0, 0);
 
-    const agora = new Date();
-    const diffMinutos = (agora.getTime() - horaDados.getTime()) / 60000;
+    const agora = new Date();
+    const diffMinutos = (agora.getTime() - horaDados.getTime()) / 60000;
 
-    if (diffMinutos >= 1) {  
-        statusSpan.classList.add('blinking-red-status');
-        statusSpan.style.backgroundColor = '#ffffff';
-        statusSpan.style.color = '#b91c1c';
-        statusSpan.style.padding = '0.5rem';
-        statusSpan.style.borderRadius = '0.5rem';
-        statusSpan.style.display = 'inline-block';
-        statusSpan.style.fontWeight = 'bold';
-        statusSpan.setAttribute('data-original', textoOriginal);  
-        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS<br>CONSULTE A PLANILHA⚠️`;  
-        statusSpan.style.animation = 'blink 0.5s linear infinite alternate';  
+    if (diffMinutos >= 2.5) { // <-- ALTERADO: Tolerância agora é de 2.5 minutos.
+        statusSpan.classList.add('blinking-red-status');
+        statusSpan.style.backgroundColor = '#ffffff';
+        statusSpan.style.color = '#b91c1c';
+        statusSpan.style.padding = '0.5rem';
+        statusSpan.style.borderRadius = '0.5rem';
+        statusSpan.style.display = 'inline-block';
+        statusSpan.style.fontWeight = 'bold';
+        statusSpan.setAttribute('data-original', textoOriginal);
+        statusSpan.innerHTML = `🚨DADOS DESATUALIZADOS<br>CONSULTE A PLANILHA⚠️`;
+        statusSpan.style.animation = 'blink 0.5s linear infinite alternate';
 
-        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
-        if (botaoPlanilha) {
-            botaoPlanilha.classList.remove('pulsar-animacao');  
-            botaoPlanilha.classList.add('pulsar-animacao-forte');
-        }
-    } else {
-        statusSpan.classList.remove('blinking-red-status');
-        statusSpan.style.backgroundColor = '';  
-        statusSpan.style.color = '';  
-        statusSpan.style.padding = '';
-        statusSpan.style.borderRadius = '';
-        statusSpan.style.display = '';
-        statusSpan.style.fontWeight = '';
-        statusSpan.style.animation = '';  
-        statusSpan.textContent = textoOriginal;  
+        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
+        if (botaoPlanilha) {
+            botaoPlanilha.classList.remove('pulsar-animacao');
+            botaoPlanilha.classList.add('pulsar-animacao-forte');
+        }
+    } else {
+        statusSpan.classList.remove('blinking-red-status');
+        statusSpan.style.backgroundColor = '';
+        statusSpan.style.color = '';
+        statusSpan.style.padding = '';
+        statusSpan.style.borderRadius = '';
+        statusSpan.style.display = '';
+        statusSpan.style.fontWeight = '';
+        statusSpan.style.animation = '';
+        statusSpan.textContent = textoOriginal;
 
-        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
-        if (botaoPlanilha) {
-            botaoPlanilha.classList.remove('pulsar-animacao-forte');
-            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {
-                botaoPlanilha.classList.remove('pulsar-animacao');
-            }
-        }
-    }
-}, 60000);  
+        const botaoPlanilha = document.getElementById('botaoPlanilhaOficialIcone');
+        if (botaoPlanilha) {
+            botaoPlanilha.classList.remove('pulsar-animacao-forte');
+            if (updateStatusContainer && !updateStatusContainer.querySelector('.blinking-red-status')) {
+                botaoPlanilha.classList.remove('pulsar-animacao');
+            }
+        }
+    }
+}, 150000); // <-- ALTERADO: Verificação agora ocorre a cada 2.5 minutos (150000 ms).
 
 </script>
 </body>
